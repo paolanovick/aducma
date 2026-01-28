@@ -70,11 +70,7 @@ export default function About() {
   return (
     <section id="nosotros" ref={sectionRef} className="relative bg-crema py-24 overflow-hidden">
       
-      {/* FONDO DECORATIVO */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 -left-20 w-96 h-96 bg-verde/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 -right-20 w-80 h-80 bg-verde-light/10 rounded-full blur-3xl" />
-      </div>
+      
 
       <div className="relative">
 
