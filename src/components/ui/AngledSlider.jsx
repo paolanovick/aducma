@@ -50,11 +50,11 @@ const AngledCard = ({ item, angle, hoverScale, cardWidth }) => {
     >
       <div className="relative h-full w-full overflow-hidden border border-white/10 min-h-[300px] shadow-2xl rounded-xl">
         {/* IMAGEN SIN FILTROS */}
-        <img
-          src={item.url || item.imagen}
-          alt={item.alt || item.titulo || "Slider Image"}
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-        />
+       <img
+  src={item.url || item.imagen}
+  alt={item.alt || item.titulo || "Slider Image"}
+  className="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0"
+/>
         
         {/* OVERLAY SOLO EN HOVER - gradiente oscuro para leer texto */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
