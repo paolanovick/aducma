@@ -42,7 +42,7 @@ export default function About() {
       categoria: "Visión",
       titulo: "Una sociedad más justa",
       descripcion: "Futuro responsable con el ambiente y los animales.",
-      imagen: "/vision.jpg",
+      imagen: "/vision.png",
     },
     {
       id: 4,
