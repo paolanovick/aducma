@@ -111,62 +111,76 @@ export default function Contacto() {
 
         </div>
 
-        {/* DOS OPCIONES */}
-        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-          
-          {/* CARD CONTACTO */}
-          <div 
-            onClick={() => setModalOpen('contacto')}
-            className="group relative bg-crema/10 backdrop-blur-sm border border-crema/20 rounded-3xl p-8 cursor-pointer
-                       hover:bg-crema/20 hover:border-crema/40 hover:scale-[1.02] transition-all duration-300"
-          >
-            <div className="w-16 h-16 bg-crema/20 rounded-2xl flex items-center justify-center mb-6
-                            group-hover:bg-crema/30 group-hover:scale-110 transition-all">
-              <svg className="w-8 h-8 text-crema" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-              </svg>
-            </div>
-            
-            <h3 className="text-2xl font-bold text-crema mb-3">Contacto General</h3>
-            <p className="text-crema/70 mb-6">
-              Consultas, información sobre voluntariado, colaboraciones o cualquier otra pregunta.
-            </p>
-            
-            <div className="flex items-center gap-2 text-verde-light font-medium group-hover:gap-3 transition-all">
-              <span>Enviar mensaje</span>
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </div>
-          </div>
+       {/* DOS TARJETAS */}
+<div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
 
-          {/* CARD DENUNCIA */}
-          <div 
-            onClick={() => setModalOpen('denuncia')}
-            className="group relative bg-crema/10 backdrop-blur-sm border border-crema/20 rounded-3xl p-8 cursor-pointer
-                       hover:bg-crema/20 hover:border-crema/40 hover:scale-[1.02] transition-all duration-300"
-          >
-            <div className="w-16 h-16 bg-crema/20 rounded-2xl flex items-center justify-center mb-6
-                            group-hover:bg-crema/30 group-hover:scale-110 transition-all">
-              <svg className="w-8 h-8 text-crema" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-              </svg>
-            </div>
-            
-            <h3 className="text-2xl font-bold text-crema mb-3">Realizar Denuncia</h3>
-            <p className="text-crema/70 mb-6">
-              Reportá situaciones de maltrato animal o daño ambiental. Tu denuncia es confidencial.
-            </p>
-            
-            <div className="flex items-center gap-2 text-verde-light font-medium group-hover:gap-3 transition-all">
-              <span>Denunciar</span>
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </div>
-          </div>
+  {/* TARJETA CONTACTO */}
+  <div
+    onClick={() => setModalOpen('contacto')}
+    className="group bg-white rounded-3xl p-10 border border-verde/10 shadow-md cursor-pointer
+               hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+  >
+    <div className="w-16 h-16 bg-verde/10 rounded-2xl flex items-center justify-center mb-6
+                    group-hover:bg-verde/20 transition-colors">
+      <svg className="w-8 h-8 text-verde" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+              d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+      </svg>
+    </div>
 
-        </div>
+    <h3 className="text-2xl font-bold text-verde mb-3">
+      Contacto general
+    </h3>
+
+    <p className="text-gray-600 leading-relaxed mb-6">
+      Si querés conocernos mejor, colaborar con la asociación, sumarte como voluntario
+      o realizar cualquier consulta, podés dejarnos tu mensaje y te responderemos a la brevedad.
+    </p>
+
+    <div className="inline-flex items-center gap-2 text-verde font-semibold">
+      <span>Enviar mensaje</span>
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+              d="M17 8l4 4m0 0l-4 4m4-4H3" />
+      </svg>
+    </div>
+  </div>
+
+  {/* TARJETA DENUNCIA */}
+  <div
+    onClick={() => setModalOpen('denuncia')}
+    className="group bg-white rounded-3xl p-10 border border-verde/10 shadow-md cursor-pointer
+               hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+  >
+    <div className="w-16 h-16 bg-red-50 rounded-2xl flex items-center justify-center mb-6
+                    group-hover:bg-red-100 transition-colors">
+      <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+      </svg>
+    </div>
+
+    <h3 className="text-2xl font-bold text-verde mb-3">
+      Realizar una denuncia
+    </h3>
+
+    <p className="text-gray-600 leading-relaxed mb-6">
+      Si presenciaste situaciones de abandono, maltrato animal, contaminación ambiental
+      u otro tipo de daño, podés realizar tu denuncia de forma confidencial para que podamos
+      intervenir y hacer el seguimiento correspondiente.
+    </p>
+
+    <div className="inline-flex items-center gap-2 text-red-600 font-semibold">
+      <span>Hacer una denuncia</span>
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+              d="M17 8l4 4m0 0l-4 4m4-4H3" />
+      </svg>
+    </div>
+  </div>
+
+</div>
+
 
         {/* INFO ADICIONAL */}
        <div className="mt-20">
