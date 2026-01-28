@@ -112,75 +112,99 @@ export default function Contacto() {
         </div>
 
        {/* DOS TARJETAS */}
-<div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+{/* MAGIC CARDS */}
+<div className="grid md:grid-cols-2 gap-10 max-w-6xl mx-auto">
 
-  {/* TARJETA CONTACTO */}
+  {/* MAGIC CARD - CONTACTO */}
   <div
     onClick={() => setModalOpen('contacto')}
-    className="group bg-white rounded-3xl p-10 border border-verde/10 shadow-md cursor-pointer
-               hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+    className="group relative cursor-pointer rounded-[2rem] p-[1px]
+               bg-gradient-to-br from-verde/40 via-verde-light/30 to-verde/40
+               hover:scale-[1.02] transition-all duration-500"
   >
-    <div className="w-16 h-16 bg-verde/10 rounded-2xl flex items-center justify-center mb-6
-                    group-hover:bg-verde/20 transition-colors">
-      <svg className="w-8 h-8 text-verde" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-              d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-      </svg>
-    </div>
+    <div className="relative rounded-[2rem] bg-white/80 backdrop-blur-xl p-10 h-full
+                    shadow-xl overflow-hidden">
 
-    <h3 className="text-2xl font-bold text-verde mb-3">
-      Contacto general
-    </h3>
+      {/* Glow */}
+      <div className="absolute -top-20 -left-20 w-72 h-72 bg-verde/20 rounded-full blur-3xl
+                      group-hover:scale-125 transition-transform duration-500" />
 
-    <p className="text-gray-600 leading-relaxed mb-6">
-      Si querés conocernos mejor, colaborar con la asociación, sumarte como voluntario
-      o realizar cualquier consulta, podés dejarnos tu mensaje y te responderemos a la brevedad.
-    </p>
+      {/* Icon */}
+      <div className="relative z-10 w-16 h-16 rounded-2xl bg-verde/15 flex items-center justify-center mb-6">
+        <svg className="w-8 h-8 text-verde" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8
+                   a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72
+                   C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+        </svg>
+      </div>
 
-    <div className="inline-flex items-center gap-2 text-verde font-semibold">
-      <span>Enviar mensaje</span>
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-              d="M17 8l4 4m0 0l-4 4m4-4H3" />
-      </svg>
+      <h3 className="relative z-10 text-2xl font-bold text-verde mb-4">
+        Contacto general
+      </h3>
+
+      <p className="relative z-10 text-gray-700 leading-relaxed mb-8">
+        Si querés conocernos, colaborar, sumarte como voluntario o realizar
+        cualquier consulta, dejá tu mensaje y nos pondremos en contacto con vos.
+      </p>
+
+      <div className="relative z-10 inline-flex items-center gap-2 text-verde font-semibold">
+        <span>Enviar mensaje</span>
+        <svg className="w-5 h-5 transition-transform group-hover:translate-x-1"
+             fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </div>
     </div>
   </div>
 
-  {/* TARJETA DENUNCIA */}
+  {/* MAGIC CARD - DENUNCIA */}
   <div
     onClick={() => setModalOpen('denuncia')}
-    className="group bg-white rounded-3xl p-10 border border-verde/10 shadow-md cursor-pointer
-               hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+    className="group relative cursor-pointer rounded-[2rem] p-[1px]
+               bg-gradient-to-br from-amber-400/40 via-red-400/30 to-amber-400/40
+               hover:scale-[1.02] transition-all duration-500"
   >
-    <div className="w-16 h-16 bg-red-50 rounded-2xl flex items-center justify-center mb-6
-                    group-hover:bg-red-100 transition-colors">
-      <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-      </svg>
-    </div>
+    <div className="relative rounded-[2rem] bg-white/80 backdrop-blur-xl p-10 h-full
+                    shadow-xl overflow-hidden">
 
-    <h3 className="text-2xl font-bold text-verde mb-3">
-      Realizar una denuncia
-    </h3>
+      {/* Glow */}
+      <div className="absolute -top-20 -right-20 w-72 h-72 bg-red-400/20 rounded-full blur-3xl
+                      group-hover:scale-125 transition-transform duration-500" />
 
-    <p className="text-gray-600 leading-relaxed mb-6">
-      Si presenciaste situaciones de abandono, maltrato animal, contaminación ambiental
-      u otro tipo de daño, podés realizar tu denuncia de forma confidencial para que podamos
-      intervenir y hacer el seguimiento correspondiente.
-    </p>
+      {/* Icon */}
+      <div className="relative z-10 w-16 h-16 rounded-2xl bg-red-100 flex items-center justify-center mb-6">
+        <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+                d="M12 9v2m0 4h.01m-6.938 4h13.856
+                   c1.54 0 2.502-1.667 1.732-3L13.732 4
+                   c-.77-1.333-2.694-1.333-3.464 0L3.34 16
+                   c-.77 1.333.192 3 1.732 3z"/>
+        </svg>
+      </div>
 
-    <div className="inline-flex items-center gap-2 text-red-600 font-semibold">
-      <span>Hacer una denuncia</span>
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-              d="M17 8l4 4m0 0l-4 4m4-4H3" />
-      </svg>
+      <h3 className="relative z-10 text-2xl font-bold text-verde mb-4">
+        Realizar una denuncia
+      </h3>
+
+      <p className="relative z-10 text-gray-700 leading-relaxed mb-8">
+        Si presenciaste situaciones de abandono, maltrato animal, contaminación
+        ambiental u otro tipo de daño, podés denunciar de forma confidencial.
+      </p>
+
+      <div className="relative z-10 inline-flex items-center gap-2 text-red-600 font-semibold">
+        <span>Hacer una denuncia</span>
+        <svg className="w-5 h-5 transition-transform group-hover:translate-x-1"
+             fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </div>
     </div>
   </div>
 
 </div>
-
 
         {/* INFO ADICIONAL */}
        <div className="mt-20">
