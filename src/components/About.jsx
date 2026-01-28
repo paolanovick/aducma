@@ -28,7 +28,7 @@ export default function About() {
       categoria: "Somos",
       titulo: "Asociación civil sin fines de lucro",
       descripcion: "Trabajamos de manera independiente y transparente.",
-      imagen: "/rescate.jpg",
+      imagen: "/somos.avif",
     },
     {
       id: 2,
