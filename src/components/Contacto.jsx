@@ -119,7 +119,8 @@ export default function Contacto() {
 <div className="grid md:grid-cols-2 gap-10 max-w-6xl mx-auto">
 
   {/* CONTACTO */}
-  <MagicContainer className="cursor-pointer">
+ {/* CONTACTO */}
+<MagicContainer className="cursor-pointer group">
     <div
       onClick={() => setModalOpen('contacto')}
       className="relative rounded-3xl bg-white/90 backdrop-blur-xl p-10 h-full
@@ -157,7 +158,8 @@ export default function Contacto() {
   </MagicContainer>
 
   {/* DENUNCIA */}
-  <MagicContainer className="cursor-pointer">
+  {/* CONTACTO */}
+<MagicContainer className="cursor-pointer group">
     <div
       onClick={() => setModalOpen('denuncia')}
       className="relative rounded-3xl bg-white/90 backdrop-blur-xl p-10 h-full
