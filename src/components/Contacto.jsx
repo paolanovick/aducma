@@ -1,5 +1,5 @@
 import { useState } from "react";
-import MagicContainer from "../ui/MagicContainer";
+import MagicContainer from "./MagicContainer";
 
 
 export default function Contacto() {
