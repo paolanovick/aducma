@@ -1,6 +1,6 @@
 const Hero = () => {
   return (
-    <section id="inicio" className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section id="inicio" className="relative h-screen flex items-end justify-center overflow-hidden">
       
       {/* VIDEO DESKTOP - pantallas grandes */}
       <video
@@ -19,7 +19,7 @@ const Hero = () => {
         muted
         loop
         playsInline
-        className="absolute inset-0 w-full h-full object-cover hidden md:block lg:hidden"
+        className="absolute inset-0 w-full h-full object-cover hidden sm:block lg:hidden"
       >
         <source src="/video-hero-tablet.mp4" type="video/mp4" />
       </video>
@@ -30,7 +30,7 @@ const Hero = () => {
         muted
         loop
         playsInline
-        className="absolute inset-0 w-full h-full object-cover md:hidden"
+        className="absolute inset-0 w-full h-full object-cover sm:hidden"
       >
         <source src="/video-hero-mobile.mp4" type="video/mp4" />
       </video>
@@ -38,8 +38,8 @@ const Hero = () => {
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/10"></div>
 
-      {/* CONTENIDO */}
-      <div className="relative z-10 text-center text-white px-6 max-w-4xl mx-auto">
+      {/* CONTENIDO - abajo de la pantalla */}
+      <div className="relative z-10 text-center text-white px-6 max-w-4xl mx-auto pb-24 sm:pb-28 md:pb-32">
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4">
           ADUCMA
         </h1>
