@@ -16,7 +16,10 @@ const Footer = () => {
               <span className="font-bold text-2xl">ADUCMA</span>
             </div>
             <p className="text-white/70 text-sm">
-              Asociación Civil por el Cuidado Ambiental y los Derechos de los Animales
+              Asociación Civil por el Cuidado Ambiental y los Derechos de los Animales.
+            </p>
+             <p className="text-white/70 text-sm">
+              © 2026 ADUCMA - Todos los derechos reservados
             </p>
           </div>
 
@@ -79,7 +82,7 @@ const Footer = () => {
       {/* Copyright */}
       <div className="border-t border-white/20">
         <div className="max-w-6xl mx-auto px-6 py-4 text-center text-white/60 text-sm">
-          © 2024 ADUCMA - Todos los derechos reservados
+          © 2026 ConCódigoART - Todos los derechos reservados
         </div>
       </div>
     </footer>

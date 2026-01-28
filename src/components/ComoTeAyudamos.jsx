@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 export default function ComoTeAyudamos() {
   const pasos = [
     {
@@ -22,30 +24,38 @@ export default function ComoTeAyudamos() {
     },
   ];
 
+  // Precargar imágenes para que el efecto sea más rápido
+  useEffect(() => {
+    pasos.forEach((paso) => {
+      const img = new Image();
+      img.src = paso.imagen;
+    });
+  }, []);
+
   return (
-    <section className="bg-crema-light py-24">
+    <section className="bg-verde py-24">
       <div className="max-w-7xl mx-auto px-6">
 
         {/* HEADER */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-verde/20 backdrop-blur-sm border border-verde/30 rounded-full px-5 py-2 mb-6">
-            <span className="w-2 h-2 bg-verde rounded-full animate-pulse" />
-            <span className="text-verde text-sm font-medium tracking-wider uppercase">
+          <div className="inline-flex items-center gap-2 bg-crema/20 backdrop-blur-sm border border-crema/30 rounded-full px-5 py-2 mb-6">
+            <span className="w-2 h-2 bg-crema rounded-full animate-pulse" />
+            <span className="text-crema text-sm font-medium tracking-wider uppercase">
               Nuestro Proceso
             </span>
           </div>
           
           <h2 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-4 tracking-tight">
-            <span className="text-verde">Cómo te</span>{" "}
+            <span className="text-crema">Cómo te</span>{" "}
             <span className="text-verde-light">ayudamos</span>
           </h2>
           
           <div className="flex items-center justify-center gap-3">
-            <div className="h-[2px] w-16 bg-gradient-to-r from-transparent to-verde/50" />
+            <div className="h-[2px] w-16 bg-gradient-to-r from-transparent to-crema/50" />
             <svg className="w-6 h-6 text-verde-light" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
             </svg>
-            <div className="h-[2px] w-16 bg-gradient-to-l from-transparent to-verde/50" />
+            <div className="h-[2px] w-16 bg-gradient-to-l from-transparent to-crema/50" />
           </div>
         </div>
 
@@ -63,14 +73,15 @@ export default function ComoTeAyudamos() {
                 overflow-hidden
                 cursor-pointer
                 transition-all
-                duration-500
-                ease-in-out
+                duration-300
+                ease-out
               "
             >
               {/* IMAGEN */}
               <img
                 src={paso.imagen}
                 alt={paso.titulo}
+                loading="eager"
                 className="
                   absolute 
                   inset-0 
@@ -79,11 +90,11 @@ export default function ComoTeAyudamos() {
                   object-cover
                   group-hover:grayscale
                   transition-all
-                  duration-500
+                  duration-300
                 "
               />
 
-              {/* OVERLAY - aparece en hover */}
+              {/* OVERLAY */}
               <div className="
                 absolute 
                 inset-0 
@@ -94,10 +105,10 @@ export default function ComoTeAyudamos() {
                 opacity-0
                 group-hover:opacity-100
                 transition-opacity 
-                duration-500
+                duration-300
               " />
 
-              {/* TEXTO - aparece en hover */}
+              {/* TEXTO */}
               <div className="
                 absolute 
                 inset-0 
@@ -108,7 +119,7 @@ export default function ComoTeAyudamos() {
                 opacity-0 
                 group-hover:opacity-100 
                 transition-opacity 
-                duration-500
+                duration-300
               ">
                 <h3 className="text-crema text-xl font-semibold mb-2">
                   {paso.titulo}
