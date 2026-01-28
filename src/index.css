@@ -15,30 +15,33 @@ html {
 body {
   font-family: system-ui, -apple-system, sans-serif;
 }
+/* Magic Container Effect */
+.magic-container {
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+}
+
 .magic-container::before {
   content: '';
   position: absolute;
-  inset: 0;
+  inset: -2px;
   border-radius: inherit;
-  padding: 1px;
   background: radial-gradient(
-    300px circle at var(--mouse-x) var(--mouse-y),
-    rgba(49, 130, 35, 0.4),
+    400px circle at var(--mouse-x) var(--mouse-y),
+    rgba(49, 130, 35, 0.6),
     transparent 40%
   );
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) content-box, 
-    linear-gradient(#fff 0 0);
-  mask: 
-    linear-gradient(#fff 0 0) content-box, 
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
+  z-index: 0;
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 0.3s ease;
   pointer-events: none;
 }
 
 .magic-container.is-hovered::before {
   opacity: 1;
+}
+
+.magic-container > * {
+  position: relative;
+  z-index: 1;
 }
