@@ -21,15 +21,22 @@ body {
   --mouse-y: 50%;
 }
 
+/* Magic Container Effect */
+.magic-container {
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+}
+
 .magic-container::before {
   content: '';
   position: absolute;
-  inset: -2px;
+  inset: -4px;
   border-radius: inherit;
   background: radial-gradient(
-    400px circle at var(--mouse-x) var(--mouse-y),
-    rgba(49, 130, 35, 0.6),
-    transparent 40%
+    500px circle at var(--mouse-x) var(--mouse-y),
+    rgba(49, 130, 35, 0.9),
+    rgba(49, 130, 35, 0.4) 20%,
+    transparent 50%
   );
   z-index: 0;
   opacity: 0;
