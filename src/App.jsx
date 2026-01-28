@@ -4,7 +4,7 @@ import Footer from './components/Footer';
 import About from './components/About';
 import QueHacemos from "./components/QueHacemos";
 import ComoTeAyudamos from "./components/ComoTeAyudamos";
-
+import Contacto from "./components/Contacto";
 
 
 function App() {
@@ -15,6 +15,7 @@ function App() {
       <About />
       <QueHacemos />
       <ComoTeAyudamos />
+      <Contacto />
       <Footer />
     </div>
   );
