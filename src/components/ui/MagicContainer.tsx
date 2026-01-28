@@ -15,18 +15,20 @@ const MagicContainer: React.FC<MagicContainerProps> = ({
   className,
 }) => {
   const [isHovered, setIsHovered] = React.useState(false);
-  const containerRef = React.useRef<HTMLDivElement>(null);
+const containerRef = React.useRef<HTMLDivElement | null>(null);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!containerRef.current) return;
+const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const el = containerRef.current;
+  if (!el) return;
 
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+  const rect = el.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
 
-    containerRef.current.style.setProperty('--mouse-x', `${x}px`);
-    containerRef.current.style.setProperty('--mouse-y', `${y}px`);
-  };
+  el.style.setProperty('--mouse-x', `${x}px`);
+  el.style.setProperty('--mouse-y', `${y}px`);
+};
+
 
   return (
     <div

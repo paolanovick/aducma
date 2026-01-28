@@ -1,5 +1,6 @@
 import { useState } from "react";
-import MagicContainer from "./MagicContainer";
+import MagicContainer from "../ui/MagicContainer";
+
 
 export default function Contacto() {
   const [modalOpen, setModalOpen] = useState(null); // 'contacto' | 'denuncia' | null
