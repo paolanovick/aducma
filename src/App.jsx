@@ -5,6 +5,7 @@ import About from './components/About';
 import QueHacemos from "./components/QueHacemos";
 import ComoTeAyudamos from "./components/ComoTeAyudamos";
 import Contacto from "./components/Contacto";
+import Servicios from "./components/Servicios";
 
 
 function App() {
