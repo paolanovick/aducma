@@ -188,112 +188,107 @@ export default function QueHacemos() {
               </div>
             </div>
 
-            {/* DOS COLUMNAS */}
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-              
-              {/* COLUMNA IZQUIERDA - Descripción */}
-              <div 
-                className="transition-all duration-700 ease-out"
-                style={{
-                  opacity: Math.min(Math.max((scrollY - 0.08) * 5, 0), 1),
-                  transform: `translateX(${Math.max(-80 + scrollY * 400, 0)}px)`,
-                }}
-              >
-                <div className="relative group">
-                  <div className="relative backdrop-blur-xl bg-white/[0.07] border border-white/10 rounded-3xl p-6 lg:p-8 overflow-hidden
-                                  hover:bg-white/[0.1] hover:border-white/20 transition-all duration-500">
-                    
-                    {/* Esquinas decorativas */}
-                    <div className="absolute top-0 left-0 w-20 h-20">
-                      <div className="absolute top-4 left-4 w-12 h-[2px] bg-verde/60" />
-                      <div className="absolute top-4 left-4 w-[2px] h-12 bg-verde/60" />
-                    </div>
-                    <div className="absolute bottom-0 right-0 w-20 h-20">
-                      <div className="absolute bottom-4 right-4 w-12 h-[2px] bg-verde/60" />
-                      <div className="absolute bottom-4 right-4 w-[2px] h-12 bg-verde/60" />
-                    </div>
-                    
-                    <div className="absolute -top-20 -left-20 w-40 h-40 bg-verde/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                    
-                    <div className="relative space-y-5">
-                      <p className="text-crema/90 text-lg leading-relaxed">
-                        Trabajamos por la <span className="text-verde-light font-semibold">defensa y protección</span> de 
-                        los derechos de los animales, interviniendo ante situaciones de maltrato, abandono 
-                        y vulneración del bienestar animal.
-                      </p>
-                      <p className="text-crema/80 text-lg leading-relaxed">
-                        Recibimos y acompañamos <span className="text-verde-light font-semibold">denuncias</span> vinculadas 
-                        al daño ambiental, brindando orientación responsable y seguimiento de cada caso.
-                      </p>
-                      <p className="text-crema/80 text-lg leading-relaxed">
-                        Promovemos la <span className="text-verde-light font-semibold">educación ambiental</span> y la 
-                        concientización ciudadana como herramientas fundamentales para construir una sociedad 
-                        más justa con todas las formas de vida.
-                      </p>
-                      
-                      <a 
-                        href="#contacto"
-                        className="inline-flex items-center gap-2 mt-4 text-verde-light hover:text-white transition-colors group/btn"
-                      >
-                        <span className="font-semibold">Conocé más</span>
-                        <svg className="w-5 h-5 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
+           {/* DOS COLUMNAS */}
+<div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-stretch">
+  
+  {/* COLUMNA IZQUIERDA - Descripción */}
+  <div 
+    className="transition-all duration-700 ease-out"
+    style={{
+      opacity: Math.min(Math.max((scrollY - 0.08) * 5, 0), 1),
+      transform: `translateX(${Math.max(-80 + scrollY * 400, 0)}px)`,
+    }}
+  >
+    <div className="relative group h-full">
+      <div className="relative backdrop-blur-xl bg-white/[0.07] border border-white/10 rounded-2xl p-5 lg:p-6 overflow-hidden h-full
+                      hover:bg-white/[0.1] hover:border-white/20 transition-all duration-500">
+        
+        {/* Esquinas decorativas */}
+        <div className="absolute top-0 left-0 w-16 h-16">
+          <div className="absolute top-3 left-3 w-8 h-[2px] bg-verde/60" />
+          <div className="absolute top-3 left-3 w-[2px] h-8 bg-verde/60" />
+        </div>
+        <div className="absolute bottom-0 right-0 w-16 h-16">
+          <div className="absolute bottom-3 right-3 w-8 h-[2px] bg-verde/60" />
+          <div className="absolute bottom-3 right-3 w-[2px] h-8 bg-verde/60" />
+        </div>
+        
+        <div className="relative space-y-4">
+          <p className="text-crema/90 text-base leading-relaxed">
+            Trabajamos por la <span className="text-verde-light font-semibold">defensa y protección</span> de 
+            los derechos de los animales, interviniendo ante situaciones de maltrato, abandono 
+            y vulneración del bienestar animal.
+          </p>
+          <p className="text-crema/80 text-base leading-relaxed">
+            Recibimos y acompañamos <span className="text-verde-light font-semibold">denuncias</span> vinculadas 
+            al daño ambiental, brindando orientación responsable y seguimiento de cada caso.
+          </p>
+          <p className="text-crema/80 text-base leading-relaxed">
+            Promovemos la <span className="text-verde-light font-semibold">educación ambiental</span> y la 
+            concientización ciudadana como herramientas fundamentales para construir una sociedad 
+            más justa con todas las formas de vida.
+          </p>
+          
+          <a 
+            href="#contacto"
+            className="inline-flex items-center gap-2 mt-2 text-verde-light hover:text-white transition-colors group/btn"
+          >
+            <span className="font-semibold text-sm">Conocé más</span>
+            <svg className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 
-              {/* COLUMNA DERECHA - Ejes de trabajo */}
-              <div 
-                className="transition-all duration-700 ease-out"
-                style={{
-                  opacity: Math.min(Math.max((scrollY - 0.15) * 5, 0), 1),
-                  transform: `translateX(${Math.min(80 - scrollY * 400, 0)}px)`,
-                }}
-              >
-                <div className="relative group">
-                  <div className="relative backdrop-blur-xl bg-white/[0.07] border border-white/10 rounded-3xl p-6 lg:p-8 overflow-hidden
-                                  hover:bg-white/[0.1] hover:border-white/20 transition-all duration-500">
-                    
-                    {/* Esquinas decorativas */}
-                    <div className="absolute top-0 left-0 w-20 h-20">
-                      <div className="absolute top-4 left-4 w-12 h-[2px] bg-verde/60" />
-                      <div className="absolute top-4 left-4 w-[2px] h-12 bg-verde/60" />
-                    </div>
-                    <div className="absolute bottom-0 right-0 w-20 h-20">
-                      <div className="absolute bottom-4 right-4 w-12 h-[2px] bg-verde/60" />
-                      <div className="absolute bottom-4 right-4 w-[2px] h-12 bg-verde/60" />
-                    </div>
+  {/* COLUMNA DERECHA - Ejes de trabajo */}
+  <div 
+    className="transition-all duration-700 ease-out"
+    style={{
+      opacity: Math.min(Math.max((scrollY - 0.15) * 5, 0), 1),
+      transform: `translateX(${Math.min(80 - scrollY * 400, 0)}px)`,
+    }}
+  >
+    <div className="relative group h-full">
+      <div className="relative backdrop-blur-xl bg-white/[0.07] border border-white/10 rounded-2xl p-5 lg:p-6 overflow-hidden h-full
+                      hover:bg-white/[0.1] hover:border-white/20 transition-all duration-500">
+        
+        {/* Esquinas decorativas */}
+        <div className="absolute top-0 left-0 w-16 h-16">
+          <div className="absolute top-3 left-3 w-8 h-[2px] bg-verde/60" />
+          <div className="absolute top-3 left-3 w-[2px] h-8 bg-verde/60" />
+        </div>
+        <div className="absolute bottom-0 right-0 w-16 h-16">
+          <div className="absolute bottom-3 right-3 w-8 h-[2px] bg-verde/60" />
+          <div className="absolute bottom-3 right-3 w-[2px] h-8 bg-verde/60" />
+        </div>
 
-                    <div className="absolute -top-20 -right-20 w-40 h-40 bg-verde/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-
-                    {/* Título */}
-                    <div className="flex items-center gap-3 mb-6">
-                      <div className="h-[2px] w-8 bg-crema/40" />
-                      <h3 className="text-2xl font-bold text-crema">Nuestros ejes de trabajo</h3>
-                    </div>
-                    
-                    {/* Lista de ejes */}
-                    <ul className="relative space-y-4">
-                      {ejes.map((eje, index) => (
-                        <li 
-                          key={index} 
-                          className="flex items-start gap-3 group/item"
-                        >
-                          <span className="w-2 h-2 bg-verde-light rounded-full mt-2 flex-shrink-0 group-hover/item:scale-125 transition-transform" />
-                          <span className="text-crema/80 text-base leading-relaxed group-hover/item:text-crema transition-colors">
-                            {eje}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-
+        {/* Título */}
+        <div className="flex items-center gap-3 mb-4">
+          <div className="h-[2px] w-6 bg-crema/40" />
+          <h3 className="text-xl font-bold text-crema">Nuestros ejes de trabajo</h3>
+        </div>
+        
+        {/* Lista de ejes */}
+        <ul className="relative space-y-3">
+          {ejes.map((eje, index) => (
+            <li 
+              key={index} 
+              className="flex items-start gap-2 group/item"
+            >
+              <span className="w-1.5 h-1.5 bg-verde-light rounded-full mt-2 flex-shrink-0" />
+              <span className="text-crema/80 text-sm leading-relaxed">
+                {eje}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
             {/* SCROLL INDICATOR */}
             <div 
               className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
