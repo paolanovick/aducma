@@ -182,9 +182,7 @@ export default function Contacto() {
       </h3>
 
       <p className="text-gray-700 leading-relaxed mb-8">
-        Si presenciaste situaciones de abandono, maltrato animal,
-        contaminación ambiental u otro tipo de daño, podés denunciar
-        de forma confidencial.
+        Si fuiste damnificado por un proveedor en los términos de la Ley 24.240 o presenciaste una situación de maltrato animal o daño ambiental, completá el formulario y nos pondremos en contacto.
       </p>
 
       <div className="inline-flex items-center gap-2 text-red-600 font-semibold">
