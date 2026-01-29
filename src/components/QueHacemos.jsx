@@ -33,7 +33,9 @@ export default function QueHacemos() {
     "Audiencias de conciliación entre usuarios/consumidores con proveedores infractores",
     "Bienestar y protección animal",
     "Conservación del ambiente",
-    "Prevención del maltrato y abandono"
+    "Prevención del maltrato y abandono",
+    "Educación ambiental",
+    "Participación ciudadana"
   ];
 
   // VERSIÓN MÓVIL
