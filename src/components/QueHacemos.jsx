@@ -216,8 +216,7 @@ export default function QueHacemos() {
         (valor, i) => (
           <li
             key={i}
-            className="px-3 py-1 rounded-full text-xs font-medium
-                       bg-verde/20 text-crema border border-verde/30"
+            className="px-3 py-1 rounded-full text-xs font-medium text-crema/80" 
           >
             {valor}
           </li>
