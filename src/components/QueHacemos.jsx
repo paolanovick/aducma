@@ -208,22 +208,31 @@ export default function QueHacemos() {
   </div>
 
   {/* VALORES */}
-  <div className="backdrop-blur-xl bg-white/[0.07] border border-white/10 rounded-2xl p-6
-                  hover:bg-white/[0.1] hover:border-white/20 transition-all duration-500">
-    <h3 className="text-lg font-bold text-crema mb-3">Valores</h3>
-    <ul className="flex flex-wrap gap-2">
-      {["Compromiso", "Respeto", "Responsabilidad", "Solidaridad", "Transparencia"].map(
-        (valor, i) => (
-          <li
-            key={i}
-            className="px-3 py-1 rounded-full text-xs font-medium text-crema/80" 
-          >
-            {valor}
-          </li>
-        )
-      )}
-    </ul>
-  </div>
+<div
+  className="backdrop-blur-xl bg-white/[0.07] border border-white/10 rounded-2xl p-6
+             hover:bg-white/[0.1] hover:border-white/20 transition-all duration-500"
+>
+  <h3 className="text-lg font-bold text-crema mb-4">Valores</h3>
+
+  <ul className="space-y-2">
+    <li className="text-crema/80 text-sm leading-relaxed">
+      Compromiso
+    </li>
+    <li className="text-crema/80 text-sm leading-relaxed">
+      Respeto
+    </li>
+    <li className="text-crema/80 text-sm leading-relaxed">
+      Responsabilidad
+    </li>
+    <li className="text-crema/80 text-sm leading-relaxed">
+      Solidaridad
+    </li>
+    <li className="text-crema/80 text-sm leading-relaxed">
+      Transparencia
+    </li>
+  </ul>
+</div>
+
 </div>
 
 
