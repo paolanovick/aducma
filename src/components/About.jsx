@@ -103,6 +103,31 @@ export default function About() {
             <div className="h-[2px] w-16 bg-gradient-to-l from-transparent to-verde/50" />
           </div>
         </div>
+        {/* TEXTO INSTITUCIONAL */}
+<div
+  className={`max-w-4xl mx-auto mb-20 px-6 transition-all duration-1000
+              ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+>
+  <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 sm:p-10 shadow-md border border-verde/10">
+    <p className="text-verde text-lg leading-relaxed mb-4">
+      Somos una <strong>Asociación Civil sin fines de lucro</strong> comprometida con la
+      defensa de los derechos de Usuarios y Consumidores, la protección del ambiente
+      y la defensa de los derechos de los animales.
+    </p>
+
+    <p className="text-verde/80 leading-relaxed mb-4">
+      Nuestra labor se basa en la concientización, la educación en las relaciones de
+      consumo, la relación con el medio ambiente y la intervención responsable ante
+      situaciones que vulneran el bienestar animal y el equilibrio ambiental.
+    </p>
+
+    <p className="text-verde/80 leading-relaxed">
+      Actuamos con <strong>responsabilidad social</strong>, compromiso ciudadano y
+      respeto por la normativa vigente.
+    </p>
+  </div>
+</div>
+
 
         {/* ANGLED SLIDER */}
         <AngledSlider 

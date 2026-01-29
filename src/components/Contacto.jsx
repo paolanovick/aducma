@@ -142,8 +142,7 @@ export default function Contacto() {
       </h3>
 
       <p className="text-gray-700 leading-relaxed mb-8">
-        Si querés conocernos, colaborar, sumarte como voluntario
-        o realizar cualquier consulta, dejá tu mensaje y te responderemos.
+                Somos una Asociación Civil sin fines de lucro, con el compromiso con la defensa de los derechos de Usuarios y consumidores, el ambiente y los animales.  Trabajamos con confidencialidad y seriedad, y ofrecemos acompañamiento responsable.
       </p>
 
       <div className="inline-flex items-center gap-2 text-verde font-semibold">

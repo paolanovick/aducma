@@ -177,6 +177,56 @@ export default function QueHacemos() {
                 <div className="h-[2px] w-16 bg-gradient-to-l from-transparent to-crema/50" />
               </div>
             </div>
+            {/* MISIÓN · VISIÓN · VALORES */}
+<div
+  className="grid md:grid-cols-3 gap-6 mb-16 transition-all duration-700 ease-out"
+  style={{
+    opacity: Math.min(Math.max((scrollY - 0.04) * 6, 0), 1),
+    transform: `translateY(${Math.max(40 - scrollY * 200, 0)}px)`
+  }}
+>
+  {/* MISIÓN */}
+  <div className="backdrop-blur-xl bg-white/[0.07] border border-white/10 rounded-2xl p-6
+                  hover:bg-white/[0.1] hover:border-white/20 transition-all duration-500">
+    <h3 className="text-lg font-bold text-crema mb-3">Misión</h3>
+    <p className="text-crema/80 text-sm leading-relaxed">
+      Promover la defensa de los derechos de usuarios y consumidores, el cuidado
+      del ambiente y la defensa de los derechos de los animales mediante acciones
+      de concientización, asesoramiento y acompañamiento a la comunidad.
+    </p>
+  </div>
+
+  {/* VISIÓN */}
+  <div className="backdrop-blur-xl bg-white/[0.07] border border-white/10 rounded-2xl p-6
+                  hover:bg-white/[0.1] hover:border-white/20 transition-all duration-500">
+    <h3 className="text-lg font-bold text-crema mb-3">Visión</h3>
+    <p className="text-crema/80 text-sm leading-relaxed">
+      Construir una sociedad más justa, responsable y respetuosa con el ambiente,
+      los animales y los consumidores, promoviendo el trato digno y el deber de
+      informar correctamente previo a la contratación de productos o servicios.
+    </p>
+  </div>
+
+  {/* VALORES */}
+  <div className="backdrop-blur-xl bg-white/[0.07] border border-white/10 rounded-2xl p-6
+                  hover:bg-white/[0.1] hover:border-white/20 transition-all duration-500">
+    <h3 className="text-lg font-bold text-crema mb-3">Valores</h3>
+    <ul className="flex flex-wrap gap-2">
+      {["Compromiso", "Respeto", "Responsabilidad", "Solidaridad", "Transparencia"].map(
+        (valor, i) => (
+          <li
+            key={i}
+            className="px-3 py-1 rounded-full text-xs font-medium
+                       bg-verde/20 text-verde-light border border-verde/30"
+          >
+            {valor}
+          </li>
+        )
+      )}
+    </ul>
+  </div>
+</div>
+
 
             {/* DOS COLUMNAS */}
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-stretch">

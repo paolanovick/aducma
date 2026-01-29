@@ -46,6 +46,9 @@ const Hero = () => {
         <p className="text-lg sm:text-xl md:text-2xl mb-8 text-white/90 max-w-2xl mx-auto">
           Asociación Civil por el Cuidado Ambiental y los Derechos de los Animales
         </p>
+         <p className="text-sm sm:text-base md:text-lg mb-6 text-white/80 max-w-3xl mx-auto leading-relaxed">
+          Trabajamos por la defensa de consumidores y usuarios, la protección del ambiente y el respeto por todas las formas de vida. Promovemos acciones de concientización, defensa y acompañamiento frente a situaciones de vulneración de derechos, daño ambiental y maltrato animal.
+        </p>
         <a 
           href="#contacto" 
           className="inline-block bg-verde px-8 py-3 rounded-full font-semibold hover:bg-verde-light transition-colors"
