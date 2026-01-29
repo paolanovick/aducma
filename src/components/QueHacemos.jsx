@@ -189,7 +189,7 @@ export default function QueHacemos() {
             </div>
 
             {/* DOS COLUMNAS */}
-            <div className="grid lg:grid-cols-2 gap-8 items-start">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
               
               {/* COLUMNA IZQUIERDA - Descripción */}
               <div 
@@ -200,7 +200,7 @@ export default function QueHacemos() {
                 }}
               >
                 <div className="relative group">
-                  <div className="relative backdrop-blur-xl bg-white/[0.07] border border-white/10 rounded-3xl p-8 overflow-hidden
+                  <div className="relative backdrop-blur-xl bg-white/[0.07] border border-white/10 rounded-3xl p-6 lg:p-8 overflow-hidden
                                   hover:bg-white/[0.1] hover:border-white/20 transition-all duration-500">
                     
                     {/* Esquinas decorativas */}
@@ -254,7 +254,7 @@ export default function QueHacemos() {
                 }}
               >
                 <div className="relative group">
-                  <div className="relative backdrop-blur-xl bg-white/[0.07] border border-white/10 rounded-3xl p-8 overflow-hidden
+                  <div className="relative backdrop-blur-xl bg-white/[0.07] border border-white/10 rounded-3xl p-6 lg:p-8 overflow-hidden
                                   hover:bg-white/[0.1] hover:border-white/20 transition-all duration-500">
                     
                     {/* Esquinas decorativas */}
