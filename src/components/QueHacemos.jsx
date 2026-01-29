@@ -177,9 +177,9 @@ export default function QueHacemos() {
                 <div className="h-[2px] w-16 bg-gradient-to-l from-transparent to-crema/50" />
               </div>
             </div>
-            {/* MISIÓN · VISIÓN · VALORES */}
+          {/* MISIÓN · VISIÓN · VALORES */}
 <div
-  className="grid md:grid-cols-3 gap-6 mb-16 transition-all duration-700 ease-out"
+  className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 transition-all duration-700 ease-out"
   style={{
     opacity: Math.min(Math.max((scrollY - 0.04) * 6, 0), 1),
     transform: `translateY(${Math.max(40 - scrollY * 200, 0)}px)`
@@ -208,31 +208,17 @@ export default function QueHacemos() {
   </div>
 
   {/* VALORES */}
-<div
-  className="backdrop-blur-xl bg-white/[0.07] border border-white/10 rounded-2xl p-6
-             hover:bg-white/[0.1] hover:border-white/20 transition-all duration-500"
->
-  <h3 className="text-lg font-bold text-crema mb-4">Valores</h3>
-
-  <ul className="space-y-2">
-    <li className="text-crema/80 text-sm leading-relaxed">
-      Compromiso
-    </li>
-    <li className="text-crema/80 text-sm leading-relaxed">
-      Respeto
-    </li>
-    <li className="text-crema/80 text-sm leading-relaxed">
-      Responsabilidad
-    </li>
-    <li className="text-crema/80 text-sm leading-relaxed">
-      Solidaridad
-    </li>
-    <li className="text-crema/80 text-sm leading-relaxed">
-      Transparencia
-    </li>
-  </ul>
-</div>
-
+  <div className="backdrop-blur-xl bg-white/[0.07] border border-white/10 rounded-2xl p-6
+                  hover:bg-white/[0.1] hover:border-white/20 transition-all duration-500">
+    <h3 className="text-lg font-bold text-crema mb-4">Valores</h3>
+    <ul className="space-y-2">
+      <li className="text-crema/80 text-sm">Compromiso</li>
+      <li className="text-crema/80 text-sm">Respeto</li>
+      <li className="text-crema/80 text-sm">Responsabilidad</li>
+      <li className="text-crema/80 text-sm">Solidaridad</li>
+      <li className="text-crema/80 text-sm">Transparencia</li>
+    </ul>
+  </div>
 </div>
 
 
