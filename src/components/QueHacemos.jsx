@@ -26,6 +26,17 @@ export default function QueHacemos() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isDesktop]);
 
+  const queHacemos = [
+    "Defensa de los derechos de Usuarios y Consumidores",
+    "Recepción de denuncias de los Usuarios y Consumidores por infracciones a la ley 24.240",
+    "Defensa y protección de los derechos de los animales",
+    "Recepción y acompañamiento de denuncias por maltrato animal",
+    "Promoción del cuidado ambiental",
+    "Educación y concientización comunitaria",
+    "Articulación con organismos públicos y privados",
+    "Acompañamiento ciudadano en casos de defensa de derechos, ambientales y de bienestar animal"
+  ];
+
   const ejes = [
     "Promoción de las buenas prácticas comerciales para con los Usuarios y Consumidores",
     "Recepción de denuncias por infracciones a la Ley 24.240",
@@ -33,9 +44,7 @@ export default function QueHacemos() {
     "Audiencias de conciliación entre usuarios/consumidores con proveedores infractores",
     "Bienestar y protección animal",
     "Conservación del ambiente",
-    "Prevención del maltrato y abandono",
-    "Educación ambiental",
-    "Participación ciudadana"
+    "Prevención del maltrato y abandono"
   ];
 
   // VERSIÓN MÓVIL
@@ -61,12 +70,12 @@ export default function QueHacemos() {
             <div className="inline-flex items-center gap-2 bg-verde/20 backdrop-blur-sm border border-verde/30 rounded-full px-5 py-2 mb-6">
               <span className="w-2 h-2 bg-verde rounded-full animate-pulse" />
               <span className="text-crema/80 text-sm font-medium tracking-wider uppercase">
-                Nuestra Misión
+                Nuestra Labor
               </span>
             </div>
             
             <h2 className="text-4xl sm:text-5xl font-bold text-crema mb-4 tracking-tight">
-              Qué <span className="text-verde-light">hacemos</span>
+              Nuestra <span className="text-verde-light">misión</span>
             </h2>
             
             <div className="flex items-center justify-center gap-3">
@@ -78,55 +87,34 @@ export default function QueHacemos() {
             </div>
           </div>
 
-          {/* CARD DESCRIPCIÓN */}
-          <div className="relative backdrop-blur-xl bg-white/[0.07] border border-white/10 rounded-3xl p-6 sm:p-8 mb-6">
-            <div className="absolute top-0 left-0 w-16 h-16">
-              <div className="absolute top-4 left-4 w-8 h-[2px] bg-verde/60" />
-              <div className="absolute top-4 left-4 w-[2px] h-8 bg-verde/60" />
-            </div>
-            <div className="absolute bottom-0 right-0 w-16 h-16">
-              <div className="absolute bottom-4 right-4 w-8 h-[2px] bg-verde/60" />
-              <div className="absolute bottom-4 right-4 w-[2px] h-8 bg-verde/60" />
+          {/* CARD QUÉ HACEMOS */}
+          <div className="relative backdrop-blur-xl bg-white/[0.07] border border-white/10 rounded-2xl p-5 mb-6">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="h-[2px] w-6 bg-crema/40" />
+              <h3 className="text-xl font-bold text-crema">Qué hacemos</h3>
             </div>
             
-            <div className="relative space-y-4 text-crema/90 text-base leading-relaxed">
-              <p>
-                Trabajamos por la <span className="text-verde-light font-semibold">defensa y protección</span> de 
-                los derechos de los animales, interviniendo ante situaciones de maltrato, abandono 
-                y vulneración del bienestar animal.
-              </p>
-              <p>
-                Recibimos y acompañamos <span className="text-verde-light font-semibold">denuncias</span> vinculadas 
-                al daño ambiental, brindando orientación responsable y seguimiento de cada caso.
-              </p>
-              <p>
-                Promovemos la <span className="text-verde-light font-semibold">educación ambiental</span> y la 
-                concientización ciudadana como herramientas fundamentales para construir una sociedad 
-                más justa con todas las formas de vida.
-              </p>
-            </div>
+            <ul className="space-y-3">
+              {queHacemos.map((item, index) => (
+                <li key={index} className="flex items-start gap-2">
+                  <span className="w-1.5 h-1.5 bg-verde-light rounded-full mt-2 flex-shrink-0" />
+                  <span className="text-crema/80 text-sm leading-relaxed">{item}</span>
+                </li>
+              ))}
+            </ul>
           </div>
 
           {/* CARD EJES DE TRABAJO */}
-          <div className="relative backdrop-blur-xl bg-white/[0.07] border border-white/10 rounded-3xl p-6 sm:p-8">
-            <div className="absolute top-0 left-0 w-16 h-16">
-              <div className="absolute top-4 left-4 w-8 h-[2px] bg-verde/60" />
-              <div className="absolute top-4 left-4 w-[2px] h-8 bg-verde/60" />
-            </div>
-            <div className="absolute bottom-0 right-0 w-16 h-16">
-              <div className="absolute bottom-4 right-4 w-8 h-[2px] bg-verde/60" />
-              <div className="absolute bottom-4 right-4 w-[2px] h-8 bg-verde/60" />
-            </div>
-
-            <div className="flex items-center gap-3 mb-6">
-              <div className="h-[2px] w-8 bg-crema/40" />
+          <div className="relative backdrop-blur-xl bg-white/[0.07] border border-white/10 rounded-2xl p-5">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="h-[2px] w-6 bg-crema/40" />
               <h3 className="text-xl font-bold text-crema">Nuestros ejes de trabajo</h3>
             </div>
             
-            <ul className="space-y-4">
+            <ul className="space-y-3">
               {ejes.map((eje, index) => (
-                <li key={index} className="flex items-start gap-3">
-                  <span className="w-2 h-2 bg-verde-light rounded-full mt-2 flex-shrink-0" />
+                <li key={index} className="flex items-start gap-2">
+                  <span className="w-1.5 h-1.5 bg-verde-light rounded-full mt-2 flex-shrink-0" />
                   <span className="text-crema/80 text-sm leading-relaxed">{eje}</span>
                 </li>
               ))}
@@ -164,7 +152,7 @@ export default function QueHacemos() {
             
             {/* HEADER */}
             <div 
-              className="text-center mb-16 transition-all duration-700 ease-out"
+              className="text-center mb-12 transition-all duration-700 ease-out"
               style={{ 
                 opacity: Math.min(scrollY * 4, 1),
                 transform: `translateY(${Math.max(60 - scrollY * 200, 0)}px)`
@@ -173,12 +161,12 @@ export default function QueHacemos() {
               <div className="inline-flex items-center gap-2 bg-verde/20 backdrop-blur-sm border border-verde/30 rounded-full px-5 py-2 mb-6">
                 <span className="w-2 h-2 bg-verde rounded-full animate-pulse" />
                 <span className="text-crema/80 text-sm font-medium tracking-wider uppercase">
-                  Nuestra Misión
+                  Nuestra Labor
                 </span>
               </div>
               
               <h2 className="text-5xl lg:text-7xl font-bold text-crema mb-4 tracking-tight">
-                Qué <span className="text-verde-light">hacemos</span>
+                Nuestra <span className="text-verde-light">misión</span>
               </h2>
               
               <div className="flex items-center justify-center gap-3">
@@ -190,107 +178,102 @@ export default function QueHacemos() {
               </div>
             </div>
 
-           {/* DOS COLUMNAS */}
-<div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-stretch">
-  
-  {/* COLUMNA IZQUIERDA - Descripción */}
-  <div 
-    className="transition-all duration-700 ease-out"
-    style={{
-      opacity: Math.min(Math.max((scrollY - 0.08) * 5, 0), 1),
-      transform: `translateX(${Math.max(-80 + scrollY * 400, 0)}px)`,
-    }}
-  >
-    <div className="relative group h-full">
-      <div className="relative backdrop-blur-xl bg-white/[0.07] border border-white/10 rounded-2xl p-5 lg:p-6 overflow-hidden h-full
-                      hover:bg-white/[0.1] hover:border-white/20 transition-all duration-500">
-        
-        {/* Esquinas decorativas */}
-        <div className="absolute top-0 left-0 w-16 h-16">
-          <div className="absolute top-3 left-3 w-8 h-[2px] bg-verde/60" />
-          <div className="absolute top-3 left-3 w-[2px] h-8 bg-verde/60" />
-        </div>
-        <div className="absolute bottom-0 right-0 w-16 h-16">
-          <div className="absolute bottom-3 right-3 w-8 h-[2px] bg-verde/60" />
-          <div className="absolute bottom-3 right-3 w-[2px] h-8 bg-verde/60" />
-        </div>
-        
-        <div className="relative space-y-4">
-          <p className="text-crema/90 text-base leading-relaxed">
-            Trabajamos por la <span className="text-verde-light font-semibold">defensa y protección</span> de 
-            los derechos de los animales, interviniendo ante situaciones de maltrato, abandono 
-            y vulneración del bienestar animal.
-          </p>
-          <p className="text-crema/80 text-base leading-relaxed">
-            Recibimos y acompañamos <span className="text-verde-light font-semibold">denuncias</span> vinculadas 
-            al daño ambiental, brindando orientación responsable y seguimiento de cada caso.
-          </p>
-          <p className="text-crema/80 text-base leading-relaxed">
-            Promovemos la <span className="text-verde-light font-semibold">educación ambiental</span> y la 
-            concientización ciudadana como herramientas fundamentales para construir una sociedad 
-            más justa con todas las formas de vida.
-          </p>
-          
-          <a 
-            href="#contacto"
-            className="inline-flex items-center gap-2 mt-2 text-verde-light hover:text-white transition-colors group/btn"
-          >
-            <span className="font-semibold text-sm">Conocé más</span>
-            <svg className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
+            {/* DOS COLUMNAS */}
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-stretch">
+              
+              {/* COLUMNA IZQUIERDA - Qué hacemos */}
+              <div 
+                className="transition-all duration-700 ease-out"
+                style={{
+                  opacity: Math.min(Math.max((scrollY - 0.08) * 5, 0), 1),
+                  transform: `translateX(${Math.max(-80 + scrollY * 400, 0)}px)`,
+                }}
+              >
+                <div className="relative group h-full">
+                  <div className="relative backdrop-blur-xl bg-white/[0.07] border border-white/10 rounded-2xl p-5 lg:p-6 overflow-hidden h-full
+                                  hover:bg-white/[0.1] hover:border-white/20 transition-all duration-500">
+                    
+                    {/* Esquinas decorativas */}
+                    <div className="absolute top-0 left-0 w-16 h-16">
+                      <div className="absolute top-3 left-3 w-8 h-[2px] bg-verde/60" />
+                      <div className="absolute top-3 left-3 w-[2px] h-8 bg-verde/60" />
+                    </div>
+                    <div className="absolute bottom-0 right-0 w-16 h-16">
+                      <div className="absolute bottom-3 right-3 w-8 h-[2px] bg-verde/60" />
+                      <div className="absolute bottom-3 right-3 w-[2px] h-8 bg-verde/60" />
+                    </div>
 
-  {/* COLUMNA DERECHA - Ejes de trabajo */}
-  <div 
-    className="transition-all duration-700 ease-out"
-    style={{
-      opacity: Math.min(Math.max((scrollY - 0.15) * 5, 0), 1),
-      transform: `translateX(${Math.min(80 - scrollY * 400, 0)}px)`,
-    }}
-  >
-    <div className="relative group h-full">
-      <div className="relative backdrop-blur-xl bg-white/[0.07] border border-white/10 rounded-2xl p-5 lg:p-6 overflow-hidden h-full
-                      hover:bg-white/[0.1] hover:border-white/20 transition-all duration-500">
-        
-        {/* Esquinas decorativas */}
-        <div className="absolute top-0 left-0 w-16 h-16">
-          <div className="absolute top-3 left-3 w-8 h-[2px] bg-verde/60" />
-          <div className="absolute top-3 left-3 w-[2px] h-8 bg-verde/60" />
-        </div>
-        <div className="absolute bottom-0 right-0 w-16 h-16">
-          <div className="absolute bottom-3 right-3 w-8 h-[2px] bg-verde/60" />
-          <div className="absolute bottom-3 right-3 w-[2px] h-8 bg-verde/60" />
-        </div>
+                    {/* Título */}
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="h-[2px] w-6 bg-crema/40" />
+                      <h3 className="text-xl font-bold text-crema">Qué hacemos</h3>
+                    </div>
+                    
+                    {/* Lista */}
+                    <ul className="relative space-y-3">
+                      {queHacemos.map((item, index) => (
+                        <li 
+                          key={index} 
+                          className="flex items-start gap-2 group/item"
+                        >
+                          <span className="w-1.5 h-1.5 bg-verde-light rounded-full mt-2 flex-shrink-0" />
+                          <span className="text-crema/80 text-sm leading-relaxed">
+                            {item}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
 
-        {/* Título */}
-        <div className="flex items-center gap-3 mb-4">
-          <div className="h-[2px] w-6 bg-crema/40" />
-          <h3 className="text-xl font-bold text-crema">Nuestros ejes de trabajo</h3>
-        </div>
-        
-        {/* Lista de ejes */}
-        <ul className="relative space-y-3">
-          {ejes.map((eje, index) => (
-            <li 
-              key={index} 
-              className="flex items-start gap-2 group/item"
-            >
-              <span className="w-1.5 h-1.5 bg-verde-light rounded-full mt-2 flex-shrink-0" />
-              <span className="text-crema/80 text-sm leading-relaxed">
-                {eje}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+              {/* COLUMNA DERECHA - Ejes de trabajo */}
+              <div 
+                className="transition-all duration-700 ease-out"
+                style={{
+                  opacity: Math.min(Math.max((scrollY - 0.15) * 5, 0), 1),
+                  transform: `translateX(${Math.min(80 - scrollY * 400, 0)}px)`,
+                }}
+              >
+                <div className="relative group h-full">
+                  <div className="relative backdrop-blur-xl bg-white/[0.07] border border-white/10 rounded-2xl p-5 lg:p-6 overflow-hidden h-full
+                                  hover:bg-white/[0.1] hover:border-white/20 transition-all duration-500">
+                    
+                    {/* Esquinas decorativas */}
+                    <div className="absolute top-0 left-0 w-16 h-16">
+                      <div className="absolute top-3 left-3 w-8 h-[2px] bg-verde/60" />
+                      <div className="absolute top-3 left-3 w-[2px] h-8 bg-verde/60" />
+                    </div>
+                    <div className="absolute bottom-0 right-0 w-16 h-16">
+                      <div className="absolute bottom-3 right-3 w-8 h-[2px] bg-verde/60" />
+                      <div className="absolute bottom-3 right-3 w-[2px] h-8 bg-verde/60" />
+                    </div>
+
+                    {/* Título */}
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="h-[2px] w-6 bg-crema/40" />
+                      <h3 className="text-xl font-bold text-crema">Nuestros ejes de trabajo</h3>
+                    </div>
+                    
+                    {/* Lista */}
+                    <ul className="relative space-y-3">
+                      {ejes.map((eje, index) => (
+                        <li 
+                          key={index} 
+                          className="flex items-start gap-2 group/item"
+                        >
+                          <span className="w-1.5 h-1.5 bg-verde-light rounded-full mt-2 flex-shrink-0" />
+                          <span className="text-crema/80 text-sm leading-relaxed">
+                            {eje}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {/* SCROLL INDICATOR */}
             <div 
               className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
