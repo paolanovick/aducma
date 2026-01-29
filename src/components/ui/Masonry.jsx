@@ -1,23 +1,19 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { gsap } from "gsap";
+import { useNavigate } from "react-router-dom";
 import "./Masonry.css";
 
 const useMedia = (queries, values, defaultValue) => {
   const get = () =>
-    values[queries.findIndex((q) => matchMedia(q).matches)] ??
-    defaultValue;
+    values[queries.findIndex((q) => matchMedia(q).matches)] ?? defaultValue;
 
   const [value, setValue] = useState(get);
 
   useEffect(() => {
     const handler = () => setValue(get());
-    queries.forEach((q) =>
-      matchMedia(q).addEventListener("change", handler)
-    );
+    queries.forEach((q) => matchMedia(q).addEventListener("change", handler));
     return () =>
-      queries.forEach((q) =>
-        matchMedia(q).removeEventListener("change", handler)
-      );
+      queries.forEach((q) => matchMedia(q).removeEventListener("change", handler));
   }, [queries]);
 
   return value;
@@ -65,10 +61,12 @@ export default function Masonry({
   hoverScale = 0.95,
   blurToFocus = true,
 }) {
+  const navigate = useNavigate();
+  
   const columns = useMedia(
     ["(min-width:1500px)", "(min-width:1000px)", "(min-width:600px)"],
     [5, 4, 3],
-    1
+    2
   );
 
   const [containerRef, { width }] = useMeasure();
@@ -76,9 +74,7 @@ export default function Masonry({
   const hasMounted = useRef(false);
 
   useEffect(() => {
-    preloadImages(items.map((i) => i.img)).then(() =>
-      setImagesReady(true)
-    );
+    preloadImages(items.map((i) => i.img)).then(() => setImagesReady(true));
   }, [items]);
 
   const grid = useMemo(() => {
@@ -124,17 +120,25 @@ export default function Masonry({
     hasMounted.current = true;
   }, [grid, imagesReady, stagger, animateFrom, blurToFocus, ease]);
 
+  const handleClick = (item) => {
+    if (item.external) {
+      window.open(item.url, "_blank");
+    } else {
+      navigate(`/novedad/${item.id}`);
+    }
+  };
+
   return (
-    <div ref={containerRef} className="list">
+    <div ref={containerRef} className="masonry-list">
       {grid.map((item) => (
         <div
           key={item.id}
           data-key={item.id}
-          className="item-wrapper"
-          onClick={() => window.open(item.url, "_blank")}
+          className="masonry-item-wrapper"
+          onClick={() => handleClick(item)}
         >
           <div
-            className="item-img"
+            className="masonry-item-img"
             style={{ backgroundImage: `url(${item.img})` }}
           />
         </div>
