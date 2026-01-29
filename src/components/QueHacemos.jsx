@@ -47,83 +47,122 @@ export default function QueHacemos() {
     "Prevención del maltrato y abandono"
   ];
 
-  // VERSIÓN MÓVIL
-  if (!isDesktop) {
-    return (
-      <section className="relative min-h-screen">
-        {/* IMAGEN DE FONDO */}
-        <div className="absolute inset-0">
-          <img
-            src="/tosty.png"
-            alt="Protección animal y ambiental"
-            className="w-full h-full object-cover"
-            style={{ objectPosition: "center bottom", filter: "brightness(0.5)" }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-verde/30 via-transparent to-black/60" />
-        </div>
+ // VERSIÓN MÓVIL
+if (!isDesktop) {
+  return (
+    <section className="relative min-h-screen">
+      {/* IMAGEN DE FONDO */}
+      <div className="absolute inset-0">
+        <img
+          src="/tosty.png"
+          alt="Protección animal y ambiental"
+          className="w-full h-full object-cover"
+          style={{ objectPosition: "center bottom", filter: "brightness(0.5)" }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-verde/30 via-transparent to-black/60" />
+      </div>
 
-        {/* CONTENIDO */}
-        <div className="relative z-10 px-4 sm:px-6 py-16">
+      {/* CONTENIDO */}
+      <div className="relative z-10 px-4 sm:px-6 py-16">
+        
+        {/* HEADER */}
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 bg-verde/20 backdrop-blur-sm border border-verde/30 rounded-full px-5 py-2 mb-6">
+            <span className="w-2 h-2 bg-verde rounded-full animate-pulse" />
+            <span className="text-crema/80 text-sm font-medium tracking-wider uppercase">
+              Nuestra Labor
+            </span>
+          </div>
           
-          {/* HEADER */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 bg-verde/20 backdrop-blur-sm border border-verde/30 rounded-full px-5 py-2 mb-6">
-              <span className="w-2 h-2 bg-verde rounded-full animate-pulse" />
-              <span className="text-crema/80 text-sm font-medium tracking-wider uppercase">
-                Nuestra Labor
-              </span>
-            </div>
-            
-            <h2 className="text-4xl sm:text-5xl font-bold text-crema mb-4 tracking-tight">
-              Nuestra <span className="text-verde-light">misión</span>
-            </h2>
-            
-            <div className="flex items-center justify-center gap-3">
-              <div className="h-[2px] w-16 bg-gradient-to-r from-transparent to-crema/50" />
-              <svg className="w-6 h-6 text-verde-light" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-              </svg>
-              <div className="h-[2px] w-16 bg-gradient-to-l from-transparent to-crema/50" />
-            </div>
-          </div>
-
-          {/* CARD QUÉ HACEMOS */}
-          <div className="relative backdrop-blur-xl bg-white/[0.07] border border-white/10 rounded-2xl p-5 mb-6">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="h-[2px] w-6 bg-crema/40" />
-              <h3 className="text-xl font-bold text-crema">Qué hacemos</h3>
-            </div>
-            
-            <ul className="space-y-3">
-              {queHacemos.map((item, index) => (
-                <li key={index} className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 bg-verde-light rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-crema/80 text-sm leading-relaxed">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* CARD EJES DE TRABAJO */}
-          <div className="relative backdrop-blur-xl bg-white/[0.07] border border-white/10 rounded-2xl p-5">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="h-[2px] w-6 bg-crema/40" />
-              <h3 className="text-xl font-bold text-crema">Nuestros ejes de trabajo</h3>
-            </div>
-            
-            <ul className="space-y-3">
-              {ejes.map((eje, index) => (
-                <li key={index} className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 bg-verde-light rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-crema/80 text-sm leading-relaxed">{eje}</span>
-                </li>
-              ))}
-            </ul>
+          <h2 className="text-4xl sm:text-5xl font-bold text-crema mb-4 tracking-tight">
+            Nuestra <span className="text-verde-light">misión</span>
+          </h2>
+          
+          <div className="flex items-center justify-center gap-3">
+            <div className="h-[2px] w-16 bg-gradient-to-r from-transparent to-crema/50" />
+            <svg className="w-6 h-6 text-verde-light" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+            <div className="h-[2px] w-16 bg-gradient-to-l from-transparent to-crema/50" />
           </div>
         </div>
-      </section>
-    );
-  }
+
+        {/* MISIÓN */}
+        <div className="relative backdrop-blur-xl bg-white/[0.07] border border-white/10 rounded-2xl p-5 mb-6">
+          <h3 className="text-xl font-bold text-crema mb-3">Misión</h3>
+          <p className="text-crema/80 text-sm leading-relaxed">
+            Promover la defensa de los derechos de usuarios y consumidores, el cuidado
+            del ambiente y la defensa de los derechos de los animales mediante acciones
+            de concientización, asesoramiento y acompañamiento a la comunidad.
+          </p>
+        </div>
+
+        {/* VISIÓN */}
+        <div className="relative backdrop-blur-xl bg-white/[0.07] border border-white/10 rounded-2xl p-5 mb-6">
+          <h3 className="text-xl font-bold text-crema mb-3">Visión</h3>
+          <p className="text-crema/80 text-sm leading-relaxed">
+            Construir una sociedad más justa, responsable y respetuosa con el ambiente,
+            los animales y los consumidores, promoviendo el trato digno y el deber de
+            informar correctamente previo a la contratación de productos o servicios.
+          </p>
+        </div>
+
+        {/* VALORES */}
+        <div className="relative backdrop-blur-xl bg-white/[0.07] border border-white/10 rounded-2xl p-5 mb-10">
+          <h3 className="text-xl font-bold text-crema mb-4">Valores</h3>
+          <ul className="space-y-2">
+            {[
+              "Compromiso",
+              "Respeto",
+              "Responsabilidad",
+              "Solidaridad",
+              "Transparencia",
+            ].map((valor, index) => (
+              <li key={index} className="text-crema/80 text-sm leading-relaxed">
+                {valor}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* CARD QUÉ HACEMOS */}
+        <div className="relative backdrop-blur-xl bg-white/[0.07] border border-white/10 rounded-2xl p-5 mb-6">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="h-[2px] w-6 bg-crema/40" />
+            <h3 className="text-xl font-bold text-crema">Qué hacemos</h3>
+          </div>
+          
+          <ul className="space-y-3">
+            {queHacemos.map((item, index) => (
+              <li key={index} className="flex items-start gap-2">
+                <span className="w-1.5 h-1.5 bg-verde-light rounded-full mt-2 flex-shrink-0" />
+                <span className="text-crema/80 text-sm leading-relaxed">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* CARD EJES DE TRABAJO */}
+        <div className="relative backdrop-blur-xl bg-white/[0.07] border border-white/10 rounded-2xl p-5">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="h-[2px] w-6 bg-crema/40" />
+            <h3 className="text-xl font-bold text-crema">Nuestros ejes de trabajo</h3>
+          </div>
+          
+          <ul className="space-y-3">
+            {ejes.map((eje, index) => (
+              <li key={index} className="flex items-start gap-2">
+                <span className="w-1.5 h-1.5 bg-verde-light rounded-full mt-2 flex-shrink-0" />
+                <span className="text-crema/80 text-sm leading-relaxed">{eje}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 
   // VERSIÓN DESKTOP CON PARALLAX
   return (
@@ -177,9 +216,9 @@ export default function QueHacemos() {
                 <div className="h-[2px] w-16 bg-gradient-to-l from-transparent to-crema/50" />
               </div>
             </div>
-          {/* MISIÓN · VISIÓN · VALORES */}
+            {/* MISIÓN · VISIÓN · VALORES */}
 <div
-  className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 transition-all duration-700 ease-out"
+  className="grid md:grid-cols-3 gap-6 mb-16 transition-all duration-700 ease-out"
   style={{
     opacity: Math.min(Math.max((scrollY - 0.04) * 6, 0), 1),
     transform: `translateY(${Math.max(40 - scrollY * 200, 0)}px)`
@@ -208,17 +247,31 @@ export default function QueHacemos() {
   </div>
 
   {/* VALORES */}
-  <div className="backdrop-blur-xl bg-white/[0.07] border border-white/10 rounded-2xl p-6
-                  hover:bg-white/[0.1] hover:border-white/20 transition-all duration-500">
-    <h3 className="text-lg font-bold text-crema mb-4">Valores</h3>
-    <ul className="space-y-2">
-      <li className="text-crema/80 text-sm">Compromiso</li>
-      <li className="text-crema/80 text-sm">Respeto</li>
-      <li className="text-crema/80 text-sm">Responsabilidad</li>
-      <li className="text-crema/80 text-sm">Solidaridad</li>
-      <li className="text-crema/80 text-sm">Transparencia</li>
-    </ul>
-  </div>
+<div
+  className="backdrop-blur-xl bg-white/[0.07] border border-white/10 rounded-2xl p-6
+             hover:bg-white/[0.1] hover:border-white/20 transition-all duration-500"
+>
+  <h3 className="text-lg font-bold text-crema mb-4">Valores</h3>
+
+  <ul className="space-y-2">
+    <li className="text-crema/80 text-sm leading-relaxed">
+      Compromiso
+    </li>
+    <li className="text-crema/80 text-sm leading-relaxed">
+      Respeto
+    </li>
+    <li className="text-crema/80 text-sm leading-relaxed">
+      Responsabilidad
+    </li>
+    <li className="text-crema/80 text-sm leading-relaxed">
+      Solidaridad
+    </li>
+    <li className="text-crema/80 text-sm leading-relaxed">
+      Transparencia
+    </li>
+  </ul>
+</div>
+
 </div>
 
 
