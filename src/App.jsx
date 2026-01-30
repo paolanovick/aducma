@@ -8,17 +8,20 @@ import ComoTeAyudamos from "./components/ComoTeAyudamos";
 import Contacto from "./components/Contacto";
 import Servicios from "./components/Servicios";
 import NovedadDetalle from "./pages/NovedadDetalle";
+import Admin from "./pages/Admin";
+import Dashboard from "./pages/Dashboard";
 
-// Página principal
 function Home() {
   return (
     <>
+      <Navbar />
       <Hero />
       <About />
       <QueHacemos />
       <Servicios />
       <ComoTeAyudamos />
       <Contacto />
+      <Footer />
     </>
   );
 }
@@ -27,12 +30,12 @@ function App() {
   return (
     <BrowserRouter>
       <div className="min-h-screen bg-crema">
-        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/novedad/:id" element={<NovedadDetalle />} />
+          <Route path="/novedad/:id" element={<><Navbar /><NovedadDetalle /><Footer /></>} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
-        <Footer />
       </div>
     </BrowserRouter>
   );
