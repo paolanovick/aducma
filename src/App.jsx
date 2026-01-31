@@ -10,6 +10,7 @@ import Servicios from "./components/Servicios";
 import NovedadDetalle from "./pages/NovedadDetalle";
 import Admin from "./pages/Admin";
 import Dashboard from "./pages/Dashboard";
+import NovedadesAdmin from "./pages/NovedadesAdmin";
 
 function Home() {
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path="/novedad/:id" element={<><Navbar /><NovedadDetalle /><Footer /></>} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard/novedades" element={<NovedadesAdmin />} />
         </Routes>
       </div>
     </BrowserRouter>

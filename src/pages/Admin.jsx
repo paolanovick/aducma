@@ -14,9 +14,8 @@ export default function Admin() {
     e.preventDefault();
     setCargando(true);
     setError("");
-
-    try {
-     fetch(`${API}/api/auth/login`, {
+try {
+ const res = await fetch(`${API}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ usuario, password }),

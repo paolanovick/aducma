@@ -1,173 +1,51 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-const API = import.meta.env.VITE_API_URL;
-
 
 export default function Dashboard() {
-  const [novedades, setNovedades] = useState([]);
-  const [cargando, setCargando] = useState(true);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [editando, setEditando] = useState(null);
-  const [guardando, setGuardando] = useState(false);
   const navigate = useNavigate();
-
-  const [form, setForm] = useState({
-    titulo: "",
-    descripcion: "",
-    contenido: "",
-    fecha: "",
-    imagen: "",
-    height: 400,
-  });
-
   const token = localStorage.getItem("token");
 
   useEffect(() => {
     if (!token) {
       navigate("/admin");
-      return;
     }
-    cargarNovedades();
   }, [token, navigate]);
-
-  const cargarNovedades = async () => {
-    try {
-     const res = await fetch(`${API}/api/novedades/todas`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      if (res.ok) {
-        const data = await res.json();
-        setNovedades(data);
-      } else {
-        localStorage.removeItem("token");
-        navigate("/admin");
-      }
-    } catch (err) {
-      console.error("Error al cargar novedades:", err);
-    } finally {
-      setCargando(false);
-    }
-  };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/admin");
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setForm({ ...form, imagen: reader.result });
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const abrirModal = (novedad = null) => {
-    if (novedad) {
-      setEditando(novedad._id);
-      setForm({
-        titulo: novedad.titulo,
-        descripcion: novedad.descripcion,
-        contenido: novedad.contenido,
-        fecha: novedad.fecha,
-        imagen: novedad.imagen,
-        height: novedad.height,
-      });
-    } else {
-      setEditando(null);
-      setForm({
-        titulo: "",
-        descripcion: "",
-        contenido: "",
-        fecha: "",
-        imagen: "",
-        height: 400,
-      });
-    }
-    setModalOpen(true);
-  };
-
-  const cerrarModal = () => {
-    setModalOpen(false);
-    setEditando(null);
-  };
-
-  const guardarNovedad = async (e) => {
-    e.preventDefault();
-    setGuardando(true);
-
-    try {
-      const url = editando
-  ? `${API}/api/novedades/${editando}`
-  : `${API}/api/novedades`;
-      const method = editando ? "PUT" : "POST";
-
-      const res = await fetch(url, {
-        method,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(form),
-      });
-
-      if (res.ok) {
-        cerrarModal();
-        cargarNovedades();
-      } else {
-        const data = await res.json();
-        alert(data.mensaje || "Error al guardar");
-      }
-    } catch (err) {
-      alert("Error de conexión");
-    } finally {
-      setGuardando(false);
-    }
-  };
-
-  const eliminarNovedad = async (id) => {
-    if (!confirm("¿Estás seguro de eliminar esta novedad?")) return;
-
-    try {
-      const res = await fetch(`${API}/api/novedades/${id}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      if (res.ok) {
-        cargarNovedades();
-      }
-    } catch (err) {
-      alert("Error al eliminar");
-    }
-  };
-
-  const toggleActivo = async (novedad) => {
-    try {
-     await fetch(`${API}/api/novedades/${novedad._id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ ...novedad, activo: !novedad.activo }),
-      });
-      cargarNovedades();
-    } catch (err) {
-      alert("Error al actualizar");
-    }
-  };
-
-  if (cargando) {
-    return (
-      <div className="min-h-screen bg-crema flex items-center justify-center">
-        <div className="animate-spin h-12 w-12 border-4 border-verde border-t-transparent rounded-full"></div>
-      </div>
-    );
-  }
+  const carteles = [
+    {
+      id: "novedades",
+      titulo: "Novedades",
+      descripcion: "Gestionar noticias y eventos",
+      icono: (
+        <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+        </svg>
+      ),
+      color: "bg-amber-100",
+      pinColor: "bg-red-500",
+      ruta: "/dashboard/novedades",
+      rotacion: "-rotate-2",
+    },
+    {
+      id: "cursos",
+      titulo: "Cursos",
+      descripcion: "Gestionar cursos y talleres",
+      icono: (
+        <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+      ),
+      color: "bg-green-100",
+      pinColor: "bg-blue-500",
+      ruta: "/dashboard/cursos",
+      rotacion: "rotate-1",
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-crema">
@@ -177,7 +55,7 @@ export default function Dashboard() {
           <div className="flex items-center gap-4">
             <h1 className="text-xl font-bold">ADUCMA</h1>
             <span className="text-crema/60">|</span>
-            <span className="text-crema/80">Dashboard</span>
+            <span className="text-crema/80">Panel de Administración</span>
           </div>
           <div className="flex items-center gap-4">
             <a href="/" target="_blank" className="text-crema/70 hover:text-crema text-sm">
@@ -193,244 +71,99 @@ export default function Dashboard() {
         </div>
       </header>
 
-      {/* CONTENIDO */}
-      <main className="max-w-7xl mx-auto px-6 py-8">
-        {/* Título y botón agregar */}
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h2 className="text-3xl font-bold text-verde">Novedades</h2>
-            <p className="text-verde/60">{novedades.length} novedades en total</p>
+      {/* PIZARRA DE CORCHO */}
+      <main className="max-w-5xl mx-auto px-6 py-12">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl font-bold text-verde mb-2">¡Bienvenido!</h2>
+          <p className="text-verde/60">Seleccioná una sección para administrar</p>
+        </div>
+
+        {/* PIZARRA */}
+        <div 
+          className="relative rounded-3xl p-8 sm:p-12 min-h-[500px]"
+          style={{
+            backgroundColor: "#c4956a",
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+            backgroundBlendMode: "overlay",
+            boxShadow: "inset 0 0 50px rgba(0,0,0,0.3), 0 10px 30px rgba(0,0,0,0.2)",
+          }}
+        >
+          {/* Marco de madera */}
+          <div 
+            className="absolute inset-0 rounded-3xl pointer-events-none"
+            style={{
+              border: "12px solid #8B4513",
+              boxShadow: "inset 0 0 10px rgba(0,0,0,0.5)",
+            }}
+          />
+
+          {/* CARTELES */}
+          <div className="relative z-10 flex flex-wrap justify-center gap-8 sm:gap-12">
+            {carteles.map((cartel) => (
+              <div
+                key={cartel.id}
+                onClick={() => navigate(cartel.ruta)}
+                className={`
+                  relative cursor-pointer group
+                  ${cartel.rotacion}
+                  hover:rotate-0 hover:scale-105 hover:-translate-y-2
+                  transition-all duration-300 ease-out
+                `}
+              >
+                {/* Pin/Chinche */}
+                <div 
+                  className={`
+                    absolute -top-3 left-1/2 -translate-x-1/2 z-20
+                    w-6 h-6 rounded-full ${cartel.pinColor}
+                    shadow-lg
+                  `}
+                  style={{
+                    boxShadow: "0 2px 4px rgba(0,0,0,0.4), inset 0 -2px 4px rgba(0,0,0,0.2)",
+                  }}
+                >
+                  <div className="absolute top-1 left-1 w-2 h-2 bg-white/40 rounded-full" />
+                </div>
+
+                {/* Tarjeta/Post-it */}
+                <div 
+                  className={`
+                    ${cartel.color} 
+                    w-48 sm:w-56 p-6 rounded-lg
+                    shadow-xl
+                    group-hover:shadow-2xl
+                    transition-shadow duration-300
+                  `}
+                  style={{
+                    boxShadow: "4px 4px 10px rgba(0,0,0,0.3)",
+                  }}
+                >
+                  <div className="text-verde/80 mb-4 flex justify-center">
+                    {cartel.icono}
+                  </div>
+                  <h3 className="text-xl font-bold text-verde text-center mb-2">
+                    {cartel.titulo}
+                  </h3>
+                  <p className="text-verde/60 text-sm text-center">
+                    {cartel.descripcion}
+                  </p>
+                  
+                  {/* Flecha indicadora */}
+                  <div className="mt-4 flex justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span className="text-verde text-sm font-medium">Abrir →</span>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
-          <button
-            onClick={() => abrirModal()}
-            className="bg-verde text-white px-6 py-3 rounded-xl font-semibold hover:bg-verde-dark transition-colors flex items-center gap-2"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+
+          {/* Decoraciones adicionales en la pizarra */}
+          <div className="absolute bottom-6 right-6 opacity-30">
+            <svg className="w-16 h-16 text-amber-900" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
             </svg>
-            Nueva Novedad
-          </button>
-        </div>
-
-        {/* GRID DE NOVEDADES */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {novedades.map((novedad) => (
-            <div
-              key={novedad._id}
-              className={`bg-white rounded-2xl overflow-hidden shadow-md border transition-all ${
-                novedad.activo ? "border-verde/10" : "border-red-200 opacity-60"
-              }`}
-            >
-              {/* Imagen */}
-              <div className="relative h-48">
-                <img
-                  src={novedad.imagen}
-                  alt={novedad.titulo}
-                  className="w-full h-full object-cover"
-                />
-                <div className={`absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-medium ${
-                  novedad.activo ? "bg-verde text-white" : "bg-red-500 text-white"
-                }`}>
-                  {novedad.activo ? "Activo" : "Inactivo"}
-                </div>
-              </div>
-
-              {/* Info */}
-              <div className="p-4">
-                <p className="text-verde/50 text-sm mb-1">{novedad.fecha}</p>
-                <h3 className="font-bold text-verde mb-2 line-clamp-1">{novedad.titulo}</h3>
-                <p className="text-verde/70 text-sm line-clamp-2">{novedad.descripcion}</p>
-              </div>
-
-              {/* Acciones */}
-              <div className="px-4 pb-4 flex gap-2">
-                <button
-                  onClick={() => abrirModal(novedad)}
-                  className="flex-1 bg-verde/10 text-verde py-2 rounded-lg text-sm font-medium hover:bg-verde/20 transition-colors"
-                >
-                  Editar
-                </button>
-                <button
-                  onClick={() => toggleActivo(novedad)}
-                  className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    novedad.activo
-                      ? "bg-yellow-100 text-yellow-700 hover:bg-yellow-200"
-                      : "bg-green-100 text-green-700 hover:bg-green-200"
-                  }`}
-                >
-                  {novedad.activo ? "Ocultar" : "Mostrar"}
-                </button>
-                <button
-                  onClick={() => eliminarNovedad(novedad._id)}
-                  className="p-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {novedades.length === 0 && (
-          <div className="text-center py-16">
-            <p className="text-verde/50 text-lg mb-4">No hay novedades todavía</p>
-            <button
-              onClick={() => abrirModal()}
-              className="bg-verde text-white px-6 py-3 rounded-xl font-semibold"
-            >
-              Crear la primera
-            </button>
           </div>
-        )}
+        </div>
       </main>
-
-      {/* MODAL */}
-      {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={cerrarModal} />
-
-          <div className="relative bg-crema rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl">
-            {/* Header */}
-            <div className="sticky top-0 bg-crema px-6 py-4 border-b border-verde/10 flex items-center justify-between rounded-t-3xl z-10">
-              <h3 className="text-xl font-bold text-verde">
-                {editando ? "Editar Novedad" : "Nueva Novedad"}
-              </h3>
-              <button onClick={cerrarModal} className="p-2 hover:bg-verde/10 rounded-full transition-colors">
-                <svg className="w-5 h-5 text-verde" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-
-            {/* Form */}
-            <form onSubmit={guardarNovedad} className="p-6 space-y-5">
-              {/* Imagen */}
-              <div>
-                <label className="block text-sm font-medium text-verde mb-2">Imagen *</label>
-                <div className="relative">
-                  {form.imagen ? (
-                    <div className="relative rounded-xl overflow-hidden h-48">
-                      <img src={form.imagen} alt="Preview" className="w-full h-full object-cover" />
-                      <button
-                        type="button"
-                        onClick={() => setForm({ ...form, imagen: "" })}
-                        className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full"
-                      >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                      </button>
-                    </div>
-                  ) : (
-                    <label className="flex flex-col items-center justify-center h-48 border-2 border-dashed border-verde/30 rounded-xl cursor-pointer hover:border-verde transition-colors">
-                      <svg className="w-10 h-10 text-verde/40 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                      </svg>
-                      <span className="text-verde/60">Click para subir imagen</span>
-                      <input type="file" accept="image/*" onChange={handleImageChange} className="hidden" />
-                    </label>
-                  )}
-                </div>
-              </div>
-
-              {/* Título */}
-              <div>
-                <label className="block text-sm font-medium text-verde mb-1">Título *</label>
-                <input
-                  type="text"
-                  value={form.titulo}
-                  onChange={(e) => setForm({ ...form, titulo: e.target.value })}
-                  required
-                  className="w-full px-4 py-3 border border-verde/20 rounded-xl focus:border-verde focus:outline-none"
-                />
-              </div>
-
-              {/* Fecha */}
-              <div>
-                <label className="block text-sm font-medium text-verde mb-1">Fecha *</label>
-                <input
-                  type="text"
-                  value={form.fecha}
-                  onChange={(e) => setForm({ ...form, fecha: e.target.value })}
-                  required
-                  placeholder="Ej: 15 de Febrero, 2025"
-                  className="w-full px-4 py-3 border border-verde/20 rounded-xl focus:border-verde focus:outline-none"
-                />
-              </div>
-
-              {/* Descripción corta */}
-              <div>
-                <label className="block text-sm font-medium text-verde mb-1">Descripción corta *</label>
-                <input
-                  type="text"
-                  value={form.descripcion}
-                  onChange={(e) => setForm({ ...form, descripcion: e.target.value })}
-                  required
-                  placeholder="Breve descripción para la tarjeta"
-                  className="w-full px-4 py-3 border border-verde/20 rounded-xl focus:border-verde focus:outline-none"
-                />
-              </div>
-
-              {/* Contenido completo */}
-              <div>
-                <label className="block text-sm font-medium text-verde mb-1">Contenido completo *</label>
-                <textarea
-                  value={form.contenido}
-                  onChange={(e) => setForm({ ...form, contenido: e.target.value })}
-                  required
-                  rows={8}
-                  placeholder="Texto completo de la novedad..."
-                  className="w-full px-4 py-3 border border-verde/20 rounded-xl focus:border-verde focus:outline-none resize-none"
-                />
-              </div>
-
-              {/* Altura en masonry */}
-              <div>
-                <label className="block text-sm font-medium text-verde mb-1">Altura en galería</label>
-                <select
-                  value={form.height}
-                  onChange={(e) => setForm({ ...form, height: Number(e.target.value) })}
-                  className="w-full px-4 py-3 border border-verde/20 rounded-xl focus:border-verde focus:outline-none"
-                >
-                  <option value={250}>Pequeña (250px)</option>
-                  <option value={400}>Mediana (400px)</option>
-                  <option value={600}>Grande (600px)</option>
-                </select>
-              </div>
-
-              {/* Botones */}
-              <div className="flex gap-3 pt-4">
-                <button
-                  type="button"
-                  onClick={cerrarModal}
-                  className="flex-1 py-3 border border-verde/30 text-verde rounded-xl font-medium hover:bg-verde/10 transition-colors"
-                >
-                  Cancelar
-                </button>
-                <button
-                  type="submit"
-                  disabled={guardando || !form.imagen}
-                  className="flex-1 bg-verde text-white py-3 rounded-xl font-semibold hover:bg-verde-dark transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
-                >
-                  {guardando ? (
-                    <>
-                      <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                      </svg>
-                      Guardando...
-                    </>
-                  ) : (
-                    "Guardar"
-                  )}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
