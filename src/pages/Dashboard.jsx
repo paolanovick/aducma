@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+const API = import.meta.env.VITE_API_URL;
+
 
 export default function Dashboard() {
   const [novedades, setNovedades] = useState([]);
@@ -30,7 +32,7 @@ export default function Dashboard() {
 
   const cargarNovedades = async () => {
     try {
-      const res = await fetch("/api/novedades/todas", {
+     const res = await fetch(`${API}/api/novedades/todas`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (res.ok) {
@@ -98,7 +100,9 @@ export default function Dashboard() {
     setGuardando(true);
 
     try {
-      const url = editando ? `/api/novedades/${editando}` : "/api/novedades";
+      const url = editando
+  ? `${API}/api/novedades/${editando}`
+  : `${API}/api/novedades`;
       const method = editando ? "PUT" : "POST";
 
       const res = await fetch(url, {
@@ -128,7 +132,7 @@ export default function Dashboard() {
     if (!confirm("¿Estás seguro de eliminar esta novedad?")) return;
 
     try {
-      const res = await fetch(`/api/novedades/${id}`, {
+      const res = await fetch(`${API}/api/novedades/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -143,7 +147,7 @@ export default function Dashboard() {
 
   const toggleActivo = async (novedad) => {
     try {
-      await fetch(`/api/novedades/${novedad._id}`, {
+     await fetch(`${API}/api/novedades/${novedad._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

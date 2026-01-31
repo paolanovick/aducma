@@ -1,120 +1,31 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-// Los mismos datos que en Servicios (idealmente estarían en un archivo separado)
-const novedades = [
-  {
-    id: "1",
-    img: "/novedades/novedad1.jpg",
-    titulo: "Curso de Derecho del Consumidor",
-    descripcion: "Aprende sobre tus derechos como consumidor y usuario.",
-    fecha: "15 de Febrero, 2025",
-    contenido: `Este curso está diseñado para brindar a los participantes un conocimiento profundo sobre la Ley 24.240 de Defensa del Consumidor.
-        
-Temas a tratar:
-- Derechos básicos del consumidor
-- Garantías legales
-- Cómo realizar reclamos efectivos
-- Vías de resolución de conflictos
+const API = import.meta.env.VITE_API_URL;
 
-Dirigido a: Público en general, profesionales del derecho, comerciantes.
-Duración: 4 semanas
-Modalidad: Virtual`,
-  },
-  {
-    id: "2",
-    img: "/novedades/novedad2.jpg",
-    titulo: "Taller de Protección Animal",
-    descripcion: "Conocé las leyes que protegen a los animales.",
-    fecha: "22 de Febrero, 2025",
-    contenido: `Taller práctico sobre la legislación vigente en materia de protección animal y cómo actuar ante situaciones de maltrato.
 
-Contenidos:
-- Marco legal de protección animal
-- Cómo realizar denuncias
-- Tenencia responsable
-- Casos prácticos
-
-Dirigido a: Rescatistas, veterinarios, público general.
-Duración: 2 jornadas
-Modalidad: Presencial`,
-  },
-  {
-    id: "3",
-    img: "/novedades/novedad3.jpg",
-    titulo: "Capacitación Ambiental",
-    descripcion: "Formación en temas de cuidado del medio ambiente.",
-    fecha: "1 de Marzo, 2025",
-    contenido: `Capacitación integral sobre normativa ambiental y herramientas para la defensa del medio ambiente.
-
-Módulos:
-- Legislación ambiental argentina
-- Evaluación de impacto ambiental
-- Denuncias por daño ambiental
-- Acciones colectivas
-
-Dirigido a: Organizaciones civiles, profesionales, estudiantes.
-Duración: 6 semanas
-Modalidad: Híbrida`,
-  },
-  {
-    id: "4",
-    img: "/novedades/novedad4.jpg",
-    titulo: "Charla: Derechos del Usuario",
-    descripcion: "Evento gratuito sobre derechos de usuarios de servicios.",
-    fecha: "10 de Marzo, 2025",
-    contenido: `Charla abierta a la comunidad sobre los derechos de los usuarios de servicios públicos y privados.
-
-Temas:
-- Servicios públicos domiciliarios
-- Telefonía e internet
-- Servicios financieros
-- Transporte
-
-Entrada libre y gratuita.
-Lugar: Auditorio Municipal de Córdoba`,
-  },
-  {
-    id: "5",
-    img: "/novedades/novedad5.jpg",
-    titulo: "Nueva sede en Córdoba",
-    descripcion: "Inauguramos nuestra oficina de atención al público.",
-    fecha: "20 de Marzo, 2025",
-    contenido: `ADUCMA inaugura su nueva sede de atención al público en la ciudad de Córdoba.
-
-Servicios disponibles:
-- Asesoramiento legal gratuito
-- Recepción de denuncias
-- Mediaciones
-- Información sobre cursos
-
-Dirección: Av. Colón 1234, Córdoba Capital
-Horario: Lunes a Viernes de 9 a 17hs`,
-  },
-  {
-    id: "6",
-    img: "/novedades/novedad6.jpg",
-    titulo: "Jornada de Concientización",
-    descripcion: "Actividades en el Parque Sarmiento.",
-    fecha: "5 de Abril, 2025",
-    contenido: `Jornada de concientización ambiental y de protección animal en el Parque Sarmiento.
-
-Actividades:
-- Stand informativo
-- Charlas al aire libre
-- Actividades para niños
-- Feria de emprendedores sustentables
-
-¡Te esperamos con toda la familia!
-Horario: 10 a 18hs
-Entrada libre`,
-  },
-];
 
 export default function NovedadDetalle() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const novedad = novedades.find((n) => n.id === id);
+ const [novedad, setNovedad] = useState(null);
+const [cargando, setCargando] = useState(true);
+useEffect(() => {
+  const cargarNovedad = async () => {
+    try {
+      const res = await fetch(`${API}/api/novedades/${id}`);
+      const data = await res.json();
+      setNovedad(data);
+    } catch (err) {
+      console.error("Error cargando novedad", err);
+    } finally {
+      setCargando(false);
+    }
+  };
+
+  cargarNovedad();
+}, [id]);
+
 
   const [formData, setFormData] = useState({
     nombre: "",
@@ -124,6 +35,13 @@ export default function NovedadDetalle() {
   });
   const [enviando, setEnviando] = useState(false);
   const [enviado, setEnviado] = useState(false);
+if (cargando) {
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      Cargando...
+    </div>
+  );
+}
 
   if (!novedad) {
     return (
@@ -166,7 +84,7 @@ export default function NovedadDetalle() {
       {/* HERO DE LA NOVEDAD */}
       <div className="relative h-[50vh] min-h-[400px]">
         <img
-          src={novedad.img}
+          src={novedad.imagen}
           alt={novedad.titulo}
           className="absolute inset-0 w-full h-full object-cover"
         />

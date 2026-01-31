@@ -22,9 +22,7 @@ const NovedadSchema = new mongoose.Schema(
       type: String,
       required: true
     },
-    imagenPublicId: {
-      type: String
-    },
+    
     height: {
       type: Number,
       default: 400
