@@ -1,26 +1,32 @@
-const express = require('express');
-const jwt = require('jsonwebtoken');
+import express from "express";
+import jwt from "jsonwebtoken";
+import authMiddleware from "../middleware/auth.js";
+
 const router = express.Router();
 
 // POST /api/auth/login
-router.post('/login', (req, res) => {
+router.post("/login", (req, res) => {
   const { usuario, password } = req.body;
 
-  if (usuario === process.env.ADMIN_USER && password === process.env.ADMIN_PASSWORD) {
+  if (
+    usuario === process.env.ADMIN_USER &&
+    password === process.env.ADMIN_PASSWORD
+  ) {
     const token = jwt.sign(
-      { usuario, role: 'admin' },
+      { usuario, role: "admin" },
       process.env.JWT_SECRET,
-      { expiresIn: '24h' }
+      { expiresIn: "24h" }
     );
-    res.json({ token, usuario });
-  } else {
-    res.status(401).json({ mensaje: 'Credenciales incorrectas' });
+
+    return res.json({ token, usuario });
   }
+
+  return res.status(401).json({ mensaje: "Credenciales incorrectas" });
 });
 
 // GET /api/auth/verificar
-router.get('/verificar', require('../middleware/auth'), (req, res) => {
+router.get("/verificar", authMiddleware, (req, res) => {
   res.json({ valid: true, usuario: req.admin.usuario });
 });
 
-module.exports = router;
+export default router;
