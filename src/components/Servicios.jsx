@@ -2,22 +2,37 @@ import { useEffect, useState } from "react";
 import Masonry from "./ui/Masonry";
 
 const API = import.meta.env.VITE_API_URL;
- 
-
 
 export default function Servicios() {
-  const [novedades, setNovedades] = useState([]);
+  const [items, setItems] = useState([]);
   const [cargando, setCargando] = useState(true);
 
-  useEffect(() => {
-    fetch(`${API}/api/novedades`)
-      .then(res => res.json())
-      .then(data => {
-        console.log("NOVEDADES:", data);
-        setNovedades(data);
-      })
-      .finally(() => setCargando(false));
-  }, []);
+useEffect(() => {
+  const cargarDatos = async () => {
+    try {
+      // Cargar novedades
+      const resNovedades = await fetch(`${API}/api/novedades`);
+      const novedades = await resNovedades.json();
+      const novedadesConTipo = novedades.map(n => ({ ...n, tipo: "novedad" }));
+      
+      // Cargar cursos
+      const resCursos = await fetch(`${API}/api/cursos`);
+      const cursos = await resCursos.json();
+      const cursosConTipo = cursos.map(c => ({ ...c, tipo: "curso" }));
+      
+      // Mezclamos todo
+      const todos = [...novedadesConTipo, ...cursosConTipo];
+      
+      setItems(todos);
+    } catch (err) {
+      console.error("Error cargando datos:", err);
+    } finally {
+      setCargando(false);
+    }
+  };
+
+  cargarDatos();
+}, []);
 
   return (
     <div
@@ -36,13 +51,13 @@ export default function Servicios() {
           <div className="inline-flex items-center gap-2 bg-verde/20 backdrop-blur-sm border border-verde/30 rounded-full px-5 py-2 mb-6">
             <span className="w-2 h-2 bg-verde rounded-full animate-pulse" />
             <span className="text-verde text-sm font-medium tracking-wider uppercase">
-              Servicios
+              Actividades
             </span>
           </div>
 
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-4">
             <span className="text-verde">Cursos y </span>
-            <span className="text-verde-light">capacitaciones</span>
+            <span className="text-verde-light">Novedades</span>
           </h2>
           
           <div className="flex items-center justify-center gap-3">
@@ -54,7 +69,7 @@ export default function Servicios() {
           </div>
         </div>
 
-        {/* CURSOS Y CAPACITACIONES */}
+        {/* TEXTO INTRODUCTORIO */}
         <div className="max-w-4xl mx-auto mb-20">
           <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 sm:p-10 shadow-md border border-verde/10">
             <p className="text-verde/80 leading-relaxed mb-4">
@@ -72,37 +87,34 @@ export default function Servicios() {
           </div>
         </div>
 
-        {/* NOVEDADES */}
+        {/* GALERÍA MASONRY */}
         <div>
-          <h3 className="text-2xl font-bold text-verde mb-4 text-center">
-            Novedades
-          </h3>
-
           <p className="text-center text-verde/70 max-w-2xl mx-auto mb-12">
-            Esta sección se irá actualizando a medida que se obtengan novedades
-            sobre las causas y acciones de la asociación.
+            Explorá nuestros cursos y novedades. Hacé click en cualquier tarjeta para ver más detalles.
           </p>
 
-          {/* Masonry */}
-        <div className="relative min-h-[800px]">
-  {cargando ? (
-    <p className="text-center text-verde/60">
-      Cargando novedades…
-    </p>
-  ) : (
-    <Masonry
-      items={novedades}
-      ease="power3.out"
-      duration={0.6}
-      stagger={0.05}
-      animateFrom="bottom"
-      scaleOnHover
-      hoverScale={0.96}
-      blurToFocus
-    />
-  )}
-</div>
-
+          <div className="relative min-h-[800px]">
+            {cargando ? (
+              <div className="flex items-center justify-center py-20">
+                <div className="animate-spin h-12 w-12 border-4 border-verde border-t-transparent rounded-full"></div>
+              </div>
+            ) : items.length === 0 ? (
+              <p className="text-center text-verde/60 py-20">
+                Próximamente más contenido...
+              </p>
+            ) : (
+              <Masonry
+                items={items}
+                ease="power3.out"
+                duration={0.6}
+                stagger={0.05}
+                animateFrom="bottom"
+                scaleOnHover
+                hoverScale={0.96}
+                blurToFocus
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -1,8 +1,8 @@
 const Hero = () => {
   return (
-    <section id="inicio" className="relative h-screen flex items-end justify-center overflow-hidden">
+    <section id="inicio" className="relative h-screen overflow-hidden">
       
-      {/* VIDEO DESKTOP - pantallas grandes */}
+      {/* VIDEO DESKTOP */}
       <video
         autoPlay
         muted
@@ -10,10 +10,10 @@ const Hero = () => {
         playsInline
         className="absolute inset-0 w-full h-full object-cover hidden lg:block"
       >
-        <source src="/video-hero-desktop.mp4" type="video/mp4" />
+        <source src="/video-hero-desktop2.mp4" type="video/mp4" />
       </video>
 
-      {/* VIDEO TABLET - pantallas medianas */}
+      {/* VIDEO TABLET */}
       <video
         autoPlay
         muted
@@ -21,10 +21,10 @@ const Hero = () => {
         playsInline
         className="absolute inset-0 w-full h-full object-cover hidden sm:block lg:hidden"
       >
-        <source src="/video-hero-tablet.mp4" type="video/mp4" />
+        <source src="/video-hero-tablet2.mp4" type="video/mp4" />
       </video>
 
-      {/* VIDEO MOBILE - celulares */}
+      {/* VIDEO MOBILE */}
       <video
         autoPlay
         muted
@@ -32,33 +32,18 @@ const Hero = () => {
         playsInline
         className="absolute inset-0 w-full h-full object-cover sm:hidden"
       >
-        <source src="/video-hero-mobile.mp4" type="video/mp4" />
+        <source src="/video-hero-mobile2.mp4" type="video/mp4" />
       </video>
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/10"></div>
-
-      {/* CONTENIDO - abajo de la pantalla */}
-      <div className="relative z-10 text-center text-white px-6 max-w-4xl mx-auto pb-24 sm:pb-28 md:pb-32">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4">
-          ADUCMA
-        </h1>
-        <p className="text-lg sm:text-xl md:text-2xl mb-8 text-white/90 max-w-2xl mx-auto">
-          Asociación Civil por los consumidores y usuarios, el medio ambiente y la protección animal.
-        </p>
-         <p className="text-sm sm:text-base md:text-lg mb-6 text-white/80 max-w-3xl mx-auto leading-relaxed">
-          Trabajamos por la defensa de consumidores y usuarios, la protección del ambiente y el respeto por todas las formas de vida. Promovemos acciones de concientización, defensa y acompañamiento frente a situaciones de vulneración de derechos, daño ambiental y maltrato animal.
-        </p>
+      {/* Solo el botón */}
+      <div className="absolute bottom-16 sm:bottom-20 left-1/2 -translate-x-1/2 z-10">
         <a 
           href="#contacto" 
-          className="inline-block bg-verde px-8 py-3 rounded-full font-semibold hover:bg-verde-light transition-colors"
+          className="inline-block bg-verde text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-semibold hover:bg-verde-light transition-colors drop-shadow-lg text-sm sm:text-base"
         >
           Contactanos
         </a>
       </div>
-
-      {/* Scroll indicator */}
-      
     </section>
   );
 };

@@ -7,6 +7,7 @@ import { fileURLToPath } from "url";
 
 import authRoutes from "./routes/auth.js";
 import novedadesRoutes from "./routes/novedades.js";
+import cursosRoutes from "./routes/cursos.js";
 
 dotenv.config();
 
@@ -30,6 +31,7 @@ mongoose
 // Rutas
 app.use("/api/auth", authRoutes);
 app.use("/api/novedades", novedadesRoutes);
+app.use("/api/cursos", cursosRoutes);
 
 // Producción (servir frontend)
 if (process.env.NODE_ENV === "production") {
