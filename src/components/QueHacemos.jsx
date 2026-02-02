@@ -5,8 +5,7 @@ const items = [
   {
     id: "consumidores",
     titulo: "Usuarios y Consumidores",
-    imagen:
-      "/consumo.png",
+    imagen: "/consumo.png",
     icono: "🛡️",
     color: "from-emerald-600 to-teal-700",
     colorLight: "bg-emerald-500",
@@ -19,8 +18,7 @@ const items = [
   {
     id: "ambiente",
     titulo: "Medio Ambiente",
-    imagen:
-      "/ambiente.png",
+    imagen: "/ambiente.png",
     icono: "🌿",
     color: "from-green-600 to-emerald-700",
     colorLight: "bg-green-500",
@@ -33,8 +31,7 @@ const items = [
   {
     id: "animales",
     titulo: "Protección de Animales",
-    imagen:
-      "https://heraldodemexico.com.mx/u/fotografias/fotosnoticias/2024/11/12/1041139.jpg",
+    imagen: "https://heraldodemexico.com.mx/u/fotografias/fotosnoticias/2024/11/12/1041139.jpg",
     icono: "🐾",
     color: "from-teal-600 to-cyan-700",
     colorLight: "bg-teal-500",
@@ -319,7 +316,7 @@ export default function QueHacemos() {
                     ))}
                   </ul>
 
-                  {/* Botones de acción */}
+                  {/* Botones de acción - Ambos llevan a #contacto */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -327,7 +324,7 @@ export default function QueHacemos() {
                     className="flex flex-col sm:flex-row gap-4"
                   >
                     <a
-                      href="#denuncia"
+                      href="#contacto"
                       onClick={() => setSelectedIndex(null)}
                       className={`flex-1 py-4 px-6 bg-gradient-to-r ${selected.color} text-white 
                                font-semibold rounded-xl text-center text-lg

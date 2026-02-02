@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MagicContainer from "./ui/MagicContainer";
 
 
@@ -38,6 +38,32 @@ export default function Contacto() {
     "Residuos peligrosos",
     "Otro"
   ];
+
+  // Detectar hash en URL para abrir modal automáticamente
+  useEffect(() => {
+    const checkHash = () => {
+      const hash = window.location.hash;
+      if (hash === '#denuncia' || hash === '#hacer-denuncia') {
+        setModalOpen('denuncia');
+        // Limpiar el hash después de abrir
+        setTimeout(() => {
+          window.history.replaceState(null, '', window.location.pathname + '#contacto');
+        }, 100);
+      } else if (hash === '#consulta' || hash === '#contacto-form') {
+        setModalOpen('contacto');
+        setTimeout(() => {
+          window.history.replaceState(null, '', window.location.pathname + '#contacto');
+        }, 100);
+      }
+    };
+
+    // Verificar al montar
+    checkHash();
+
+    // Escuchar cambios de hash
+    window.addEventListener('hashchange', checkHash);
+    return () => window.removeEventListener('hashchange', checkHash);
+  }, []);
 
   const handleContactoChange = (e) => {
     setFormContacto({ ...formContacto, [e.target.name]: e.target.value });
@@ -80,7 +106,7 @@ export default function Contacto() {
   };
 
   return (
-    <section id="contacto" className="relative bg-crema py-24 overflow-hidden">
+    <section id="contacto" className="relative bg-crema py-24 overflow-hidden scroll-mt-24">
 
 
       
