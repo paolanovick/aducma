@@ -94,7 +94,7 @@ export default function QueHacemos() {
                 <motion.div
                   key={item.id}
                   style={{ scale: scales[i] }}
-                  className="relative w-[320px] h-[440px] rounded-2xl overflow-hidden shadow-2xl"
+                  className="relative w-[380px] h-[480px] rounded-2xl overflow-hidden shadow-2xl"
                 >
                   {/* IMAGEN */}
                   <img
