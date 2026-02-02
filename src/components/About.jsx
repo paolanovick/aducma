@@ -13,7 +13,7 @@ export default function About() {
     {
       id: "mision",
       titulo: "Misión",
-      imagen: "/images/mision.jpg",
+      imagen: "images/mision.jpg",
       contenido: "Promover la defensa de los derechos de usuarios y consumidores, el cuidado del ambiente y la defensa de los derechos de los animales mediante acciones de concientización, asesoramiento y acompañamiento a la comunidad.",
     },
     {
