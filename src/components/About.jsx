@@ -13,19 +13,19 @@ export default function About() {
     {
       id: "mision",
       titulo: "Misión",
-      imagen: "https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?w=800",
+      imagen: "/public/images/mision.jpg",
       contenido: "Promover la defensa de los derechos de usuarios y consumidores, el cuidado del ambiente y la defensa de los derechos de los animales mediante acciones de concientización, asesoramiento y acompañamiento a la comunidad.",
     },
     {
       id: "vision",
       titulo: "Visión",
-      imagen: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800",
+      imagen: "/public/images/vision.jpg",
       contenido: "Construir una sociedad más justa, responsable y respetuosa con el ambiente, los animales y los consumidores, promoviendo el trato digno y el deber de informar correctamente previo a la contratación de productos o servicios.",
     },
     {
       id: "valores",
       titulo: "Valores",
-      imagen: "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=800",
+      imagen: "/public/images/valores.jpg",
       contenido: "Compromiso – Respeto – Responsabilidad – Solidaridad – Transparencia",
     },
   ];
