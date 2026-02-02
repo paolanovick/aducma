@@ -6,7 +6,7 @@ const items = [
     id: "consumidores",
     titulo: "Usuarios y Consumidores",
     imagen:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkuls6TJymWwxwg13sgJYyEE9PR7O4iWfYRA&s",
+      "/consumo.png",
     icono: "🛡️",
     color: "from-emerald-600 to-teal-700",
     colorLight: "bg-emerald-500",
@@ -20,7 +20,7 @@ const items = [
     id: "ambiente",
     titulo: "Medio Ambiente",
     imagen:
-      "https://germinar.org.ar/wp-content/uploads/2020/11/mision-y-vision-germinar-ong.jpg",
+      "/ambiente.png",
     icono: "🌿",
     color: "from-green-600 to-emerald-700",
     colorLight: "bg-green-500",

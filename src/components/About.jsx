@@ -15,7 +15,7 @@ export default function About() {
     {
       id: "mision",
       titulo: "Misión",
-      imagen: "/mision.jpg",
+      imagen: "/mision.png",
       contenido: "Promover la defensa de los derechos de usuarios y consumidores, el cuidado del ambiente y la defensa de los derechos de los animales mediante acciones de concientización, asesoramiento y acompañamiento a la comunidad.",
     },
     {
@@ -27,7 +27,7 @@ export default function About() {
     {
       id: "valores",
       titulo: "Valores",
-      imagen: "/somos.avif",
+      imagen: "/valores.png",
       contenido: "Compromiso – Respeto – Responsabilidad – Solidaridad – Transparencia",
     },
   ];
