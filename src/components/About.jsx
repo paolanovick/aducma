@@ -11,39 +11,39 @@ export default function About() {
 
   const tarjetas = [
     {
-      id: "mision",
+      id: "mision-1",
       titulo: "Misión",
-      imagen: "/public/images/mision.jpg",
+      imagen: "/images/mision.jpg",
       contenido: "Promover la defensa de los derechos de usuarios y consumidores, el cuidado del ambiente y la defensa de los derechos de los animales mediante acciones de concientización, asesoramiento y acompañamiento a la comunidad.",
     },
     {
-      id: "vision",
+      id: "vision-1",
       titulo: "Visión",
-      imagen: "/public/images/vision.jpg",
+      imagen: "/images/vision.jpg",
       contenido: "Construir una sociedad más justa, responsable y respetuosa con el ambiente, los animales y los consumidores, promoviendo el trato digno y el deber de informar correctamente previo a la contratación de productos o servicios.",
     },
     {
-      id: "valores",
+      id: "valores-1",
       titulo: "Valores",
-      imagen: "/public/images/valores.jpg",
+      imagen: "/images/valores.jpg",
       contenido: "Compromiso – Respeto – Responsabilidad – Solidaridad – Transparencia",
     },
     {
-      id: "mision",
+      id: "mision-2",
       titulo: "Misión",
-      imagen: "/public/images/mision.jpg",
+      imagen: "/images/mision.jpg",
       contenido: "Promover la defensa de los derechos de usuarios y consumidores, el cuidado del ambiente y la defensa de los derechos de los animales mediante acciones de concientización, asesoramiento y acompañamiento a la comunidad.",
     },
     {
-      id: "vision",
+      id: "vision-2",
       titulo: "Visión",
-      imagen: "/public/images/vision.jpg",
+      imagen: "/images/vision.jpg",
       contenido: "Construir una sociedad más justa, responsable y respetuosa con el ambiente, los animales y los consumidores, promoviendo el trato digno y el deber de informar correctamente previo a la contratación de productos o servicios.",
     },
     {
-      id: "valores",
+      id: "valores-2",
       titulo: "Valores",
-      imagen: "/public/images/valores.jpg",
+      imagen: "/images/valores.jpg",
       contenido: "Compromiso – Respeto – Responsabilidad – Solidaridad – Transparencia",
     },
   ];
