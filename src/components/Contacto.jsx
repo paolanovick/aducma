@@ -233,15 +233,24 @@ export default function Contacto() {
     </p>
 
     <div className="flex flex-wrap justify-center gap-8">
-      <a
-        href="https://wa.me/543517300674"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex items-center gap-3 text-verde hover:text-verde-dark transition-colors font-medium"
-      >
-        {/* icon */}
-        <span>351 730 0674</span>
-      </a>
+     <a
+  href="https://wa.me/543517300674"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="flex items-center gap-3 text-verde hover:text-verde-dark transition-colors font-medium"
+>
+  {/* WhatsApp icon */}
+  <svg
+    className="w-5 h-5"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+  >
+    <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.98.52 3.91 1.5 5.6L2 22l4.62-1.6a9.9 9.9 0 0 0 5.42 1.6h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.77 14.31c-.24.68-1.2 1.3-1.65 1.36-.42.06-.97.09-1.56-.1-.36-.11-.82-.27-1.41-.52-2.49-1.07-4.11-3.55-4.23-3.72-.12-.17-1.01-1.34-1.01-2.56 0-1.22.63-1.82.86-2.07.22-.24.48-.3.64-.3.16 0 .32 0 .46.01.15.01.35-.06.55.42.2.48.68 1.67.74 1.79.06.12.1.26.02.42-.08.16-.12.26-.24.4-.12.14-.25.31-.36.42-.12.12-.24.25-.1.48.14.24.63 1.04 1.35 1.68.93.83 1.72 1.09 1.96 1.22.24.12.38.1.52-.06.14-.16.6-.7.76-.94.16-.24.32-.2.55-.12.22.08 1.4.66 1.64.78.24.12.4.18.46.28.06.1.06.6-.18 1.28z"/>
+  </svg>
+
+  <span>351 730 0674</span>
+</a>
+
 
       <a
         href="mailto:aducmaasociacion@gmail.com"
