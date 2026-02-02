@@ -51,37 +51,45 @@ export default function About() {
       </div>
 
       {/* CARRUSEL */}
-      <div className="relative pb-2">
-        <Swiper
-          modules={[Navigation]}
-          slidesPerView={1.2}
-          centeredSlides={true}
-          spaceBetween={15}
-          loop={true}
-          navigation={{
-            prevEl: ".about-prev",
-            nextEl: ".about-next",
-          }}
-          onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
-          breakpoints={{
-            640: { slidesPerView: 2, spaceBetween: 20 },
-            1024: { slidesPerView: 3, spaceBetween: 25 },
-          }}
-        >
+     <Swiper
+  modules={[Navigation]}
+  slidesPerView={1.5}
+  centeredSlides={true}
+  spaceBetween={20}
+  loop={true}
+  loopAdditionalSlides={3}
+  navigation={{
+    prevEl: ".about-prev",
+    nextEl: ".about-next",
+  }}
+  onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+  breakpoints={{
+    480: { slidesPerView: 2, spaceBetween: 20 },
+    768: { slidesPerView: 2.5, spaceBetween: 25 },
+    1024: { slidesPerView: 3.5, spaceBetween: 30 },
+    1280: { slidesPerView: 4, spaceBetween: 30 },
+  }}
+>
           {tarjetas.map((tarjeta, index) => {
-            const isActive = index === activeIndex;
+  const isActive = index === activeIndex;
 
-            return (
-              <SwiperSlide key={tarjeta.id}>
-                <div
-                  className={`relative h-[450px] sm:h-[480px] bg-white rounded-2xl overflow-hidden transition-all duration-700 ease-out mb-16
-                    ${
-                      isActive
-                        ? "shadow-[0_20px_35px_rgba(0,0,0,0.25)] scale-[1.02] z-20"
-                        : "shadow-[0_14px_25px_rgba(0,0,0,0.15)] scale-95 z-10 opacity-70"
-                    }
-                  `}
-                >
+  return (
+    <SwiperSlide key={tarjeta.id}>
+      <div
+        className={`relative h-[450px] sm:h-[480px] bg-white rounded-2xl overflow-hidden transition-all duration-700 ease-out mb-16
+          ${
+            isActive
+              ? "shadow-[0_30px_60px_rgba(0,0,0,0.35)] scale-105 -translate-y-4 z-20"
+              : "shadow-[0_10px_20px_rgba(0,0,0,0.1)] scale-90 z-10 opacity-60 hover:opacity-80 hover:scale-95"
+          }
+        `}
+        style={{
+          transform: isActive 
+            ? "perspective(1000px) rotateX(2deg) scale(1.05) translateY(-16px)" 
+            : "perspective(1000px) rotateX(0deg) scale(0.9)",
+          transition: "all 0.7s cubic-bezier(0.4, 0, 0.2, 1)"
+        }}
+      >
                   {/* IMAGEN */}
                   <div
                     className={`absolute top-0 left-0 right-0 overflow-hidden transition-all duration-700 ease-in-out
