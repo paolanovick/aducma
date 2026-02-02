@@ -63,17 +63,18 @@ export default function QueHacemos() {
   );
 
   const textBlur = items.map((_, i) =>
-    useTransform(scrollYProgress, [0.35 + i * 0.1, 0.65 + i * 0.1], [8, 0])
+    useTransform(
+      scrollYProgress,
+      [0.35 + i * 0.1, 0.65 + i * 0.1],
+      ["blur(8px)", "blur(0px)"]
+    )
   );
-
-  const hoverEnabled = useTransform(scrollYProgress, v => v > 0.9);
 
   return (
     <>
       {/* ================= DESKTOP ================= */}
       <section className="hidden lg:block">
-
-        {/* TÍTULO FIJO */}
+        {/* TÍTULO */}
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-24 text-center">
           <h2 className="text-5xl lg:text-6xl font-bold text-verde mb-4">
             Qué hacemos
@@ -93,13 +94,7 @@ export default function QueHacemos() {
                 <motion.div
                   key={item.id}
                   style={{ scale: scales[i] }}
-                  whileHover={
-                    hoverEnabled.get()
-                      ? { scale: 1.02, y: -6 }
-                      : {}
-                  }
-                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                  className="relative w-[320px] h-[440px] rounded-2xl overflow-hidden shadow-2xl cursor-pointer will-change-transform"
+                  className="relative w-[320px] h-[440px] rounded-2xl overflow-hidden shadow-2xl"
                 >
                   {/* IMAGEN */}
                   <img
@@ -127,7 +122,7 @@ export default function QueHacemos() {
                     style={{
                       opacity: textOpacity[i],
                       y: textY[i],
-                      filter: textBlur[i].to(v => `blur(${v}px)`),
+                      filter: textBlur[i],
                     }}
                     className="absolute bottom-0 left-0 right-0 p-6 text-white text-sm leading-relaxed
                                bg-black/60 backdrop-blur-md"
