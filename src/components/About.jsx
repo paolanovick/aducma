@@ -1,7 +1,7 @@
-// About.jsx - NOSOTROS con carrusel reveal (CORREGIDO)
+// About.jsx - NOSOTROS con fondo claro y letras verdes
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -32,33 +32,53 @@ export default function About() {
     },
   ];
 
-  // Forzar actualización después de montar para centrar correctamente
+  // Función para inicializar el swiper correctamente
+  const initializeSwiper = useCallback((swiper) => {
+    swiperRef.current = swiper;
+    
+    // Forzar la actualización después de un pequeño delay
+    requestAnimationFrame(() => {
+      if (swiper && !swiper.destroyed) {
+        swiper.update();
+        swiper.slideTo(0, 0);
+        setActiveIndex(0);
+        
+        // Segundo update para asegurar el centrado
+        setTimeout(() => {
+          if (swiper && !swiper.destroyed) {
+            swiper.update();
+            setIsReady(true);
+          }
+        }, 50);
+      }
+    });
+  }, []);
+
+  // Re-centrar en resize
   useEffect(() => {
-    if (swiperRef.current) {
-      // Pequeño delay para asegurar que el DOM esté listo
-      const timer = setTimeout(() => {
-        swiperRef.current.slideToLoop(0, 0); // Ir al slide 0 sin animación
-        swiperRef.current.update(); // Actualizar el swiper
-        setIsReady(true);
-      }, 100);
-      
-      return () => clearTimeout(timer);
-    }
+    const handleResize = () => {
+      if (swiperRef.current && !swiperRef.current.destroyed) {
+        swiperRef.current.update();
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
-    <section id="nosotros" className="bg-verde py-20 scroll-mt-24 overflow-hidden">
-      {/* TÍTULO Y TEXTO */}
+    <section id="nosotros" className="bg-gradient-to-b from-white via-green-50/30 to-white py-20 scroll-mt-24 overflow-hidden">
+      {/* TÍTULO Y TEXTO - FONDO CLARO, LETRAS VERDES */}
       <div className="max-w-6xl mx-auto px-6 mb-12">
-        <h2 className="text-4xl sm:text-5xl font-bold text-white text-center mb-6">
+        <h2 className="text-4xl sm:text-5xl font-bold text-verde text-center mb-6">
           NOSOTROS
         </h2>
 
         <div className="max-w-4xl mx-auto text-center">
-          <p className="text-white/90 text-lg leading-relaxed mb-4">
+          <p className="text-verde/90 text-lg leading-relaxed mb-4">
             Somos una Asociación Civil sin fines de lucro comprometida con la defensa de los derechos de Usuarios y Consumidores, la protección del ambiente y la defensa de los derechos de los animales.
           </p>
-          <p className="text-white/80 leading-relaxed">
+          <p className="text-verde/70 leading-relaxed">
             Actuamos con responsabilidad social, compromiso ciudadano y respeto por la normativa vigente.
           </p>
         </div>
@@ -66,31 +86,28 @@ export default function About() {
 
       {/* CARRUSEL */}
       <div 
-        className="transition-opacity duration-300"
+        className="transition-opacity duration-500"
         style={{ opacity: isReady ? 1 : 0 }}
       >
         <Swiper
           modules={[Navigation]}
-          onSwiper={(swiper) => {
-            swiperRef.current = swiper;
-          }}
-          slidesPerView={1.5}
+          onSwiper={initializeSwiper}
+          slidesPerView={1.2}
           centeredSlides={true}
           spaceBetween={20}
-          loop={true}
+          loop={false}
           initialSlide={0}
-          observer={true}
-          observeParents={true}
+          watchSlidesProgress={true}
           navigation={{
             prevEl: ".about-prev",
             nextEl: ".about-next",
           }}
-          onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+          onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
           breakpoints={{
-            480: { slidesPerView: 2, spaceBetween: 20 },
-            768: { slidesPerView: 2.5, spaceBetween: 25 },
-            1024: { slidesPerView: 3.5, spaceBetween: 30 },
-            1280: { slidesPerView: 4, spaceBetween: 30 },
+            480: { slidesPerView: 1.5, spaceBetween: 20 },
+            768: { slidesPerView: 2.2, spaceBetween: 25 },
+            1024: { slidesPerView: 3, spaceBetween: 30 },
+            1280: { slidesPerView: 3, spaceBetween: 40 },
           }}
         >
           {tarjetas.map((tarjeta, index) => {
@@ -105,9 +122,9 @@ export default function About() {
                       ? "perspective(1000px) rotateX(2deg) scale(1.05) translateY(-16px)"
                       : "perspective(1000px) rotateX(0deg) scale(0.9)",
                     boxShadow: isActive
-                      ? "0 30px 60px rgba(0,0,0,0.35)"
-                      : "0 10px 20px rgba(0,0,0,0.1)",
-                    opacity: isActive ? 1 : 0.6,
+                      ? "0 30px 60px rgba(0,0,0,0.25)"
+                      : "0 10px 20px rgba(0,0,0,0.08)",
+                    opacity: isActive ? 1 : 0.5,
                     zIndex: isActive ? 20 : 10,
                     transition: "all 0.7s cubic-bezier(0.4, 0, 0.2, 1)",
                   }}
@@ -164,17 +181,17 @@ export default function About() {
         </Swiper>
       </div>
 
-      {/* CONTROLES */}
+      {/* CONTROLES - Colores invertidos para fondo claro */}
       <div className="flex items-center justify-center gap-6 mt-4 pb-4">
-        <button className="about-prev w-12 h-12 rounded-full border-2 border-white/50 hover:bg-white hover:text-verde text-white transition-all flex items-center justify-center">
+        <button className="about-prev w-12 h-12 rounded-full border-2 border-verde/50 hover:bg-verde hover:text-white text-verde transition-all flex items-center justify-center">
           <span className="text-xl">←</span>
         </button>
 
-        <div className="text-white font-medium">
+        <div className="text-verde font-medium">
           {activeIndex + 1} / {tarjetas.length}
         </div>
 
-        <button className="about-next w-12 h-12 rounded-full border-2 border-white/50 hover:bg-white hover:text-verde text-white transition-all flex items-center justify-center">
+        <button className="about-next w-12 h-12 rounded-full border-2 border-verde/50 hover:bg-verde hover:text-white text-verde transition-all flex items-center justify-center">
           <span className="text-xl">→</span>
         </button>
       </div>

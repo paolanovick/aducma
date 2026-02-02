@@ -83,8 +83,8 @@ export default function QueHacemos() {
   const goPrev = () => setSelectedIndex((prev) => (prev - 1 + items.length) % items.length);
 
   return (
-    <section className="py-24 px-6 lg:px-12 bg-gradient-to-b from-white via-green-50/50 to-white">
-      {/* TÍTULO */}
+    <section id="que-hacemos" className="py-24 px-6 lg:px-12 bg-verde scroll-mt-24">
+      {/* TÍTULO - FONDO VERDE, LETRAS BLANCAS */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -92,13 +92,13 @@ export default function QueHacemos() {
         transition={{ duration: 0.6 }}
         className="max-w-7xl mx-auto text-center mb-20"
       >
-        <span className="inline-block px-4 py-2 bg-verde/10 text-verde rounded-full text-sm font-medium mb-4">
+        <span className="inline-block px-4 py-2 bg-white/10 text-white rounded-full text-sm font-medium mb-4">
           Nuestro trabajo
         </span>
-        <h2 className="text-4xl lg:text-6xl font-bold text-verde mb-6">
+        <h2 className="text-4xl lg:text-6xl font-bold text-white mb-6">
           Qué hacemos
         </h2>
-        <p className="max-w-2xl mx-auto text-gray-600 text-lg lg:text-xl">
+        <p className="max-w-2xl mx-auto text-white/80 text-lg lg:text-xl">
           Trabajamos en la defensa de los derechos de usuarios y consumidores,
           la protección del ambiente y el bienestar animal.
         </p>
@@ -114,7 +114,7 @@ export default function QueHacemos() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.15 }}
             onClick={() => setSelectedIndex(index)}
-            className="group relative h-[450px] lg:h-[500px] rounded-3xl overflow-hidden shadow-xl cursor-pointer"
+            className="group relative h-[450px] lg:h-[500px] rounded-3xl overflow-hidden shadow-xl cursor-pointer bg-white"
             whileHover={{ y: -10 }}
             whileTap={{ scale: 0.98 }}
           >
