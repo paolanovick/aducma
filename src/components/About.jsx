@@ -1,154 +1,158 @@
-import { useEffect, useRef, useState } from "react";
-import { AngledSlider } from "../components/ui/AngledSlider";
-import MagicContainer from "../components/ui/MagicContainer";
+// About.jsx - NOSOTROS con carrusel reveal
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import { useState } from "react";
 
+import "swiper/css";
+import "swiper/css/navigation";
 
 export default function About() {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.2 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  const items = [
+  const tarjetas = [
     {
-      id: 1,
-      categoria: "Somos",
-      titulo: "Asociación civil sin fines de lucro",
-      descripcion: "Trabajamos de manera independiente y transparente.",
-      imagen: "/somos.avif",
+      id: "mision",
+      titulo: "Misión",
+      imagen: "https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?w=800",
+      contenido: "Promover la defensa de los derechos de usuarios y consumidores, el cuidado del ambiente y la defensa de los derechos de los animales mediante acciones de concientización, asesoramiento y acompañamiento a la comunidad.",
     },
     {
-      id: 2,
-      categoria: "Misión",
-      titulo: "Promover el cuidado del ambiente",
-      descripcion: "Concientización y acompañamiento a la comunidad.",
-      imagen: "/mision.jpg",
+      id: "vision",
+      titulo: "Visión",
+      imagen: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800",
+      contenido: "Construir una sociedad más justa, responsable y respetuosa con el ambiente, los animales y los consumidores, promoviendo el trato digno y el deber de informar correctamente previo a la contratación de productos o servicios.",
     },
     {
-      id: 3,
-      categoria: "Visión",
-      titulo: "Una sociedad más justa",
-      descripcion: "Futuro responsable con el ambiente y los animales.",
-      imagen: "/vision.png",
-    },
-    {
-      id: 4,
-      categoria: "Compromiso",
-      titulo: "Compromiso con el ambiente",
-      descripcion: "Respeto a todas las formas de vida.",
-      imagen: "/compromisoAmb.png",
-    },
-    {
-      id: 5,
-      categoria: "Compromiso",
-      titulo: "Confidencialidad y seriedad",
-      descripcion: "Máxima discreción y profesionalismo.",
-      imagen: "/confidencialidad.jpg",
-    },
-    {
-      id: 6,
-      categoria: "Compromiso",
-      titulo: "Acompañamiento responsable",
-      descripcion: "Te acompañamos con dedicación y empatía.",
-      imagen: "/responsabilidad.jpg",
+      id: "valores",
+      titulo: "Valores",
+      imagen: "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=800",
+      contenido: "Compromiso – Respeto – Responsabilidad – Solidaridad – Transparencia",
     },
   ];
 
   return (
-    <section id="nosotros" ref={sectionRef} className="relative bg-crema py-24 overflow-hidden">
-      
-      {/* FONDO DECORATIVO */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 -left-20 w-96 h-96 bg-verde/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 -right-20 w-80 h-80 bg-verde-light/10 rounded-full blur-3xl" />
+    <section id="nosotros" className="bg-verde py-20 scroll-mt-24 overflow-hidden">
+      <div className="max-w-6xl mx-auto px-6">
+        
+        {/* TÍTULO */}
+        <h2 className="text-4xl sm:text-5xl font-bold text-white text-center mb-6">
+          NOSOTROS
+        </h2>
+
+        {/* TEXTO INTRODUCTORIO */}
+        <div className="max-w-4xl mx-auto text-center mb-16">
+          <p className="text-white/90 text-lg leading-relaxed mb-4">
+            Somos una Asociación Civil sin fines de lucro comprometida con la defensa de los derechos de Usuarios y Consumidores, la protección del ambiente y la defensa de los derechos de los animales.
+          </p>
+          <p className="text-white/80 leading-relaxed">
+            Actuamos con responsabilidad social, compromiso ciudadano y respeto por la normativa vigente.
+          </p>
+        </div>
       </div>
 
-      <div className="relative">
-
-        {/* HEADER */}
-        <div 
-          className={`text-center mb-12 px-6 transition-all duration-1000
-                      ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+      {/* CARRUSEL */}
+      <div className="relative pb-2">
+        <Swiper
+          modules={[Navigation]}
+          slidesPerView={1.2}
+          centeredSlides={true}
+          spaceBetween={15}
+          loop={true}
+          navigation={{
+            prevEl: ".about-prev",
+            nextEl: ".about-next",
+          }}
+          onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+          breakpoints={{
+            640: { slidesPerView: 2, spaceBetween: 20 },
+            1024: { slidesPerView: 3, spaceBetween: 25 },
+          }}
         >
-          <div className="inline-flex items-center gap-2 bg-verde/20 backdrop-blur-sm border border-verde/30 rounded-full px-5 py-2 mb-6">
-            <span className="w-2 h-2 bg-verde rounded-full animate-pulse" />
-            <span className="text-verde text-sm font-medium tracking-wider uppercase">
-              Sobre Nosotros
-            </span>
+          {tarjetas.map((tarjeta, index) => {
+            const isActive = index === activeIndex;
+
+            return (
+              <SwiperSlide key={tarjeta.id}>
+                <div
+                  className={`relative h-[450px] sm:h-[480px] bg-white rounded-2xl overflow-hidden transition-all duration-700 ease-out mb-16
+                    ${
+                      isActive
+                        ? "shadow-[0_20px_35px_rgba(0,0,0,0.25)] scale-[1.02] z-20"
+                        : "shadow-[0_14px_25px_rgba(0,0,0,0.15)] scale-95 z-10 opacity-70"
+                    }
+                  `}
+                >
+                  {/* IMAGEN */}
+                  <div
+                    className={`absolute top-0 left-0 right-0 overflow-hidden transition-all duration-700 ease-in-out
+                      ${
+                        isActive
+                          ? "h-[180px] sm:h-[200px]"
+                          : "h-[380px] sm:h-[410px]"
+                      }
+                    `}
+                  >
+                    <img
+                      src={tarjeta.imagen}
+                      alt={tarjeta.titulo}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                  </div>
+
+                  {/* CONTENIDO */}
+                  <div
+                    className={`absolute bottom-0 left-0 right-0 bg-white flex flex-col items-center text-center transition-all duration-700 ease-in-out
+                      ${
+                        isActive
+                          ? "h-[270px] sm:h-[280px] justify-start pt-6 px-6"
+                          : "h-[70px] justify-center px-6"
+                      }
+                    `}
+                  >
+                    {/* Título */}
+                    <h3
+                      className={`font-bold text-verde uppercase tracking-wider transition-all duration-700
+                        ${
+                          isActive
+                            ? "text-xl sm:text-2xl mb-3"
+                            : "text-lg sm:text-xl mb-0"
+                        }
+                      `}
+                    >
+                      {tarjeta.titulo}
+                    </h3>
+
+                    {isActive && (
+                      <>
+                        <div className="w-12 h-1 bg-verde-light mb-4"></div>
+
+                        <p className="text-verde/70 text-sm sm:text-base leading-relaxed max-w-sm">
+                          {tarjeta.contenido}
+                        </p>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+
+        {/* CONTROLES */}
+        <div className="flex items-center justify-center gap-6 mt-4 pb-4">
+          <button className="about-prev w-12 h-12 rounded-full border-2 border-white/50 hover:bg-white hover:text-verde text-white transition-all flex items-center justify-center">
+            <span className="text-xl">←</span>
+          </button>
+
+          <div className="text-white font-medium">
+            {activeIndex + 1} / {tarjetas.length}
           </div>
-          
-          <h2 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-4 tracking-tight">
-            <span className="text-verde">Quiénes</span>{" "}
-            <span className="text-verde-light">somos</span>
-          </h2>
-          
-          <div className="flex items-center justify-center gap-3">
-            <div className="h-[2px] w-16 bg-gradient-to-r from-transparent to-verde/50" />
-            <svg className="w-6 h-6 text-verde-light" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-            </svg>
-            <div className="h-[2px] w-16 bg-gradient-to-l from-transparent to-verde/50" />
-          </div>
+
+          <button className="about-next w-12 h-12 rounded-full border-2 border-white/50 hover:bg-white hover:text-verde text-white transition-all flex items-center justify-center">
+            <span className="text-xl">→</span>
+          </button>
         </div>
-      
-     {/* TEXTO INSTITUCIONAL */}
-<div
-  className={`max-w-4xl mx-auto mb-20 px-6 transition-all duration-1000
-              ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
->
-  <MagicContainer>
-    <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 sm:p-10
-                    shadow-md border border-verde/10
-                    transition-transform duration-300
-                    hover:scale-[1.01]">
-      <p className="text-verde text-lg leading-relaxed mb-4">
-        Somos una <strong>Asociación Civil sin fines de lucro</strong> comprometida con la
-        defensa de los derechos de Usuarios y Consumidores, la protección del ambiente
-        y la defensa de los derechos de los animales.
-      </p>
-
-      <p className="text-verde/80 leading-relaxed mb-4">
-        Nuestra labor se basa en la concientización, la educación en las relaciones de
-        consumo, la relación con el medio ambiente y la intervención responsable ante
-        situaciones que vulneran el bienestar animal y el equilibrio ambiental.
-      </p>
-
-      <p className="text-verde/80 leading-relaxed">
-        Actuamos con <strong>responsabilidad social</strong>, compromiso ciudadano y
-        respeto por la normativa vigente.
-      </p>
-    </div>
-  </MagicContainer>
-</div>
-
-
-        {/* ANGLED SLIDER */}
-        <AngledSlider 
-          items={items} 
-          speed={35}
-          containerHeight="420px"
-          cardWidth="280px"
-          gap="30px"
-          angle={18}
-          hoverScale={1.08}
-          grayscale={true}
-        />
-
       </div>
     </section>
   );

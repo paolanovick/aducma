@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "server": "node backend/server.js",
-  "dev:full": "concurrently \"npm run dev\" \"npm run server\""
+    "dev:full": "concurrently \"npm run dev\" \"npm run server\""
   },
   "dependencies": {
     "@emailjs/browser": "^4.3.3",
@@ -27,7 +27,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-intersection-observer": "^9.8.1",
-    "react-router-dom": "^7.13.0"
+    "react-router-dom": "^7.13.0",
+    "swiper": "^12.1.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.56",

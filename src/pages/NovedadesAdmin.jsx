@@ -174,11 +174,21 @@ export default function NovedadesAdmin() {
       {/* HEADER */}
       <header className="bg-verde text-white py-4 px-6 shadow-lg sticky top-0 z-40">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <h1 className="text-xl font-bold">ADUCMA</h1>
-            <span className="text-crema/60">|</span>
-            <span className="text-crema/80">Dashboard</span>
-          </div>
+         <div className="flex items-center gap-4">
+  <button
+    onClick={() => navigate("/dashboard")}
+    className="text-crema/70 hover:text-crema flex items-center gap-1"
+  >
+    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+    </svg>
+    Volver
+  </button>
+  <span className="text-crema/60">|</span>
+  <h1 className="text-xl font-bold">ADUCMA</h1>
+  <span className="text-crema/60">|</span>
+  <span className="text-crema/80">Novedades</span>
+</div>
           <div className="flex items-center gap-4">
             <a href="/" target="_blank" className="text-crema/70 hover:text-crema text-sm">
               Ver sitio →

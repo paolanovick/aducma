@@ -107,56 +107,67 @@ export default function CursoDetalle() {
           ))}
         </div>
 
-        {/* FORMULARIO */}
-        <div className="bg-white rounded-3xl p-8 shadow-lg">
-          {enviado ? (
-            <div className="text-center">
-              <h3 className="text-xl font-bold text-verde mb-2">¡Inscripción enviada!</h3>
-              <p>Nos pondremos en contacto con vos.</p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <input
-                name="nombre"
-                value={formData.nombre}
-                onChange={handleChange}
-                placeholder="Nombre completo"
-                required
-                className="w-full px-4 py-3 border rounded-xl"
-              />
-              <input
-                name="email"
-                type="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="Email"
-                required
-                className="w-full px-4 py-3 border rounded-xl"
-              />
-              <input
-                name="telefono"
-                value={formData.telefono}
-                onChange={handleChange}
-                placeholder="Teléfono"
-                className="w-full px-4 py-3 border rounded-xl"
-              />
-              <textarea
-                name="mensaje"
-                value={formData.mensaje}
-                onChange={handleChange}
-                placeholder="Mensaje (opcional)"
-                rows={4}
-                className="w-full px-4 py-3 border rounded-xl"
-              />
-              <button
-                disabled={enviando}
-                className="w-full bg-verde text-white py-4 rounded-xl font-semibold"
-              >
-                {enviando ? "Enviando…" : "Enviar inscripción"}
-              </button>
-            </form>
-          )}
-        </div>
+       {/* FORMULARIO */}
+<div className="bg-white rounded-3xl p-8 shadow-lg">
+  <div className="text-center mb-8">
+    <h3 className="text-2xl font-bold text-verde mb-2">¿Te interesa este curso?</h3>
+    <p className="text-verde/70">Completá el siguiente formulario y nos pondremos en contacto con vos.</p>
+  </div>
+
+  {enviado ? (
+    <div className="text-center py-8">
+      <div className="w-16 h-16 bg-verde/20 rounded-full flex items-center justify-center mx-auto mb-4">
+        <svg className="w-8 h-8 text-verde" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
+      <h3 className="text-xl font-bold text-verde mb-2">¡Inscripción enviada!</h3>
+      <p className="text-verde/70">Nos pondremos en contacto con vos.</p>
+    </div>
+  ) : (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <input
+        name="nombre"
+        value={formData.nombre}
+        onChange={handleChange}
+        placeholder="Nombre completo"
+        required
+        className="w-full px-4 py-3 border border-verde/20 rounded-xl focus:border-verde focus:outline-none"
+      />
+      <input
+        name="email"
+        type="email"
+        value={formData.email}
+        onChange={handleChange}
+        placeholder="Email"
+        required
+        className="w-full px-4 py-3 border border-verde/20 rounded-xl focus:border-verde focus:outline-none"
+      />
+      <input
+        name="telefono"
+        value={formData.telefono}
+        onChange={handleChange}
+        placeholder="Teléfono"
+        className="w-full px-4 py-3 border border-verde/20 rounded-xl focus:border-verde focus:outline-none"
+      />
+      <textarea
+        name="mensaje"
+        value={formData.mensaje}
+        onChange={handleChange}
+        placeholder="Mensaje o consulta (opcional)"
+        rows={4}
+        className="w-full px-4 py-3 border border-verde/20 rounded-xl focus:border-verde focus:outline-none resize-none"
+      />
+      <button
+        type="submit"
+        disabled={enviando}
+        className="w-full bg-verde text-white py-4 rounded-xl font-semibold hover:bg-verde-dark transition-colors disabled:opacity-70"
+      >
+        {enviando ? "Enviando…" : "Enviar inscripción"}
+      </button>
+    </form>
+  )}
+</div>
       </div>
     </div>
   );
