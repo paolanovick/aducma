@@ -11,41 +11,24 @@ export default function About() {
 
   const tarjetas = [
     {
-      id: "mision-1",
+      id: "mision",
       titulo: "Misión",
-      imagen: "/images/mision.jpg",
+      imagen: "/public/images/mision.jpg",
       contenido: "Promover la defensa de los derechos de usuarios y consumidores, el cuidado del ambiente y la defensa de los derechos de los animales mediante acciones de concientización, asesoramiento y acompañamiento a la comunidad.",
     },
     {
-      id: "vision-1",
+      id: "vision",
       titulo: "Visión",
-      imagen: "/images/vision.jpg",
+      imagen: "/public/images/vision.jpg",
       contenido: "Construir una sociedad más justa, responsable y respetuosa con el ambiente, los animales y los consumidores, promoviendo el trato digno y el deber de informar correctamente previo a la contratación de productos o servicios.",
     },
     {
-      id: "valores-1",
+      id: "valores",
       titulo: "Valores",
-      imagen: "/images/valores.jpg",
+      imagen: "/public/images/valores.jpg",
       contenido: "Compromiso – Respeto – Responsabilidad – Solidaridad – Transparencia",
     },
-    {
-      id: "mision-2",
-      titulo: "Misión",
-      imagen: "/images/mision.jpg",
-      contenido: "Promover la defensa de los derechos de usuarios y consumidores, el cuidado del ambiente y la defensa de los derechos de los animales mediante acciones de concientización, asesoramiento y acompañamiento a la comunidad.",
-    },
-    {
-      id: "vision-2",
-      titulo: "Visión",
-      imagen: "/images/vision.jpg",
-      contenido: "Construir una sociedad más justa, responsable y respetuosa con el ambiente, los animales y los consumidores, promoviendo el trato digno y el deber de informar correctamente previo a la contratación de productos o servicios.",
-    },
-    {
-      id: "valores-2",
-      titulo: "Valores",
-      imagen: "/images/valores.jpg",
-      contenido: "Compromiso – Respeto – Responsabilidad – Solidaridad – Transparencia",
-    },
+    
   ];
 
   return (
