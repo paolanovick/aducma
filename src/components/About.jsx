@@ -7,7 +7,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 export default function About() {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(1); // Empieza en la tarjeta del medio
   const [isReady, setIsReady] = useState(false);
   const swiperRef = useRef(null);
 
@@ -40,8 +40,8 @@ export default function About() {
     requestAnimationFrame(() => {
       if (swiper && !swiper.destroyed) {
         swiper.update();
-        swiper.slideTo(0, 0);
-        setActiveIndex(0);
+        swiper.slideTo(1, 0); // Ir a la tarjeta del medio
+        setActiveIndex(1);
         
         // Segundo update para asegurar el centrado
         setTimeout(() => {
@@ -93,7 +93,7 @@ export default function About() {
           centeredSlides={true}
           spaceBetween={20}
           loop={false}
-          initialSlide={0}
+          initialSlide={1} // Empieza en la tarjeta del medio (Visión)
           watchSlidesProgress={true}
           navigation={{
             prevEl: ".about-prev",
