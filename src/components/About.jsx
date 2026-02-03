@@ -68,20 +68,17 @@ export default function About() {
 
   return (
     <section id="nosotros" className="bg-gradient-to-b from-white via-green-50/30 to-white py-20 scroll-mt-24 overflow-hidden">
-      {/* TÍTULO Y TEXTO - FONDO CLARO, LETRAS VERDES */}
-      <div className="max-w-6xl mx-auto px-6 mb-12">
-        <h2 className="text-4xl sm:text-5xl font-bold text-verde text-center mb-6">
-          NOSOTROS
+      {/* TÍTULO Y TEXTO - Mismo estilo que QueHacemos */}
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 mb-12 text-center">
+        <span className="inline-block px-4 py-2 bg-verde/10 text-verde rounded-full text-sm font-medium mb-4">
+          Conócenos
+        </span>
+        <h2 className="text-4xl lg:text-6xl font-bold text-verde mb-6">
+          Nosotros
         </h2>
-
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-verde/90 text-lg leading-relaxed mb-4">
-            Somos una Asociación Civil sin fines de lucro comprometida con la defensa de los derechos de Usuarios y Consumidores, la protección del ambiente y la defensa de los derechos de los animales.
-          </p>
-          <p className="text-verde/70 leading-relaxed">
-            Actuamos con responsabilidad social, compromiso ciudadano y respeto por la normativa vigente.
-          </p>
-        </div>
+        <p className="max-w-2xl mx-auto text-verde/70 text-lg lg:text-xl">
+          Somos una Asociación Civil sin fines de lucro comprometida con la defensa de los derechos de Usuarios y Consumidores, la protección del ambiente y la defensa de los derechos de los animales.
+        </p>
       </div>
 
       {/* CARRUSEL */}
