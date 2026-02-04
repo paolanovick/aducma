@@ -21,7 +21,7 @@ export default function About() {
     {
       id: "vision",
       titulo: "Visión",
-      imagen: "https://hazrevista.org/rsc/2024/02/coalicion-mundial-sociedad-mas-justa/",
+      imagen: "/vision.webp",
       contenido: "Construir una sociedad más justa, responsable y respetuosa con el ambiente, los animales y los consumidores, promoviendo el trato digno y el deber de informar correctamente previo a la contratación de productos o servicios.",
     },
     {
