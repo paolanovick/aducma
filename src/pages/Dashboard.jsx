@@ -30,7 +30,7 @@ export default function Dashboard() {
         : `${API}/api/cursos/todas`;
 
     const res = await fetch(url, {
-      headers: { Authorization: `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${token}` },
     });
 
     const data = await res.json();
@@ -43,7 +43,7 @@ export default function Dashboard() {
 
     await fetch(`${API}/api/${vista}/${id}`, {
       method: "DELETE",
-      headers: { Authorization: `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${token}` },
     });
 
     cargar();
@@ -67,9 +67,12 @@ export default function Dashboard() {
             >
               📋 Ver Inscripciones
             </button>
-            <a>
-              href="/" target="_blank" className="text-crema/70 hover:text-crema
-              text-sm" Ver sitio →
+            <a
+              href="/"
+              target="_blank"
+              className="text-crema/70 hover:text-crema text-sm"
+            >
+              Ver sitio →
             </a>
             <button
               onClick={handleLogout}
