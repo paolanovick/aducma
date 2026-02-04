@@ -68,11 +68,8 @@ export default function Dashboard() {
               📋 Ver Inscripciones
             </button>
             <a>
-              href="/"
-              target="_blank"
-              className="text-crema/70 hover:text-crema text-sm"
-            
-              Ver sitio →
+              href="/" target="_blank" className="text-crema/70 hover:text-crema
+              text-sm" Ver sitio →
             </a>
             <button
               onClick={handleLogout}
@@ -109,7 +106,7 @@ export default function Dashboard() {
             </button>
             <button
               onClick={() => navigate("/dashboard/adhesiones")}
-              className="px-5 py-2 rounded-xl font-medium bg-dorado/20 text-dorado border border-dorado/30 hover:bg-dorado/30 transition-colors"
+              className="px-5 py-2 rounded-xl font-medium bg-white border hover:bg-verde hover:text-white transition-colors"
             >
               👥 Adhesiones
             </button>
