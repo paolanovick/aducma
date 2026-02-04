@@ -18,9 +18,7 @@ const Footer = () => {
             <p className="text-white/70 text-sm">
               Asociación Civil por el Cuidado Ambiental y los Derechos de los Animales.
             </p>
-             <p className="text-white/70 text-sm">
-              © 2026 ADUCMA - Todos los derechos reservados
-            </p>
+            
           </div>
 
           {/* Columna 2: Secciones */}
