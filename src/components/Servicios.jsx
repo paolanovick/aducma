@@ -93,7 +93,8 @@ useEffect(() => {
             Explorá nuestros cursos y novedades. Hacé click en cualquier tarjeta para ver más detalles.
           </p>
 
-          <div className="relative min-h-[800px]">
+         <div className="relative">
+
             {cargando ? (
               <div className="flex items-center justify-center py-20">
                 <div className="animate-spin h-12 w-12 border-4 border-verde border-t-transparent rounded-full"></div>
