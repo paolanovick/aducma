@@ -10,7 +10,7 @@ export default function ComoTeAyudamos() {
     {
       titulo: "Analizamos la situación",
       texto: "Evaluamos el caso considerando el contexto y la normativa vigente.",
-      imagen: "/rescate.jpg",
+      imagen: "/compromisoAmb.png",
     },
     {
       titulo: "Orientamos sobre los pasos a seguir",
@@ -20,7 +20,7 @@ export default function ComoTeAyudamos() {
     {
       titulo: "Acompañamos y realizamos seguimiento",
       texto: "Acompañamos el proceso cuando la situación lo requiere.",
-      imagen: "/edAmbiental.jpg",
+      imagen: "/ambiente.png",
     },
   ];
 
