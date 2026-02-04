@@ -77,21 +77,26 @@ export default function Masonry({
     preloadImages(items.map((i) => i.imagen)).then(() => setImagesReady(true));
   }, [items]);
 
-  const grid = useMemo(() => {
-    if (!width) return [];
-    const colHeights = new Array(columns).fill(0);
-    const colWidth = width / columns;
-    const gap = 16;
+  const { grid, containerHeight } = useMemo(() => {
+  if (!width) return { grid: [], containerHeight: 400 };
+  const colHeights = new Array(columns).fill(0);
+  const colWidth = width / columns;
+  const gap = 16;
 
-    return items.map((item) => {
-      const col = colHeights.indexOf(Math.min(...colHeights));
-      const x = col * colWidth;
-      const h = (item.height || 300) / 2;
-      const y = colHeights[col];
-      colHeights[col] += h + gap;
-      return { ...item, x, y, w: colWidth - gap, h };
-    });
+  const gridItems = items.map((item) => {
+    const col = colHeights.indexOf(Math.min(...colHeights));
+    const x = col * colWidth;
+    const h = (item.height || 300) / 2;
+    const y = colHeights[col];
+    colHeights[col] += h + gap;
+    return { ...item, x, y, w: colWidth - gap, h };
+  });
+
+  const maxHeight = Math.max(...colHeights);
+  
+  return { grid: gridItems, containerHeight: maxHeight };
   }, [columns, items, width]);
+  
 
   useLayoutEffect(() => {
     if (!imagesReady) return;
@@ -126,15 +131,12 @@ export default function Masonry({
     navigate(`/${tipo}/${item._id}`);
   };
 
-  return (
-    <div ref={containerRef} className="masonry-list">
-      {grid.map((item) => (
-        <div
-          key={item._id}
-          data-key={item._id}
-          className="masonry-item-wrapper group"
-          onClick={() => handleClick(item)}
-        >
+return (
+  <div 
+    ref={containerRef} 
+    className="masonry-list"
+    style={{ height: containerHeight }}
+  >
           {/* Imagen de fondo */}
           <div
             className="masonry-item-img"
