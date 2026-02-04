@@ -127,7 +127,7 @@ export default function Masonry({
   };
 
   return (
-    <div ref={containerRef} className="masonry-list"  style={{ height: grid.height }}>
+    <div ref={containerRef} className="masonry-list">
       {grid.map((item) => (
         <div
           key={item._id}
