@@ -14,7 +14,7 @@ export default function Contacto() {
     mensaje: "",
   });
 
- setFormDenuncia({
+const [formDenuncia, setFormDenuncia] = useState({
   categoria: "",
   motivo: "",
   nombre: "",
