@@ -14,8 +14,8 @@ export default function Contacto() {
     mensaje: "",
   });
 
-  const [formDenuncia, setFormDenuncia] = useState({
-    categoria: "",
+ setFormDenuncia({
+  categoria: "",
   motivo: "",
   nombre: "",
   dni: "",
@@ -27,13 +27,15 @@ export default function Contacto() {
   descripcion: "",
   archivo: null,
   privacidad: false,
-  });
+});
 
 
   // Detectar hash en URL para abrir modal automáticamente
-  useEffect(() => {
-    const checkHash = () => {
-      const hash = window.location.hash;
+ useEffect(() => {
+  if (typeof window === "undefined") return;
+
+  const checkHash = () => {
+    const hash = window.location.hash;
       if (hash === '#denuncia' || hash === '#hacer-denuncia') {
         setModalOpen('denuncia');
         // Limpiar el hash después de abrir
@@ -52,9 +54,10 @@ export default function Contacto() {
     checkHash();
 
     // Escuchar cambios de hash
-    window.addEventListener('hashchange', checkHash);
-    return () => window.removeEventListener('hashchange', checkHash);
-  }, []);
+    checkHash();
+  window.addEventListener("hashchange", checkHash);
+  return () => window.removeEventListener("hashchange", checkHash);
+}, []);
 
   const handleContactoChange = (e) => {
     setFormContacto({ ...formContacto, [e.target.name]: e.target.value });
@@ -362,9 +365,12 @@ export default function Contacto() {
       {/* MODAL DENUNCIA */}
 {modalOpen === 'denuncia' && (
   <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-    <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={closeModal} />
+    <div
+      className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+      onClick={closeModal}
+    />
     
-    <div className="relative bg-crema rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl">
+      <div className="relative bg-crema rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl">
       {/* Header */}
       <div className="sticky top-0 bg-crema px-6 py-4 border-b border-verde/10 flex items-center justify-between rounded-t-3xl z-10">
         <div>
@@ -393,31 +399,36 @@ export default function Contacto() {
         ) : (
           <form onSubmit={(e) => handleSubmit(e, 'denuncia')} className="space-y-4">
             
-            {/* Categoría de denuncia */}
-            <div className="bg-verde/5 rounded-xl p-4 space-y-4">
-              <h4 className="font-semibold text-verde flex items-center gap-2">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                </svg>
-                Tipo de denuncia
-              </h4>
+           {/* Categoría de denuncia */}
+<div className="bg-verde/5 rounded-xl p-4 space-y-4">
+  <h4 className="font-semibold text-verde flex items-center gap-2">
+    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+        d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+    </svg>
+    Tipo de denuncia
+  </h4>
 
-              {/* Categoría principal */}
-              <div>
-                <label className="block text-sm font-medium text-verde mb-1">¿Sobre qué querés denunciar? *</label>
-                <select
-                  name="categoria"
-                  value={formDenuncia.categoria}
-                  onChange={handleDenunciaChange}
-                  required
-                  className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:border-verde focus:outline-none transition-colors appearance-none cursor-pointer"
-                >
-                  <option value="">Seleccioná una categoría</option>
-                  <option value="consumidores">🛒 Consumidores y Usuarios</option>
-                  <option value="ambiente">🌿 Medio Ambiente</option>
-                  <option value="animales">🐾 Protección Animal</option>
-                </select>
-              </div>
+  {/* Categoría principal */}
+  <div>
+    <label className="block text-sm font-medium text-verde mb-1">
+      ¿Sobre qué querés denunciar? *
+    </label>
+    <select
+      name="categoria"
+      value={formDenuncia.categoria}
+      onChange={handleDenunciaChange}
+      required
+      className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl"
+    >
+      <option value="">Seleccioná una categoría</option>
+      <option value="consumidores">🛒 Consumidores y Usuarios</option>
+      <option value="ambiente">🌿 Medio Ambiente</option>
+      <option value="animales">🐾 Protección Animal</option>
+    </select>
+  </div>
+</div>
+
 
               {/* Subcategoría - Consumidores */}
               {formDenuncia.categoria === 'consumidores' && (
@@ -438,7 +449,8 @@ export default function Contacto() {
                     <option value="producto_atado">Producto Atado a Otro Producto (ej: seguro obligatorio en préstamo)</option>
                     <option value="otros_consumidor">Otros</option>
                   </select>
-                </div>
+                        </div>
+                        
               )}
 
               {/* Subcategoría - Ambiente */}
