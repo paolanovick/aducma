@@ -80,11 +80,22 @@ const Footer = () => {
       </div>
 
       {/* Copyright */}
-      <div className="border-t border-white/20">
-        <div className="max-w-6xl mx-auto px-6 py-4 text-center text-white/60 text-sm">
-          © 2026 ConCódigoART - Todos los derechos reservados
-        </div>
-      </div>
+     <div className="text-center mt-8 pt-8 border-t border-white/10">
+  <p className="text-white/50 text-sm">
+    © 2026 ADUCMA - Todos los derechos reservados
+  </p>
+  <p className="text-white/40 text-xs mt-2">
+    Desarrollado por{" "}
+    <a 
+      href="https://concodigoart.vercel.app/" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      className="text-white/60 hover:text-white transition-colors"
+    >
+      conCodigoART
+    </a>
+  </p>
+</div>
     </footer>
   );
 };
