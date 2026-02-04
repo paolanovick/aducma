@@ -97,7 +97,7 @@ export default function Masonry({
   return { grid: gridItems, containerHeight: maxHeight };
   }, [columns, items, width]);
   
-
+  
   useLayoutEffect(() => {
     if (!imagesReady) return;
 
@@ -126,17 +126,24 @@ export default function Masonry({
     hasMounted.current = true;
   }, [grid, imagesReady, stagger, animateFrom, blurToFocus, ease]);
 
-  const handleClick = (item) => {
-    const tipo = item.tipo || "novedad";
-    navigate(`/${tipo}/${item._id}`);
-  };
+ const handleClick = (item) => {
+  const tipo = item.tipo || "novedad";
+  navigate(`/${tipo}/${item._id}`);
+};
 
-return (
-  <div 
-    ref={containerRef} 
-    className="masonry-list"
-    style={{ height: containerHeight }}
-  >
+  return (
+    <div 
+      ref={containerRef} 
+      className="masonry-list"
+      style={{ height: containerHeight }}
+    >
+      {grid.map((item) => (
+        <div
+          key={item._id}
+          data-key={item._id}
+          className="masonry-item-wrapper group"
+          onClick={() => handleClick(item)}
+        >
           {/* Imagen de fondo */}
           <div
             className="masonry-item-img"
