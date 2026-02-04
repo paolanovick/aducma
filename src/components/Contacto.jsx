@@ -95,7 +95,8 @@ export default function Contacto() {
    {
      id: "contacto",
      titulo: "Contacto general",
-     descripcion: "Somos una Asociación Civil sin fines de lucro...",
+     descripcion:
+       "Somos una Asociación Civil sin fines de lucro, con el compromiso con la defensa de los derechos de Usuarios y consumidores, el ambiente y los animales. Trabajamos con confidencialidad y seriedad, y ofrecemos acompañamiento responsable.",
      icono: "chat",
      color: "text-verde",
      colorBg: "bg-verde/15",
@@ -103,7 +104,8 @@ export default function Contacto() {
    {
      id: "denuncia",
      titulo: "Realizar una denuncia",
-     descripcion: "Si fuiste damnificado por un proveedor...",
+     descripcion:
+       "Si fuiste damnificado por un proveedor en los términos de la Ley 24.240 o presenciaste una situación de maltrato animal o daño ambiental, completá el formulario y nos pondremos en contacto.",
      icono: "alert",
      color: "text-red-600",
      colorBg: "bg-red-100",
@@ -111,7 +113,8 @@ export default function Contacto() {
    {
      id: "adhesion",
      titulo: "Quiero adherirme",
-     descripcion: "Sumate como adherente y colaborá...",
+     descripcion:
+       "Sumate como adherente y colaborá en la defensa de los derechos de consumidores, el medio ambiente y los animales. ¡Tu ayuda es importante!",
      icono: "user-plus",
      color: "text-dorado",
      colorBg: "bg-dorado/20",
