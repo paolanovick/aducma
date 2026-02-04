@@ -8,7 +8,7 @@ export default function Dashboard() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
-  const [vista, setVista] = useState("novedades"); // novedades | cursos
+  const [vista, setVista] = useState("novedades");
   const [items, setItems] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
@@ -24,7 +24,6 @@ export default function Dashboard() {
 
   const cargar = async () => {
     setCargando(true);
-
     const url =
       vista === "novedades"
         ? `${API}/api/novedades/todas`
@@ -60,25 +59,29 @@ export default function Dashboard() {
       {/* HEADER */}
       <header className="bg-verde text-white px-6 py-4 shadow">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-  <h1 className="text-xl font-bold">Panel de Administración</h1>
-  <div className="flex items-center gap-4">
-    <button
-      onClick={() => navigate("/dashboard/inscripciones")}
-      className="bg-white/20 px-4 py-2 rounded-lg text-sm hover:bg-white/30 transition-colors"
-    >
-      📋 Ver Inscripciones
-    </button>
-    <a href="/" target="_blank" className="text-crema/70 hover:text-crema text-sm">
-      Ver sitio →
-    </a>
-    <button
-      onClick={handleLogout}
-      className="bg-white/20 px-4 py-2 rounded-lg text-sm hover:bg-white/30 transition-colors"
-    >
-      Cerrar sesión
-    </button>
-  </div>
-</div>
+          <h1 className="text-xl font-bold">Panel de Administración</h1>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => navigate("/dashboard/inscripciones")}
+              className="bg-white/20 px-4 py-2 rounded-lg text-sm hover:bg-white/30 transition-colors"
+            >
+              📋 Ver Inscripciones
+            </button>
+            <a>
+              href="/"
+              target="_blank"
+              className="text-crema/70 hover:text-crema text-sm"
+            
+              Ver sitio →
+            </a>
+            <button
+              onClick={handleLogout}
+              className="bg-white/20 px-4 py-2 rounded-lg text-sm hover:bg-white/30 transition-colors"
+            >
+              Cerrar sesión
+            </button>
+          </div>
+        </div>
       </header>
 
       <main className="max-w-7xl mx-auto px-6 py-10">
@@ -99,16 +102,20 @@ export default function Dashboard() {
             <button
               onClick={() => setVista("cursos")}
               className={`px-5 py-2 rounded-xl font-medium ${
-                vista === "cursos"
-                  ? "bg-verde text-white"
-                  : "bg-white border"
+                vista === "cursos" ? "bg-verde text-white" : "bg-white border"
               }`}
             >
               Cursos
             </button>
+            <button
+              onClick={() => navigate("/dashboard/adhesiones")}
+              className="px-5 py-2 rounded-xl font-medium bg-dorado/20 text-dorado border border-dorado/30 hover:bg-dorado/30 transition-colors"
+            >
+              👥 Adhesiones
+            </button>
           </div>
 
-          {/* Botón único */}
+          {/* Botón agregar */}
           <button
             onClick={() => setModalOpen(true)}
             className="bg-verde text-white px-6 py-3 rounded-xl font-semibold"
@@ -146,23 +153,20 @@ export default function Dashboard() {
                 items.map((item) => (
                   <tr key={item._id} className="border-t">
                     <td className="p-4 font-medium">{item.titulo}</td>
-                    <td className="p-4 text-sm text-gray-600">
-                      {item.fecha}
-                    </td>
+                    <td className="p-4 text-sm text-gray-600">{item.fecha}</td>
                     <td className="p-4">
                       {item.activo === false ? "Oculto" : "Activo"}
                     </td>
                     <td className="p-4 text-right space-x-3">
-                    <button
-  onClick={() => {
-    setItemEditando(item);
-    setModalOpen(true);
-  }}
-  className="text-blue-600 hover:underline"
->
-  Editar
-</button>
-
+                      <button
+                        onClick={() => {
+                          setItemEditando(item);
+                          setModalOpen(true);
+                        }}
+                        className="text-blue-600 hover:underline"
+                      >
+                        Editar
+                      </button>
                       <button
                         onClick={() => eliminar(item._id)}
                         className="text-red-600 hover:underline"
@@ -179,18 +183,17 @@ export default function Dashboard() {
       </main>
 
       {/* MODAL */}
-    {modalOpen && (
-  <ContenidoModal
-    token={token}
-    itemEditando={itemEditando}
-    onClose={() => {
-      setModalOpen(false);
-      setItemEditando(null);
-    }}
-    onGuardado={cargar}
-  />
-)}
-
+      {modalOpen && (
+        <ContenidoModal
+          token={token}
+          itemEditando={itemEditando}
+          onClose={() => {
+            setModalOpen(false);
+            setItemEditando(null);
+          }}
+          onGuardado={cargar}
+        />
+      )}
     </div>
   );
 }
