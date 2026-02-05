@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
+import { enviarAn8n } from "../utils/n8nService.js";
 import MagicContainer from "./ui/MagicContainer";
 import ModalContacto from "./modals/ModalContacto";
 import ModalDenuncia from "./modals/ModalDenuncia";
 import ModalAdhesion from "./modals/ModalAdhesion";
+
+
 
 export default function Contacto() {
   const [modalOpen, setModalOpen] = useState(null);
@@ -42,6 +45,7 @@ export default function Contacto() {
       } else if (tipo === "contacto") {
         endpoint = `${API}/api/contactos`;
         data = formContacto;
+         await enviarAn8n("contacto", data);
       } else if (tipo === "denuncia") {
         endpoint = `${API}/api/denuncias`;
         data = formDenuncia;
