@@ -16,7 +16,7 @@ const Footer = () => {
               <span className="font-bold text-2xl">ADUCMA</span>
             </div>
             <p className="text-white/70 text-sm">
-              Asociación Civil por el Cuidado Ambiental y los Derechos de los Animales.
+              Asociación Civil por los Consumidores y Usuarios, el Medio Ambiente y la Protección Animal.
             </p>
             
           </div>
