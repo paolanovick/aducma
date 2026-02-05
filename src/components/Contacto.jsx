@@ -45,7 +45,7 @@ export default function Contacto() {
       } else if (tipo === "contacto") {
         endpoint = `${API}/api/contactos`;
         data = formContacto;
-         await enviarAn8n("contacto", data);
+         
       } else if (tipo === "denuncia") {
         endpoint = `${API}/api/denuncias`;
         data = formDenuncia;
