@@ -2,22 +2,29 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
-import path from "path";
-import { fileURLToPath } from "url";
 
 import authRoutes from "./routes/auth.js";
 import novedadesRoutes from "./routes/novedades.js";
+import cursosRoutes from "./routes/cursos.js";
+import inscripcionesRoutes from "./routes/inscripciones.js";
+import adhesionesRoutes from "./routes/adhesiones.js";
+import contactosRoutes from "./routes/contactos.js";
+import denunciasRoutes from "./routes/denuncias.js";
 
 dotenv.config();
 
 const app = express();
 
-// Fix __dirname en ES Modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://aducma.vercel.app",
+    "https://aducma.org.ar",
+    "https://www.aducma.org.ar"
+  ],
+  credentials: true
+}));
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
@@ -30,14 +37,16 @@ mongoose
 // Rutas
 app.use("/api/auth", authRoutes);
 app.use("/api/novedades", novedadesRoutes);
+app.use("/api/cursos", cursosRoutes);
+app.use("/api/inscripciones", inscripcionesRoutes);
+app.use("/api/adhesiones", adhesionesRoutes);
+app.use("/api/contactos", contactosRoutes);
+app.use("/api/denuncias", denunciasRoutes);
 
-// Producción (servir frontend)
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../dist")));
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../dist/index.html"));
-  });
-}
+// Ruta de prueba
+app.get("/", (req, res) => {
+  res.json({ mensaje: "API ADUCMA funcionando" });
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

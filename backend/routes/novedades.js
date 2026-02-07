@@ -1,16 +1,8 @@
 import express from "express";
-import cloudinary from "cloudinary";
 import Novedad from "../models/Novedad.js";
 import auth from "../middleware/auth.js";
 
 const router = express.Router();
-
-// Configurar Cloudinary
-cloudinary.v2.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET
-});
 
 // GET /api/novedades - Obtener todas (públicas)
 router.get("/", async (req, res) => {
@@ -50,19 +42,12 @@ router.post("/", auth, async (req, res) => {
   try {
     const { titulo, descripcion, contenido, fecha, imagen, height } = req.body;
 
-    // Subir imagen a Cloudinary
-    const resultado = await cloudinary.v2.uploader.upload(imagen, {
-      folder: "aducma/novedades",
-      transformation: [{ quality: "auto:good" }]
-    });
-
     const novedad = new Novedad({
       titulo,
       descripcion,
       contenido,
       fecha,
-      imagen: resultado.secure_url,
-      imagenPublicId: resultado.public_id,
+      imagen,
       height: height || 400
     });
 
@@ -84,25 +69,11 @@ router.put("/:id", auth, async (req, res) => {
       return res.status(404).json({ mensaje: "Novedad no encontrada" });
     }
 
-    // Si hay nueva imagen
-    if (imagen && imagen.startsWith("data:")) {
-      if (novedad.imagenPublicId) {
-        await cloudinary.v2.uploader.destroy(novedad.imagenPublicId);
-      }
-
-      const resultado = await cloudinary.v2.uploader.upload(imagen, {
-        folder: "aducma/novedades",
-        transformation: [{ quality: "auto:good" }]
-      });
-
-      novedad.imagen = resultado.secure_url;
-      novedad.imagenPublicId = resultado.public_id;
-    }
-
     novedad.titulo = titulo ?? novedad.titulo;
     novedad.descripcion = descripcion ?? novedad.descripcion;
     novedad.contenido = contenido ?? novedad.contenido;
     novedad.fecha = fecha ?? novedad.fecha;
+    novedad.imagen = imagen ?? novedad.imagen;
     novedad.height = height ?? novedad.height;
     novedad.activo = activo ?? novedad.activo;
 
@@ -120,10 +91,6 @@ router.delete("/:id", auth, async (req, res) => {
 
     if (!novedad) {
       return res.status(404).json({ mensaje: "Novedad no encontrada" });
-    }
-
-    if (novedad.imagenPublicId) {
-      await cloudinary.v2.uploader.destroy(novedad.imagenPublicId);
     }
 
     await Novedad.findByIdAndDelete(req.params.id);
