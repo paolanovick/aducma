@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+const API = import.meta.env.VITE_API_URL;
+
 
 export default function Admin() {
   const [usuario, setUsuario] = useState("");
@@ -12,9 +14,8 @@ export default function Admin() {
     e.preventDefault();
     setCargando(true);
     setError("");
-
-    try {
-      const res = await fetch("/api/auth/login", {
+try {
+ const res = await fetch(`${API}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ usuario, password }),

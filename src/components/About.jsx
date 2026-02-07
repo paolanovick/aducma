@@ -1,154 +1,196 @@
-import { useEffect, useRef, useState } from "react";
-import { AngledSlider } from "../components/ui/AngledSlider";
-import MagicContainer from "../components/ui/MagicContainer";
+// About.jsx - NOSOTROS con fondo claro y letras verdes
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import { useState, useRef, useEffect, useCallback } from "react";
 
+import "swiper/css";
+import "swiper/css/navigation";
 
 export default function About() {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(1); // Empieza en la tarjeta del medio
+  const [isReady, setIsReady] = useState(false);
+  const swiperRef = useRef(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.2 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  const items = [
+  const tarjetas = [
     {
-      id: 1,
-      categoria: "Somos",
-      titulo: "Asociación civil sin fines de lucro",
-      descripcion: "Trabajamos de manera independiente y transparente.",
-      imagen: "/somos.avif",
+      id: "mision",
+      titulo: "Misión",
+      imagen: "/mision.png",
+      contenido: "Promover la defensa de los derechos de usuarios y consumidores, el cuidado del ambiente y la defensa de los derechos de los animales mediante acciones de concientización, asesoramiento y acompañamiento a la comunidad.",
     },
     {
-      id: 2,
-      categoria: "Misión",
-      titulo: "Promover el cuidado del ambiente",
-      descripcion: "Concientización y acompañamiento a la comunidad.",
-      imagen: "/mision.jpg",
+      id: "vision",
+      titulo: "Visión",
+      imagen: "/vision.webp",
+      contenido: "Construir una sociedad más justa, responsable y respetuosa con el ambiente, los animales y los consumidores, promoviendo el trato digno y el deber de informar correctamente previo a la contratación de productos o servicios.",
     },
     {
-      id: 3,
-      categoria: "Visión",
-      titulo: "Una sociedad más justa",
-      descripcion: "Futuro responsable con el ambiente y los animales.",
-      imagen: "/vision.png",
-    },
-    {
-      id: 4,
-      categoria: "Compromiso",
-      titulo: "Compromiso con el ambiente",
-      descripcion: "Respeto a todas las formas de vida.",
-      imagen: "/compromisoAmb.png",
-    },
-    {
-      id: 5,
-      categoria: "Compromiso",
-      titulo: "Confidencialidad y seriedad",
-      descripcion: "Máxima discreción y profesionalismo.",
-      imagen: "/confidencialidad.jpg",
-    },
-    {
-      id: 6,
-      categoria: "Compromiso",
-      titulo: "Acompañamiento responsable",
-      descripcion: "Te acompañamos con dedicación y empatía.",
-      imagen: "/responsabilidad.jpg",
+      id: "valores",
+      titulo: "Valores",
+      imagen: "/valores.png",
+      contenido: "Compromiso – Respeto – Responsabilidad – Solidaridad – Transparencia",
     },
   ];
 
+  // Función para inicializar el swiper correctamente
+  const initializeSwiper = useCallback((swiper) => {
+    swiperRef.current = swiper;
+    
+    // Forzar la actualización después de un pequeño delay
+    requestAnimationFrame(() => {
+      if (swiper && !swiper.destroyed) {
+        swiper.update();
+        swiper.slideTo(1, 0); // Ir a la tarjeta del medio
+        setActiveIndex(1);
+        
+        // Segundo update para asegurar el centrado
+        setTimeout(() => {
+          if (swiper && !swiper.destroyed) {
+            swiper.update();
+            setIsReady(true);
+          }
+        }, 50);
+      }
+    });
+  }, []);
+
+  // Re-centrar en resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (swiperRef.current && !swiperRef.current.destroyed) {
+        swiperRef.current.update();
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
-    <section id="nosotros" ref={sectionRef} className="relative bg-crema py-24 overflow-hidden">
-      
-      {/* FONDO DECORATIVO */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 -left-20 w-96 h-96 bg-verde/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 -right-20 w-80 h-80 bg-verde-light/10 rounded-full blur-3xl" />
+    <section id="nosotros" className="bg-gradient-to-b from-white via-green-50/30 to-white py-20 scroll-mt-24 overflow-hidden">
+      {/* TÍTULO Y TEXTO - Mismo estilo que QueHacemos */}
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 mb-12 text-center">
+        <span className="inline-block px-4 py-2 bg-verde/10 text-verde rounded-full text-sm font-medium mb-4">
+          Conócenos
+        </span>
+        <h2 className="text-4xl lg:text-6xl font-bold text-verde mb-6">
+          Nosotros
+        </h2>
+        <p className="max-w-2xl mx-auto text-verde/70 text-lg lg:text-xl">
+          Somos una Asociación Civil sin fines de lucro comprometida con la defensa de los derechos de Usuarios y Consumidores, la protección del ambiente y la defensa de los derechos de los animales.
+        </p>
       </div>
 
-      <div className="relative">
-
-        {/* HEADER */}
-        <div 
-          className={`text-center mb-12 px-6 transition-all duration-1000
-                      ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+      {/* CARRUSEL */}
+      <div 
+        className="transition-opacity duration-500"
+        style={{ opacity: isReady ? 1 : 0 }}
+      >
+        <Swiper
+          modules={[Navigation]}
+          onSwiper={initializeSwiper}
+          slidesPerView={1.2}
+          centeredSlides={true}
+          spaceBetween={20}
+          loop={false}
+          initialSlide={1} // Empieza en la tarjeta del medio (Visión)
+          watchSlidesProgress={true}
+          navigation={{
+            prevEl: ".about-prev",
+            nextEl: ".about-next",
+          }}
+          onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+          breakpoints={{
+            480: { slidesPerView: 1.5, spaceBetween: 20 },
+            768: { slidesPerView: 2.2, spaceBetween: 25 },
+            1024: { slidesPerView: 3, spaceBetween: 30 },
+            1280: { slidesPerView: 3, spaceBetween: 40 },
+          }}
         >
-          <div className="inline-flex items-center gap-2 bg-verde/20 backdrop-blur-sm border border-verde/30 rounded-full px-5 py-2 mb-6">
-            <span className="w-2 h-2 bg-verde rounded-full animate-pulse" />
-            <span className="text-verde text-sm font-medium tracking-wider uppercase">
-              Sobre Nosotros
-            </span>
-          </div>
-          
-          <h2 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-4 tracking-tight">
-            <span className="text-verde">Quiénes</span>{" "}
-            <span className="text-verde-light">somos</span>
-          </h2>
-          
-          <div className="flex items-center justify-center gap-3">
-            <div className="h-[2px] w-16 bg-gradient-to-r from-transparent to-verde/50" />
-            <svg className="w-6 h-6 text-verde-light" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-            </svg>
-            <div className="h-[2px] w-16 bg-gradient-to-l from-transparent to-verde/50" />
-          </div>
+          {tarjetas.map((tarjeta, index) => {
+            const isActive = index === activeIndex;
+
+            return (
+              <SwiperSlide key={tarjeta.id}>
+                <div
+                  className="relative h-[450px] sm:h-[480px] bg-white rounded-2xl overflow-hidden mb-16"
+                  style={{
+                    transform: isActive
+                      ? "perspective(1000px) rotateX(2deg) scale(1.05) translateY(-16px)"
+                      : "perspective(1000px) rotateX(0deg) scale(0.9)",
+                    boxShadow: isActive
+                      ? "0 30px 60px rgba(0,0,0,0.25)"
+                      : "0 10px 20px rgba(0,0,0,0.08)",
+                    opacity: isActive ? 1 : 0.5,
+                    zIndex: isActive ? 20 : 10,
+                    transition: "all 0.7s cubic-bezier(0.4, 0, 0.2, 1)",
+                  }}
+                >
+                  {/* IMAGEN */}
+                  <div
+                    className="absolute top-0 left-0 right-0 overflow-hidden transition-all duration-700 ease-in-out"
+                    style={{
+                      height: isActive ? "200px" : "410px",
+                    }}
+                  >
+                    <img
+                      src={tarjeta.imagen}
+                      alt={tarjeta.titulo}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                  </div>
+
+                  {/* CONTENIDO */}
+                  <div
+                    className="absolute bottom-0 left-0 right-0 bg-white flex flex-col items-center text-center transition-all duration-700 ease-in-out"
+                    style={{
+                      height: isActive ? "280px" : "70px",
+                      justifyContent: isActive ? "flex-start" : "center",
+                      paddingTop: isActive ? "24px" : "0",
+                      paddingLeft: "24px",
+                      paddingRight: "24px",
+                    }}
+                  >
+                    <h3
+                      className="font-bold text-verde uppercase tracking-wider transition-all duration-700"
+                      style={{
+                        fontSize: isActive ? "1.5rem" : "1.25rem",
+                        marginBottom: isActive ? "12px" : "0",
+                      }}
+                    >
+                      {tarjeta.titulo}
+                    </h3>
+
+                    {isActive && (
+                      <>
+                        <div className="w-12 h-1 bg-verde-light mb-4"></div>
+                        <p className="text-verde/70 text-sm sm:text-base leading-relaxed max-w-sm">
+                          {tarjeta.contenido}
+                        </p>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+      </div>
+
+      {/* CONTROLES - Colores invertidos para fondo claro */}
+      <div className="flex items-center justify-center gap-6 mt-4 pb-4">
+        <button className="about-prev w-12 h-12 rounded-full border-2 border-verde/50 hover:bg-verde hover:text-white text-verde transition-all flex items-center justify-center">
+          <span className="text-xl">←</span>
+        </button>
+
+        <div className="text-verde font-medium">
+          {activeIndex + 1} / {tarjetas.length}
         </div>
-      
-     {/* TEXTO INSTITUCIONAL */}
-<div
-  className={`max-w-4xl mx-auto mb-20 px-6 transition-all duration-1000
-              ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
->
-  <MagicContainer>
-    <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 sm:p-10
-                    shadow-md border border-verde/10
-                    transition-transform duration-300
-                    hover:scale-[1.01]">
-      <p className="text-verde text-lg leading-relaxed mb-4">
-        Somos una <strong>Asociación Civil sin fines de lucro</strong> comprometida con la
-        defensa de los derechos de Usuarios y Consumidores, la protección del ambiente
-        y la defensa de los derechos de los animales.
-      </p>
 
-      <p className="text-verde/80 leading-relaxed mb-4">
-        Nuestra labor se basa en la concientización, la educación en las relaciones de
-        consumo, la relación con el medio ambiente y la intervención responsable ante
-        situaciones que vulneran el bienestar animal y el equilibrio ambiental.
-      </p>
-
-      <p className="text-verde/80 leading-relaxed">
-        Actuamos con <strong>responsabilidad social</strong>, compromiso ciudadano y
-        respeto por la normativa vigente.
-      </p>
-    </div>
-  </MagicContainer>
-</div>
-
-
-        {/* ANGLED SLIDER */}
-        <AngledSlider 
-          items={items} 
-          speed={35}
-          containerHeight="420px"
-          cardWidth="280px"
-          gap="30px"
-          angle={18}
-          hoverScale={1.08}
-          grayscale={true}
-        />
-
+        <button className="about-next w-12 h-12 rounded-full border-2 border-verde/50 hover:bg-verde hover:text-white text-verde transition-all flex items-center justify-center">
+          <span className="text-xl">→</span>
+        </button>
       </div>
     </section>
   );

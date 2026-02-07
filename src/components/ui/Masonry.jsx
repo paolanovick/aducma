@@ -65,8 +65,8 @@ export default function Masonry({
   
   const columns = useMedia(
     ["(min-width:1500px)", "(min-width:1000px)", "(min-width:600px)"],
-    [5, 4, 3],
-    2
+    [4, 3, 2],
+    1
   );
 
   const [containerRef, { width }] = useMeasure();
@@ -74,30 +74,36 @@ export default function Masonry({
   const hasMounted = useRef(false);
 
   useEffect(() => {
-    preloadImages(items.map((i) => i.img)).then(() => setImagesReady(true));
+    preloadImages(items.map((i) => i.imagen)).then(() => setImagesReady(true));
   }, [items]);
 
-  const grid = useMemo(() => {
-    if (!width) return [];
-    const colHeights = new Array(columns).fill(0);
-    const colWidth = width / columns;
+  const { grid, containerHeight } = useMemo(() => {
+  if (!width) return { grid: [], containerHeight: 400 };
+  const colHeights = new Array(columns).fill(0);
+  const colWidth = width / columns;
+  const gap = 16;
 
-    return items.map((item) => {
-      const col = colHeights.indexOf(Math.min(...colHeights));
-      const x = col * colWidth;
-      const h = item.height / 2;
-      const y = colHeights[col];
-      colHeights[col] += h;
-      return { ...item, x, y, w: colWidth, h };
-    });
+  const gridItems = items.map((item) => {
+    const col = colHeights.indexOf(Math.min(...colHeights));
+    const x = col * colWidth;
+    const h = (item.height || 300) / 2;
+    const y = colHeights[col];
+    colHeights[col] += h + gap;
+    return { ...item, x, y, w: colWidth - gap, h };
+  });
+
+  const maxHeight = Math.max(...colHeights);
+  
+  return { grid: gridItems, containerHeight: maxHeight };
   }, [columns, items, width]);
-
+  
+  
   useLayoutEffect(() => {
     if (!imagesReady) return;
 
     grid.forEach((item, i) => {
       gsap.fromTo(
-        `[data-key="${item.id}"]`,
+        `[data-key="${item._id}"]`,
         {
           opacity: 0,
           y: animateFrom === "bottom" ? item.y + 100 : item.y,
@@ -120,27 +126,68 @@ export default function Masonry({
     hasMounted.current = true;
   }, [grid, imagesReady, stagger, animateFrom, blurToFocus, ease]);
 
-  const handleClick = (item) => {
-    if (item.external) {
-      window.open(item.url, "_blank");
-    } else {
-      navigate(`/novedad/${item.id}`);
-    }
-  };
+ const handleClick = (item) => {
+  const tipo = item.tipo || "novedad";
+  navigate(`/${tipo}/${item._id}`);
+};
 
   return (
-    <div ref={containerRef} className="masonry-list">
+    <div 
+      ref={containerRef} 
+      className="masonry-list"
+      style={{ height: containerHeight }}
+    >
       {grid.map((item) => (
         <div
-          key={item.id}
-          data-key={item.id}
-          className="masonry-item-wrapper"
+          key={item._id}
+          data-key={item._id}
+          className="masonry-item-wrapper group"
           onClick={() => handleClick(item)}
         >
+          {/* Imagen de fondo */}
           <div
             className="masonry-item-img"
-            style={{ backgroundImage: `url(${item.img})` }}
+            style={{ backgroundImage: `url(${item.imagen})` }}
           />
+          
+          {/* Overlay con gradiente */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent 
+                          group-hover:from-black/95 transition-all duration-300" />
+          
+          {/* Etiqueta tipo */}
+          <div className={`absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider
+            ${item.tipo === 'curso' 
+              ? 'bg-verde text-white' 
+              : 'bg-dorado text-white'
+            }`}
+          >
+            {item.tipo === 'curso' ? '📚 Curso' : '📰 Novedad'}
+          </div>
+
+          {/* Contenido */}
+          <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+            <h3 className="font-bold text-lg mb-1 line-clamp-2 group-hover:text-verde-light transition-colors">
+              {item.titulo}
+            </h3>
+            <p className="text-white/70 text-sm line-clamp-2">
+              {item.descripcion}
+            </p>
+            
+            {/* Fecha */}
+            <p className="text-white/50 text-xs mt-2">
+              {item.fecha}
+            </p>
+
+            {/* Botón ver más (aparece en hover) */}
+            <div className="mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span className="inline-flex items-center gap-1 text-verde-light text-sm font-medium">
+                Ver más 
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </span>
+            </div>
+          </div>
         </div>
       ))}
     </div>

@@ -1,132 +1,38 @@
+import { useEffect, useState } from "react";
 import Masonry from "./ui/Masonry";
 
+const API = import.meta.env.VITE_API_URL;
+
 export default function Servicios() {
-  const novedades = [
-    {
-      id: "1",
-      img: "/novedades/novedad1.jpg",
-      height: 400,
-      titulo: "Curso de Derecho del Consumidor",
-      descripcion: "Aprende sobre tus derechos como consumidor y usuario.",
-      fecha: "15 de Febrero, 2025",
-      contenido: `
-        Este curso está diseñado para brindar a los participantes un conocimiento profundo sobre la Ley 24.240 de Defensa del Consumidor.
-        
-        Temas a tratar:
-        - Derechos básicos del consumidor
-        - Garantías legales
-        - Cómo realizar reclamos efectivos
-        - Vías de resolución de conflictos
-        
-        Dirigido a: Público en general, profesionales del derecho, comerciantes.
-        Duración: 4 semanas
-        Modalidad: Virtual
-      `,
-    },
-    {
-      id: "2",
-      img: "/novedades/novedad2.jpg",
-      height: 250,
-      titulo: "Taller de Protección Animal",
-      descripcion: "Conocé las leyes que protegen a los animales.",
-      fecha: "22 de Febrero, 2025",
-      contenido: `
-        Taller práctico sobre la legislación vigente en materia de protección animal y cómo actuar ante situaciones de maltrato.
-        
-        Contenidos:
-        - Marco legal de protección animal
-        - Cómo realizar denuncias
-        - Tenencia responsable
-        - Casos prácticos
-        
-        Dirigido a: Rescatistas, veterinarios, público general.
-        Duración: 2 jornadas
-        Modalidad: Presencial
-      `,
-    },
-    {
-      id: "3",
-      img: "/novedades/novedad3.jpg",
-      height: 600,
-      titulo: "Capacitación Ambiental",
-      descripcion: "Formación en temas de cuidado del medio ambiente.",
-      fecha: "1 de Marzo, 2025",
-      contenido: `
-        Capacitación integral sobre normativa ambiental y herramientas para la defensa del medio ambiente.
-        
-        Módulos:
-        - Legislación ambiental argentina
-        - Evaluación de impacto ambiental
-        - Denuncias por daño ambiental
-        - Acciones colectivas
-        
-        Dirigido a: Organizaciones civiles, profesionales, estudiantes.
-        Duración: 6 semanas
-        Modalidad: Híbrida
-      `,
-    },
-    {
-      id: "4",
-      img: "/novedades/novedad4.jpg",
-      height: 400,
-      titulo: "Charla: Derechos del Usuario",
-      descripcion: "Evento gratuito sobre derechos de usuarios de servicios.",
-      fecha: "10 de Marzo, 2025",
-      contenido: `
-        Charla abierta a la comunidad sobre los derechos de los usuarios de servicios públicos y privados.
-        
-        Temas:
-        - Servicios públicos domiciliarios
-        - Telefonía e internet
-        - Servicios financieros
-        - Transporte
-        
-        Entrada libre y gratuita.
-        Lugar: Auditorio Municipal de Córdoba
-      `,
-    },
-    {
-      id: "5",
-      img: "/novedades/novedad5.jpg",
-      height: 250,
-      titulo: "Nueva sede en Córdoba",
-      descripcion: "Inauguramos nuestra oficina de atención al público.",
-      fecha: "20 de Marzo, 2025",
-      contenido: `
-        ADUCMA inaugura su nueva sede de atención al público en la ciudad de Córdoba.
-        
-        Servicios disponibles:
-        - Asesoramiento legal gratuito
-        - Recepción de denuncias
-        - Mediaciones
-        - Información sobre cursos
-        
-        Dirección: Av. Colón 1234, Córdoba Capital
-        Horario: Lunes a Viernes de 9 a 17hs
-      `,
-    },
-    {
-      id: "6",
-      img: "/novedades/novedad6.jpg",
-      height: 600,
-      titulo: "Jornada de Concientización",
-      descripcion: "Actividades en el Parque Sarmiento.",
-      fecha: "5 de Abril, 2025",
-      contenido: `
-        Jornada de concientización ambiental y de protección animal en el Parque Sarmiento.
-        
-        Actividades:
-        - Stand informativo
-        - Charlas al aire libre
-        - Actividades para niños
-        - Feria de emprendedores sustentables
-        
-        ¡Te esperamos con toda la familia!
-        Horario: 10 a 18hs
-        Entrada libre
-      `,
-    },
-  ];
+  const [items, setItems] = useState([]);
+  const [cargando, setCargando] = useState(true);
+
+useEffect(() => {
+  const cargarDatos = async () => {
+    try {
+      // Cargar novedades
+      const resNovedades = await fetch(`${API}/api/novedades`);
+      const novedades = await resNovedades.json();
+      const novedadesConTipo = novedades.map(n => ({ ...n, tipo: "novedad" }));
+      
+      // Cargar cursos
+      const resCursos = await fetch(`${API}/api/cursos`);
+      const cursos = await resCursos.json();
+      const cursosConTipo = cursos.map(c => ({ ...c, tipo: "curso" }));
+      
+      // Mezclamos todo
+      const todos = [...novedadesConTipo, ...cursosConTipo];
+      
+      setItems(todos);
+    } catch (err) {
+      console.error("Error cargando datos:", err);
+    } finally {
+      setCargando(false);
+    }
+  };
+
+  cargarDatos();
+}, []);
 
   return (
     <div
@@ -145,13 +51,13 @@ export default function Servicios() {
           <div className="inline-flex items-center gap-2 bg-verde/20 backdrop-blur-sm border border-verde/30 rounded-full px-5 py-2 mb-6">
             <span className="w-2 h-2 bg-verde rounded-full animate-pulse" />
             <span className="text-verde text-sm font-medium tracking-wider uppercase">
-              Servicios
+              Actividades
             </span>
           </div>
 
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-4">
             <span className="text-verde">Cursos y </span>
-            <span className="text-verde-light">capacitaciones</span>
+            <span className="text-verde-light">Novedades</span>
           </h2>
           
           <div className="flex items-center justify-center gap-3">
@@ -163,7 +69,7 @@ export default function Servicios() {
           </div>
         </div>
 
-        {/* CURSOS Y CAPACITACIONES */}
+        {/* TEXTO INTRODUCTORIO */}
         <div className="max-w-4xl mx-auto mb-20">
           <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 sm:p-10 shadow-md border border-verde/10">
             <p className="text-verde/80 leading-relaxed mb-4">
@@ -181,29 +87,34 @@ export default function Servicios() {
           </div>
         </div>
 
-        {/* NOVEDADES */}
+        {/* GALERÍA MASONRY */}
         <div>
-          <h3 className="text-2xl font-bold text-verde mb-4 text-center">
-            Novedades
-          </h3>
-
           <p className="text-center text-verde/70 max-w-2xl mx-auto mb-12">
-            Esta sección se irá actualizando a medida que se obtengan novedades
-            sobre las causas y acciones de la asociación.
+            Explorá nuestros cursos y novedades. Hacé click en cualquier tarjeta para ver más detalles.
           </p>
 
-          {/* Masonry */}
-          <div className="relative h-[800px]">
-            <Masonry
-              items={novedades}
-              ease="power3.out"
-              duration={0.6}
-              stagger={0.05}
-              animateFrom="bottom"
-              scaleOnHover
-              hoverScale={0.96}
-              blurToFocus
-            />
+         <div className="relative">
+
+            {cargando ? (
+              <div className="flex items-center justify-center py-20">
+                <div className="animate-spin h-12 w-12 border-4 border-verde border-t-transparent rounded-full"></div>
+              </div>
+            ) : items.length === 0 ? (
+              <p className="text-center text-verde/60 py-20">
+                Próximamente más contenido...
+              </p>
+            ) : (
+              <Masonry
+                items={items}
+                ease="power3.out"
+                duration={0.6}
+                stagger={0.05}
+                animateFrom="bottom"
+                scaleOnHover
+                hoverScale={0.96}
+                blurToFocus
+              />
+            )}
           </div>
         </div>
       </div>
