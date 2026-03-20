@@ -15,6 +15,7 @@ import NovedadesAdmin from "./pages/NovedadesAdmin";
 import CursosAdmin from "./pages/CursosAdmin";
 import InscripcionesAdmin from "./pages/InscripcionesAdmin";
 import AdhesionesAdmin from "./pages/AdhesionesAdmin";
+import CookieBanner from "./components/CookieBanner";
 
 function Home() {
   return (
@@ -35,6 +36,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="min-h-screen bg-crema">
+        <CookieBanner />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
