@@ -1,28 +1,36 @@
+import nodemailer from 'nodemailer';
+
+const transporter = nodemailer.createTransport({
+  host: 'smtp.gmail.com',
+  port: 587,
+  secure: false,
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
+
 export const enviarEmailInscripcion = async (datos) => {
   try {
-    const response = await fetch('https://n8n.triptest.com.ar/webhook/inscripcion-aducma', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        nombre: datos.nombre,
-        email: datos.email,
-        telefono: datos.telefono || 'No proporcionado',
-        mensaje: datos.mensaje || 'Sin mensaje',
-        curso: datos.cursoNombre || 'Curso'
-      }),
+    await transporter.sendMail({
+      from: `"ADUCMA Web" <${process.env.EMAIL_USER}>`,
+      to: process.env.EMAIL_TO,
+      subject: `Nueva inscripción al curso: ${datos.cursoNombre || 'Curso'} - ${datos.nombre}`,
+      html: `
+        <h2>Nueva inscripción a curso</h2>
+        <p><strong>Curso:</strong> ${datos.cursoNombre || 'No especificado'}</p>
+        <p><strong>Nombre:</strong> ${datos.nombre}</p>
+        <p><strong>Email:</strong> ${datos.email}</p>
+        <p><strong>Teléfono:</strong> ${datos.telefono || 'No proporcionado'}</p>
+        <p><strong>Mensaje:</strong> ${datos.mensaje || 'Sin mensaje'}</p>
+        <hr/>
+        <small>Enviado desde aducma.org.ar</small>
+      `,
     });
-
-    if (response.ok) {
-      console.log("✅ Inscripcion enviada a N8N correctamente");
-      return true;
-    } else {
-      console.error("❌ Error enviando inscripcion a N8N:", response.status);
-      return false;
-    }
+    console.log('✅ Email inscripcion enviado');
+    return true;
   } catch (err) {
-    console.error("❌ Error enviando inscripcion a N8N:", err.message);
+    console.error('❌ Error enviando email inscripcion:', err.message);
     return false;
   }
 };
