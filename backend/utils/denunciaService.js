@@ -12,6 +12,7 @@ const transporter = nodemailer.createTransport({
 
 export const enviarEmailDenuncia = async (datos) => {
   try {
+    // Email a ADUCMA
     await transporter.sendMail({
       from: `"ADUCMA Web" <${process.env.EMAIL_USER}>`,
       to: process.env.EMAIL_TO,
@@ -32,7 +33,24 @@ export const enviarEmailDenuncia = async (datos) => {
         <small>Enviado desde aducma.org.ar</small>
       `,
     });
-    console.log('✅ Email denuncia enviado');
+
+    // Confirmación al usuario
+    await transporter.sendMail({
+      from: `"ADUCMA" <${process.env.EMAIL_USER}>`,
+      to: datos.email,
+      subject: 'Recibimos tu denuncia - ADUCMA',
+      html: `
+        <h2>¡Hola ${datos.nombre}!</h2>
+        <p>Recibimos tu denuncia correctamente. Nuestro equipo la revisará y te contactaremos a la brevedad.</p>
+        <p><strong>Categoría:</strong> ${datos.categoria}</p>
+        <p><strong>Motivo:</strong> ${datos.motivo}</p>
+        <hr/>
+        <p>ADUCMA - Asociación Civil por el Cuidado Ambiental y los Derechos de los Animales</p>
+        <p>📧 aducmaasociacion@gmail.com | 📞 351 730 0674</p>
+      `,
+    });
+
+    console.log('✅ Emails denuncia enviados');
     return true;
   } catch (err) {
     console.error('❌ Error enviando email denuncia:', err.message);

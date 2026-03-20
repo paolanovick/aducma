@@ -12,6 +12,7 @@ const transporter = nodemailer.createTransport({
 
 export const enviarEmailAdhesion = async (datos) => {
   try {
+    // Email a ADUCMA
     await transporter.sendMail({
       from: `"ADUCMA Web" <${process.env.EMAIL_USER}>`,
       to: process.env.EMAIL_TO,
@@ -27,7 +28,22 @@ export const enviarEmailAdhesion = async (datos) => {
         <small>Enviado desde aducma.org.ar</small>
       `,
     });
-    console.log('✅ Email adhesion enviado');
+
+    // Confirmación al usuario
+    await transporter.sendMail({
+      from: `"ADUCMA" <${process.env.EMAIL_USER}>`,
+      to: datos.email,
+      subject: 'Recibimos tu solicitud de adhesión - ADUCMA',
+      html: `
+        <h2>¡Hola ${datos.nombre}!</h2>
+        <p>Recibimos tu solicitud de adhesión a ADUCMA. Nos pondremos en contacto a la brevedad para informarte los próximos pasos.</p>
+        <hr/>
+        <p>ADUCMA - Asociación Civil por el Cuidado Ambiental y los Derechos de los Animales</p>
+        <p>📧 aducmaasociacion@gmail.com | 📞 351 730 0674</p>
+      `,
+    });
+
+    console.log('✅ Emails adhesion enviados');
     return true;
   } catch (err) {
     console.error('❌ Error enviando email adhesion:', err.message);

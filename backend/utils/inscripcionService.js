@@ -12,10 +12,11 @@ const transporter = nodemailer.createTransport({
 
 export const enviarEmailInscripcion = async (datos) => {
   try {
+    // Email a ADUCMA
     await transporter.sendMail({
       from: `"ADUCMA Web" <${process.env.EMAIL_USER}>`,
       to: process.env.EMAIL_TO,
-      subject: `Nueva inscripción al curso: ${datos.cursoNombre || 'Curso'} - ${datos.nombre}`,
+      subject: `Nueva inscripción: ${datos.cursoNombre || 'Curso'} - ${datos.nombre}`,
       html: `
         <h2>Nueva inscripción a curso</h2>
         <p><strong>Curso:</strong> ${datos.cursoNombre || 'No especificado'}</p>
@@ -27,7 +28,22 @@ export const enviarEmailInscripcion = async (datos) => {
         <small>Enviado desde aducma.org.ar</small>
       `,
     });
-    console.log('✅ Email inscripcion enviado');
+
+    // Confirmación al usuario
+    await transporter.sendMail({
+      from: `"ADUCMA" <${process.env.EMAIL_USER}>`,
+      to: datos.email,
+      subject: `Inscripción recibida: ${datos.cursoNombre || 'Curso'} - ADUCMA`,
+      html: `
+        <h2>¡Hola ${datos.nombre}!</h2>
+        <p>Recibimos tu inscripción al curso <strong>${datos.cursoNombre || 'solicitado'}</strong>. Nos pondremos en contacto a la brevedad para confirmar tu lugar.</p>
+        <hr/>
+        <p>ADUCMA - Asociación Civil por el Cuidado Ambiental y los Derechos de los Animales</p>
+        <p>📧 aducmaasociacion@gmail.com | 📞 351 730 0674</p>
+      `,
+    });
+
+    console.log('✅ Emails inscripcion enviados');
     return true;
   } catch (err) {
     console.error('❌ Error enviando email inscripcion:', err.message);
