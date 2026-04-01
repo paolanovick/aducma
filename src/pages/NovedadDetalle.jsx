@@ -121,13 +121,10 @@ if (cargando) {
         
         {/* Texto del contenido */}
         <div className="bg-white rounded-3xl p-8 sm:p-12 shadow-lg border border-verde/10 mb-16">
-          <div className="prose prose-lg max-w-none">
-            {novedad.contenido.split("\n").map((linea, i) => (
-              <p key={i} className="text-verde/80 mb-4 whitespace-pre-line">
-                {linea}
-              </p>
-            ))}
-          </div>
+          <div
+            className="prose prose-lg max-w-none text-verde/80"
+            dangerouslySetInnerHTML={{ __html: novedad.contenido }}
+          />
         </div>
 
       </div>

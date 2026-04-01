@@ -100,11 +100,10 @@ export default function CursoDetalle() {
       {/* CONTENIDO */}
       <div className="max-w-4xl mx-auto px-6 py-16">
         <div className="bg-white rounded-3xl p-8 shadow-lg mb-16">
-          {curso.contenido.split("\n").map((linea, i) => (
-            <p key={i} className="text-verde/80 mb-4 whitespace-pre-line">
-              {linea}
-            </p>
-          ))}
+          <div
+            className="prose prose-lg max-w-none text-verde/80"
+            dangerouslySetInnerHTML={{ __html: curso.contenido }}
+          />
         </div>
 
        {/* FORMULARIO */}
