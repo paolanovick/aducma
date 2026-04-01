@@ -12,6 +12,9 @@ export default function ContenidoModal({
 
   const [tipo, setTipo] = useState("novedad");
   const [guardando, setGuardando] = useState(false);
+  const [modoImagen, setModoImagen] = useState("url"); // "url" | "archivo"
+  const [archivoSeleccionado, setArchivoSeleccionado] = useState(null);
+  const [preview, setPreview] = useState("");
 
   const [form, setForm] = useState({
     titulo: "",
@@ -41,21 +44,33 @@ export default function ContenidoModal({
     e.preventDefault();
     setGuardando(true);
 
-    const endpoint = tipo === "novedad" ? "novedades" : "cursos";
+    let imagenFinal = form.imagen;
 
+    // Si hay archivo seleccionado, subirlo primero
+    if (modoImagen === "archivo" && archivoSeleccionado) {
+      const formData = new FormData();
+      formData.append("imagen", archivoSeleccionado);
+      const uploadRes = await fetch(`${API}/api/upload`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+        body: formData,
+      });
+      const uploadData = await uploadRes.json();
+      imagenFinal = uploadData.url;
+    }
+
+    const endpoint = tipo === "novedad" ? "novedades" : "cursos";
     const url = editando
       ? `${API}/api/${endpoint}/${itemEditando._id}`
       : `${API}/api/${endpoint}`;
 
-    const method = editando ? "PUT" : "POST";
-
     await fetch(url, {
-      method,
+      method: editando ? "PUT" : "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(form)
+      body: JSON.stringify({ ...form, imagen: imagenFinal }),
     });
 
     setGuardando(false);
@@ -117,15 +132,51 @@ export default function ContenidoModal({
           className="w-full px-4 py-3 border rounded-xl"
         />
 
-        <input
-          placeholder="URL de imagen"
-          value={form.imagen}
-          onChange={(e) =>
-            setForm({ ...form, imagen: e.target.value })
-          }
-          required
-          className="w-full px-4 py-3 border rounded-xl"
-        />
+        {/* Selector modo imagen */}
+        <div className="flex gap-2">
+          <button
+            type="button"
+            onClick={() => setModoImagen("url")}
+            className={`flex-1 py-2 rounded-xl text-sm font-medium border transition-colors ${modoImagen === "url" ? "bg-verde text-white border-verde" : "bg-white text-gray-600"}`}
+          >
+            URL de imagen
+          </button>
+          <button
+            type="button"
+            onClick={() => setModoImagen("archivo")}
+            className={`flex-1 py-2 rounded-xl text-sm font-medium border transition-colors ${modoImagen === "archivo" ? "bg-verde text-white border-verde" : "bg-white text-gray-600"}`}
+          >
+            Subir desde ordenador
+          </button>
+        </div>
+
+        {modoImagen === "url" ? (
+          <input
+            placeholder="URL de imagen"
+            value={form.imagen}
+            onChange={(e) => setForm({ ...form, imagen: e.target.value })}
+            required={modoImagen === "url"}
+            className="w-full px-4 py-3 border rounded-xl"
+          />
+        ) : (
+          <div className="space-y-2">
+            <input
+              type="file"
+              accept="image/*"
+              required={modoImagen === "archivo" && !archivoSeleccionado}
+              onChange={(e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                setArchivoSeleccionado(file);
+                setPreview(URL.createObjectURL(file));
+              }}
+              className="w-full px-4 py-3 border rounded-xl text-sm"
+            />
+            {preview && (
+              <img src={preview} alt="Preview" className="w-full h-40 object-cover rounded-xl" />
+            )}
+          </div>
+        )}
 
         <textarea
           rows={6}
