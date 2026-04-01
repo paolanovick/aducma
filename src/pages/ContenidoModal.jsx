@@ -1,29 +1,17 @@
 import { useEffect, useState, useRef } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 
 const API = import.meta.env.VITE_API_URL;
 
-// Módulos definidos fuera del componente para evitar re-renders que rompen Quill
-const QUILL_MODULES = {
-  toolbar: [
-    [{ header: [1, 2, 3, false] }],
-    ["bold", "italic", "underline"],
-    [{ list: "ordered" }, { list: "bullet" }],
-    ["link", "image"],
-    ["clean"],
-  ],
-};
-
 export default function ContenidoModal({ token, onClose, onGuardado, itemEditando }) {
   const editando = Boolean(itemEditando);
-  const quillRef = useRef(null);
+  const textareaRef = useRef(null);
 
   const [tipo, setTipo] = useState("novedad");
   const [guardando, setGuardando] = useState(false);
   const [modoImagen, setModoImagen] = useState("url");
   const [archivoSeleccionado, setArchivoSeleccionado] = useState(null);
   const [preview, setPreview] = useState("");
+  const [subiendoImagen, setSubiendoImagen] = useState(false);
 
   const [form, setForm] = useState({
     titulo: "",
@@ -48,32 +36,33 @@ export default function ContenidoModal({ token, onClose, onGuardado, itemEditand
     }
   }, [itemEditando]);
 
-  // Registrar handler de imagen una vez que el editor esté montado
-  useEffect(() => {
-    if (!quillRef.current) return;
-    const editor = quillRef.current.getEditor();
-    const toolbar = editor.getModule("toolbar");
-    toolbar.addHandler("image", () => {
-      const input = document.createElement("input");
-      input.setAttribute("type", "file");
-      input.setAttribute("accept", "image/*");
-      input.click();
-      input.onchange = async () => {
-        const file = input.files[0];
-        if (!file) return;
-        const formData = new FormData();
-        formData.append("imagen", file);
-        const res = await fetch(`${API}/api/upload`, {
-          method: "POST",
-          headers: { Authorization: `Bearer ${token}` },
-          body: formData,
-        });
-        const data = await res.json();
-        const range = editor.getSelection(true);
-        editor.insertEmbed(range ? range.index : 0, "image", data.url);
-      };
+  const insertarImagenEnContenido = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setSubiendoImagen(true);
+
+    const formData = new FormData();
+    formData.append("imagen", file);
+    const res = await fetch(`${API}/api/upload`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}` },
+      body: formData,
     });
-  }, [token]);
+    const data = await res.json();
+
+    // Insertar <img> en la posición del cursor del textarea
+    const textarea = textareaRef.current;
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const imgTag = `\n<img src="${data.url}" alt="imagen" style="max-width:100%; border-radius:8px; margin:8px 0;" />\n`;
+    const nuevoContenido =
+      form.contenido.substring(0, start) + imgTag + form.contenido.substring(end);
+    setForm({ ...form, contenido: nuevoContenido });
+
+    setSubiendoImagen(false);
+    // Reset input para permitir subir la misma imagen de nuevo
+    e.target.value = "";
+  };
 
   const guardar = async (e) => {
     e.preventDefault();
@@ -205,18 +194,29 @@ export default function ContenidoModal({ token, onClose, onGuardado, itemEditand
           </div>
         )}
 
-        {/* Editor de contenido */}
-        <div>
-          <p className="text-sm text-gray-500 mb-2">
-            Contenido — usá la barra para dar formato y el ícono 🖼️ para insertar imágenes
-          </p>
-          <ReactQuill
-            ref={quillRef}
-            theme="snow"
+        {/* Contenido con botón de insertar imagen */}
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <label className="text-sm text-gray-600 font-medium">Contenido</label>
+            <label className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium cursor-pointer border transition-colors ${subiendoImagen ? "bg-gray-100 text-gray-400" : "bg-verde/10 text-verde hover:bg-verde/20 border-verde/30"}`}>
+              {subiendoImagen ? "Subiendo..." : "📷 Insertar imagen"}
+              <input
+                type="file"
+                accept="image/*"
+                className="hidden"
+                disabled={subiendoImagen}
+                onChange={insertarImagenEnContenido}
+              />
+            </label>
+          </div>
+          <textarea
+            ref={textareaRef}
+            rows={8}
+            placeholder="Escribí el contenido aquí. Podés usar HTML básico y las imágenes se insertan automáticamente al subirlas."
             value={form.contenido}
-            onChange={(val) => setForm({ ...form, contenido: val })}
-            modules={QUILL_MODULES}
-            style={{ minHeight: "220px", marginBottom: "42px" }}
+            onChange={(e) => setForm({ ...form, contenido: e.target.value })}
+            required
+            className="w-full px-4 py-3 border rounded-xl resize-none font-mono text-sm"
           />
         </div>
 
