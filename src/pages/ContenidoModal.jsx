@@ -1,31 +1,19 @@
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useRef } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 const API = import.meta.env.VITE_API_URL;
 
-// Handler para subir imagen al servidor desde el editor
-function imageHandler(token, quillRef) {
-  const input = document.createElement("input");
-  input.setAttribute("type", "file");
-  input.setAttribute("accept", "image/*");
-  input.click();
-  input.onchange = async () => {
-    const file = input.files[0];
-    if (!file) return;
-    const formData = new FormData();
-    formData.append("imagen", file);
-    const res = await fetch(`${API}/api/upload`, {
-      method: "POST",
-      headers: { Authorization: `Bearer ${token}` },
-      body: formData,
-    });
-    const data = await res.json();
-    const editor = quillRef.current.getEditor();
-    const range = editor.getSelection(true);
-    editor.insertEmbed(range.index, "image", data.url);
-  };
-}
+// Módulos definidos fuera del componente para evitar re-renders que rompen Quill
+const QUILL_MODULES = {
+  toolbar: [
+    [{ header: [1, 2, 3, false] }],
+    ["bold", "italic", "underline"],
+    [{ list: "ordered" }, { list: "bullet" }],
+    ["link", "image"],
+    ["clean"],
+  ],
+};
 
 export default function ContenidoModal({ token, onClose, onGuardado, itemEditando }) {
   const editando = Boolean(itemEditando);
@@ -60,20 +48,32 @@ export default function ContenidoModal({ token, onClose, onGuardado, itemEditand
     }
   }, [itemEditando]);
 
-  const modules = useCallback(() => ({
-    toolbar: {
-      container: [
-        [{ header: [1, 2, 3, false] }],
-        ["bold", "italic", "underline"],
-        [{ list: "ordered" }, { list: "bullet" }],
-        ["link", "image"],
-        ["clean"],
-      ],
-      handlers: {
-        image: () => imageHandler(token, quillRef),
-      },
-    },
-  }), [token]);
+  // Registrar handler de imagen una vez que el editor esté montado
+  useEffect(() => {
+    if (!quillRef.current) return;
+    const editor = quillRef.current.getEditor();
+    const toolbar = editor.getModule("toolbar");
+    toolbar.addHandler("image", () => {
+      const input = document.createElement("input");
+      input.setAttribute("type", "file");
+      input.setAttribute("accept", "image/*");
+      input.click();
+      input.onchange = async () => {
+        const file = input.files[0];
+        if (!file) return;
+        const formData = new FormData();
+        formData.append("imagen", file);
+        const res = await fetch(`${API}/api/upload`, {
+          method: "POST",
+          headers: { Authorization: `Bearer ${token}` },
+          body: formData,
+        });
+        const data = await res.json();
+        const range = editor.getSelection(true);
+        editor.insertEmbed(range ? range.index : 0, "image", data.url);
+      };
+    });
+  }, [token]);
 
   const guardar = async (e) => {
     e.preventDefault();
@@ -113,12 +113,12 @@ export default function ContenidoModal({ token, onClose, onGuardado, itemEditand
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto py-8">
       <div className="absolute inset-0 bg-black/60" onClick={onClose} />
 
       <form
         onSubmit={guardar}
-        className="relative bg-white rounded-3xl w-full max-w-2xl p-6 space-y-4 max-h-[90vh] overflow-y-auto"
+        className="relative bg-white rounded-3xl w-full max-w-2xl mx-4 p-6 space-y-4"
       >
         <h3 className="text-xl font-bold text-verde">
           {editando ? "Editar contenido" : "Agregar contenido"}
@@ -205,19 +205,18 @@ export default function ContenidoModal({ token, onClose, onGuardado, itemEditand
           </div>
         )}
 
-        {/* Editor de contenido con imágenes */}
+        {/* Editor de contenido */}
         <div>
-          <p className="text-sm text-gray-500 mb-1">
-            Contenido — podés escribir texto y subir imágenes con el ícono 📷
+          <p className="text-sm text-gray-500 mb-2">
+            Contenido — usá la barra para dar formato y el ícono 🖼️ para insertar imágenes
           </p>
           <ReactQuill
             ref={quillRef}
             theme="snow"
             value={form.contenido}
             onChange={(val) => setForm({ ...form, contenido: val })}
-            modules={modules()}
-            className="bg-white rounded-xl"
-            style={{ minHeight: "200px" }}
+            modules={QUILL_MODULES}
+            style={{ minHeight: "220px", marginBottom: "42px" }}
           />
         </div>
 
