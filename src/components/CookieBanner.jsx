@@ -1,60 +1,101 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
+import {
+  getAnalyticsConsent,
+  loadSiteAnalytics,
+  setAnalyticsCollectionEnabled,
+  setAnalyticsConsent,
+  trackPageView,
+} from '../utils/analytics';
+
+function useDialogFocusTrap(active) {
+  const dialogRef = useRef(null);
+  useEffect(() => {
+    if (!active || !dialogRef.current) return undefined;
+    const dialog = dialogRef.current;
+    const getFocusable = () => Array.from(dialog.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'));
+    const onKeyDown = (event) => {
+      if (event.key !== 'Tab') return;
+      const focusable = getFocusable(); if (!focusable.length) return;
+      const first = focusable[0]; const last = focusable[focusable.length - 1];
+      if (event.shiftKey && (document.activeElement === first || !dialog.contains(document.activeElement))) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    };
+    const onFocusIn = (event) => { if (!dialog.contains(event.target)) getFocusable()[0]?.focus(); };
+    document.addEventListener('keydown', onKeyDown); document.addEventListener('focusin', onFocusIn);
+    return () => { document.removeEventListener('keydown', onKeyDown); document.removeEventListener('focusin', onFocusIn); };
+  }, [active]);
+  return dialogRef;
+}
 
 export default function CookieBanner() {
-  const [visible, setVisible] = useState(false);
+  const { pathname, search } = useLocation();
+  const isPrivateArea = pathname === '/admin' || pathname.startsWith('/dashboard');
+  const [visible, setVisible] = useState(() => {
+    const saved = getAnalyticsConsent();
+    return saved !== 'accepted' && saved !== 'rejected';
+  });
+  const dialogRef = useDialogFocusTrap(visible && !isPrivateArea);
 
   useEffect(() => {
-    const consent = localStorage.getItem('aducma_cookie_consent');
-    if (!consent) {
-      setVisible(true);
-    } else if (consent === 'accepted') {
-      loadClarity();
-    }
-  }, []);
+    const enabled = !isPrivateArea && getAnalyticsConsent() === 'accepted';
+    setAnalyticsCollectionEnabled(enabled);
+    if (enabled) loadSiteAnalytics();
+  }, [isPrivateArea]);
 
-  const loadClarity = () => {
-    if (window.clarity) return;
-    (function (c, l, a, r, i, t, y) {
-      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
-      t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i;
-      y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
-    })(window, document, 'clarity', 'script', 'v8qe6xvo6i');
-  };
+  useEffect(() => {
+    if (!isPrivateArea) trackPageView(`${pathname}${search}`);
+  }, [isPrivateArea, pathname, search]);
+
+  useEffect(() => {
+    if (!visible || isPrivateArea) return undefined;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = previousOverflow; };
+  }, [visible, isPrivateArea]);
 
   const handleAccept = () => {
-    localStorage.setItem('aducma_cookie_consent', 'accepted');
-    loadClarity();
+    setAnalyticsConsent('accepted');
+    loadSiteAnalytics();
     setVisible(false);
   };
 
   const handleReject = () => {
-    localStorage.setItem('aducma_cookie_consent', 'rejected');
+    setAnalyticsConsent('rejected');
+    setAnalyticsCollectionEnabled(false);
     setVisible(false);
   };
 
-  if (!visible) return null;
+  if (!visible || isPrivateArea) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 bg-verde-dark text-white px-4 py-4 shadow-lg">
-      <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-start sm:items-center gap-4">
-        <p className="text-sm flex-1">
-          Usamos cookies para mejorar tu experiencia en el sitio. Las cookies analíticas nos ayudan a entender cómo navegás. Podés aceptarlas o rechazarlas.{' '}
+    <div className="fixed inset-0 z-[2147483647] min-h-screen min-h-[100dvh] bg-slate-950/80 backdrop-blur-md px-4 flex items-center justify-center">
+      <section ref={dialogRef} style={{ width: 'min(100%, 36rem)', boxSizing: 'border-box', maxHeight: 'calc(100dvh - 2rem)', overflowY: 'auto' }} role="dialog" aria-modal="true" aria-labelledby="analytics-consent-title" aria-describedby="analytics-consent-description" className="bg-verde-dark text-white rounded-3xl border border-white/20 p-6 sm:p-8 shadow-2xl">
+        <div aria-hidden="true" className="w-12 h-12 rounded-full bg-white/10 grid place-items-center text-2xl mb-4">🍪</div>
+        <h2 id="analytics-consent-title" className="text-2xl font-bold mb-3">Elegí cómo querés navegar</h2>
+        <p id="analytics-consent-description" className="text-sm sm:text-base text-white/80 leading-relaxed">
+          Las cookies esenciales permiten que ADUCMA funcione. Si aceptás estadísticas, Google Analytics y Microsoft Clarity nos ayudan a conocer las visitas y mejorar el sitio. No reciben los datos que escribís en formularios.
         </p>
-        <div className="flex gap-3 shrink-0">
+        <p className="text-xs sm:text-sm text-white/60 mt-3">
+          Podés entrar aunque no aceptes estadísticas. Sin elegir una opción no se puede continuar.{' '}
+          <a className="underline text-white" href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Privacidad de Google</a>
+        </p>
+        <div className="flex flex-col-reverse sm:flex-row gap-3 mt-6">
           <button
+            autoFocus
             onClick={handleReject}
-            className="px-4 py-2 text-sm border border-white/50 rounded hover:bg-white/10 transition-colors"
+            className="flex-1 px-4 py-3 text-sm border border-white/50 rounded-xl hover:bg-white/10 transition-colors"
           >
-            Solo esenciales
+            Continuar solo con esenciales
           </button>
           <button
             onClick={handleAccept}
-            className="px-4 py-2 text-sm bg-white text-verde-dark font-semibold rounded hover:bg-crema transition-colors"
+            className="flex-1 px-4 py-3 text-sm bg-white text-verde-dark font-semibold rounded-xl hover:bg-crema transition-colors"
           >
-            Aceptar todas
+            Aceptar estadísticas
           </button>
         </div>
-      </div>
+      </section>
     </div>
   );
 }
